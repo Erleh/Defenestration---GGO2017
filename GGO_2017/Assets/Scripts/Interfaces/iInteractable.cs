@@ -2,15 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class iInteractable : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+/* IInteractable - Defines fatigue values of interactable objects and the 
+ * parameter by which they may be destroyed*/
+public interface IInteractable{
+    //Property Declaration - Amount of fatigue that is relieved from player
+    int fatigue{
+        get;
+        set;
+    }
+    bool usedCorrectly();
+    void Kill();
 }
