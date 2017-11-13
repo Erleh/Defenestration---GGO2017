@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/MvpTest.unity
+- path: Assets/Scenes/ProgressTest.unity
   isLoaded: 1
   isActive: 1

@@ -2,50 +2,50 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Guard : MonoBehaviour {
-
-	public GameObject guard;
+public class Player : MonoBehaviour
+{
+	public GameObject player;
 	public float speed = -.2f;
 
-	private Vector3 guardLocation;
+	private Vector3 playerLocation;
 	private bool grapple = false;
 
 	void Awake()
 	{
-		guardLocation = guard.transform.position;
+		playerLocation = player.transform.position;
 	}
-		
+
 	void Start () 
 	{
 		//Subscribe Event for when character is pushing
 		EventHandler.onPush += this.OnCharacterPush;
 	}
 
-	// Update is called once per frame
 	void Update () 
 	{
-		ChargeAtBob();
 	}
 
 	public void OnCharacterPush(GameObject character)
 	{
 		//When available add change in fatigue here
+		//UpdateRayCastOrigins();
 
 		if(grapple)
 		{
 			Vector3 move = new Vector3(speed, 0, 0);
 
-			guard.transform.position += move;
+			player.transform.position += move;
 		}
 	}
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
+		//Test collision
 		Debug.Log("Collide");
 
 		if(col.gameObject.CompareTag("Enemy"))
 		{
-			col.gameObject.transform.parent = guard.transform;
+			//col.gameObject.transform.parent = player.transform;
 
 			speed *= -1;
 
@@ -53,13 +53,8 @@ public class Guard : MonoBehaviour {
 		}
 	}
 
-	void ChargeAtBob()
+	public bool getGrapple()
 	{
-		if(!grapple)
-		{
-			Vector3 move = new Vector3(speed, 0, 0);
-
-			guard.transform.position += move;
-		}
+		return grapple;
 	}
 }

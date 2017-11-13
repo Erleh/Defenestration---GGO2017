@@ -121,11 +121,9 @@ GameObject:
   m_Component:
   - component: {fileID: 210370684}
   - component: {fileID: 210370683}
-  - component: {fileID: 210370682}
   - component: {fileID: 210370681}
   - component: {fileID: 210370680}
   - component: {fileID: 210370685}
-  - component: {fileID: 210370686}
   m_Layer: 0
   m_Name: Guard
   m_TagString: Untagged
@@ -144,7 +142,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9211b7b6c9a24a7459d28b68f0bd489a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  guard: {fileID: 210370679}
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 0
+  horizontalRayCount: 4
+  verticalRayCount: 4
+  objCollider: {fileID: 210370681}
+  player: {fileID: 210370679}
   speed: -0.2
 --- !u!61 &210370681
 BoxCollider2D:
@@ -171,26 +175,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.16}
   m_EdgeRadius: 0
---- !u!50 &210370682
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 210370679}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 1
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 0
 --- !u!212 &210370683
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -242,7 +226,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 210370679}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 2, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -254,22 +238,9 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 210370679}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9002ad61d8c7333468552f9770866ff9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  applyTo: {fileID: 210370682}
-  gravityModifier: 0.5
---- !u!114 &210370686
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 210370679}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abe60c6408a17524bb661d71c41cc48b, type: 3}
+  m_Script: {fileID: 11500000, guid: 9002ad61d8c7333468552f9770866ff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   collisionMask:
@@ -277,6 +248,9 @@ MonoBehaviour:
     m_Bits: 256
   horizontalRayCount: 4
   verticalRayCount: 4
+  objCollider: {fileID: 210370681}
+  applyTo: {fileID: 210370679}
+  gravityModifier: 0.5
 --- !u!1 &297922028
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,7 +382,7 @@ GameObject:
   - component: {fileID: 1166866470}
   - component: {fileID: 1166866469}
   - component: {fileID: 1166866468}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bob
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -527,7 +501,6 @@ GameObject:
   - component: {fileID: 1674336456}
   - component: {fileID: 1674336455}
   - component: {fileID: 1674336454}
-  - component: {fileID: 1674336453}
   m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
@@ -535,26 +508,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!50 &1674336453
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1674336452}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 1
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 1
-  m_Constraints: 0
 --- !u!61 &1674336454
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gravity : MonoBehaviour {
+public class Gravity : CollisionDetector {
 
-	public Rigidbody2D applyTo;
+	public GameObject applyTo;
 
 	public double gravityModifier = .5;
 
@@ -12,14 +12,15 @@ public class Gravity : MonoBehaviour {
 
 	void Start()
 	{
+		CalculateRaySpacing();
 		gravity= Physics2D.gravity * Time.deltaTime;
 	}
 
 	// Update is called once per frame
 	void Update () 
 	{
+		UpdateRayCastOrigins();
+		VerticalCollision(ref gravity);
 		applyTo.transform.position += gravity;
-
-		Debug.Log(gravity);
 	}
 }
