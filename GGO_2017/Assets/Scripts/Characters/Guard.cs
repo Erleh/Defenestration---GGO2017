@@ -15,8 +15,6 @@ public class Guard : Player
 		{
 			Vector3 move = new Vector3(speed, 0, 0);
 
-			//HorizontalCollision(ref move);
-
 			player.transform.position += move;
 		}
 	}

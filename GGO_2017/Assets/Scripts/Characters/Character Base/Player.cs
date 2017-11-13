@@ -10,6 +10,9 @@ public class Player : MonoBehaviour
 	private Vector3 playerLocation;
 	private bool grapple = false;
 
+	//Placeholder
+	private float fatigue = 0f;
+
 	void Awake()
 	{
 		playerLocation = player.transform.position;
@@ -21,33 +24,32 @@ public class Player : MonoBehaviour
 		EventHandler.onPush += this.OnCharacterPush;
 	}
 
-	void Update () 
-	{
-	}
-
 	public void OnCharacterPush(GameObject character)
 	{
 		//When available add change in fatigue here
-		//UpdateRayCastOrigins();
 
-		if(grapple)
+		if(grapple && fatigue != 100)
 		{
-			Vector3 move = new Vector3(speed, 0, 0);
+			float pushBack = speed;
+			Vector3 move = new Vector3(pushBack, 0f, 0f);
+
+			//PLACEHOLDER
+			fatigue += .5f;
+			Debug.Log("Fatigue level = " + fatigue);
 
 			player.transform.position += move;
+		}
+		else if(fatigue == 100)
+		{
+			Debug.Log("FATIGUED");
 		}
 	}
 
 	void OnCollisionEnter2D(Collision2D col)
 	{
-		//Test collision
-		Debug.Log("Collide");
-
 		if(col.gameObject.CompareTag("Enemy"))
 		{
-			//col.gameObject.transform.parent = player.transform;
-
-			speed *= -1;
+			col.gameObject.transform.parent = player.transform;
 
 			grapple = true;
 		}
