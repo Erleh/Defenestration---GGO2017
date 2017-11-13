@@ -14,24 +14,10 @@ public class CollisionDetector : MonoBehaviour {
 	float horizontalRaySpacing;
 	float verticalRaySpacing;
 
-	BoxCollider2D obj;
+	public BoxCollider2D objCollider;
 	RaycastOrigins raycastOrigins;
-
-	// Use this for initialization
-	void Start () 
-	{
-		obj = GetComponent<BoxCollider2D>();
-		CalculateRaySpacing();
-	}
-	
-	// Update is called once per frame
-	void Update () 
-	{
-		UpdateRayCastOrigins();
-	}
-
-	//To work on - Need something to trigger the activation of verical collision
-	void VerticalCollision(ref Vector3 velocity)
+		
+	public void VerticalCollision(ref Vector3 velocity)
 	{
 		//To find the direction of the y velocity based of the movement of the object
 		//if falling = -1 : if going up = 1
@@ -44,11 +30,32 @@ public class CollisionDetector : MonoBehaviour {
 			rayOrigins += Vector2.right * (verticalRaySpacing * i + velocity.x);
 			RaycastHit2D hit = Physics2D.Raycast(rayOrigins, Vector2.up * directionY, rayLength, collisionMask);
 
-			Debug.DrawRay(raycastOrigins.bottomLeft + Vector2.right * verticalRaySpacing * i, Vector2.up * -2, Color.red);
-		
+			Debug.DrawRay(rayOrigins, Vector2.up * directionY * rayLength, Color.red);
+
 			if(hit)
 			{
 				velocity.y = (hit.distance - skinWidth) * directionY;
+				rayLength = hit.distance;
+			}
+		}
+	}
+
+	public void HorizontalCollision(ref Vector3 velocity)
+	{
+		float directionX = Mathf.Sign(velocity.x);
+		float rayLength = Mathf.Abs(velocity.x) + skinWidth;
+
+		for(int i = 0; i < horizontalRayCount; i++)
+		{
+			Vector2 rayOrigins = (directionX == -1)?raycastOrigins.bottomLeft:raycastOrigins.bottomRight;
+			rayOrigins += Vector2.up * (horizontalRaySpacing * i);
+			RaycastHit2D hit = Physics2D.Raycast(rayOrigins, Vector2.right * directionX, rayLength, collisionMask);
+
+			Debug.DrawRay(rayOrigins, Vector2.right * directionX * rayLength, Color.red);
+
+			if(hit)
+			{
+				velocity.x = (hit.distance - skinWidth) * directionX;
 				rayLength = hit.distance;
 			}
 		}
@@ -58,13 +65,11 @@ public class CollisionDetector : MonoBehaviour {
 	//Skin width is to make sure that the raycasts come off just a little bit inside of the hitbox
 	//that way, even if the collider is up against a wall, it is still sure to cast the raycast to hit the wall
 	//rather than starting within the wall
-	void UpdateRayCastOrigins()
+	public void UpdateRayCastOrigins()
 	{
 		//Bounds is the way to register the size of the hitbox
-		Bounds bounds = obj.bounds;
+		Bounds bounds = objCollider.bounds;
 		bounds.Expand(skinWidth * -2);
-
-		Debug.Log(bounds);
 
 		raycastOrigins.bottomLeft = new Vector2(bounds.min.x, bounds.min.y);
 		raycastOrigins.bottomRight = new Vector2(bounds.max.x, bounds.min.y);
@@ -73,18 +78,21 @@ public class CollisionDetector : MonoBehaviour {
 	}
 
 	//Calculate the space in between shot raycasts
-	void CalculateRaySpacing()
+	public void CalculateRaySpacing()
 	{
-		Bounds bounds = obj.bounds;
+		Bounds bounds = objCollider.bounds;
 		bounds.Expand(skinWidth * -2);
 
+		//Make max and min value for raycast count
 		horizontalRayCount = Mathf.Clamp(horizontalRayCount, 2, int.MaxValue);
 		verticalRayCount = Mathf.Clamp(verticalRayCount, 2, int.MaxValue);
 
+		//Space inbetween raycasts
 		horizontalRaySpacing = bounds.size.y / (horizontalRayCount - 1);
 		verticalRaySpacing = bounds.size.x / (verticalRayCount - 1);
 	}
 
+	//Defines where the the "anchors" for reference of the shape begins
 	struct RaycastOrigins
 	{
 		public Vector2 topLeft, topRight, bottomLeft, bottomRight;
