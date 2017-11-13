@@ -8,6 +8,8 @@ public class EventHandler : MonoBehaviour
 	//2. trigger the events
 	//3. subscribing gameobject to the events
 
+	public GameObject character;
+
 	public delegate void CharacterEventHandler(GameObject character);
 
 	public static event CharacterEventHandler onPush;
@@ -41,5 +43,9 @@ public class EventHandler : MonoBehaviour
 			onKick(character);
 		}
 	}
-		
+
+	void Update() {
+		if(Input.GetKey(KeyCode.Space))
+			onPush(character);
+	}
 }
