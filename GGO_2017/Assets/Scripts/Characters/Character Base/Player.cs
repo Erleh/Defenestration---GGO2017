@@ -13,9 +13,7 @@ public abstract class Player : MonoBehaviour, IPlayable
 	//Placeholder for strength of shove
 	public float strOfShove = -2f;
 	//Placeholder
-	public float fatigue = 0f;
-	public float maxFatigue = 100f;
-
+	public float passiveFatigue = 0f;
 	void Awake()
 	{
 		playerLocation = player.transform.position;
@@ -52,20 +50,11 @@ public abstract class Player : MonoBehaviour, IPlayable
 	{
 		//TO ADD: add change in fatigue here
 
-		if(grapple && fatigue != maxFatigue)
+		if(grapple)
 		{
 			float pushBack = speed/2;
 			Vector3 move = new Vector3(pushBack, 0f, 0f);
-
-			//PLACEHOLDER
-			fatigue += .5f;
-			Debug.Log("Fatigue level = " + fatigue);
-
 			player.transform.position += move;
-		}
-		else if(fatigue == 100)
-		{
-			Debug.Log("FATIGUED");
 		}
 	}
 
