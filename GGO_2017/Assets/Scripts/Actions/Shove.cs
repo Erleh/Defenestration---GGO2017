@@ -11,6 +11,9 @@ public class Shove : MonoBehaviour {
 	public float shoveSpeed;
 	public float shoveDistance;
 
+    public GameObject enemy;
+    public GameObject player;
+
 	private float step;
 	private Vector3 currPlace, addPlace;
 
@@ -29,7 +32,7 @@ public class Shove : MonoBehaviour {
 
 			if(character.CompareTag("Enemy"))
 			{
-				gameObject.transform.position = Vector2.MoveTowards(currPlace, currPlace + addPlace, step);
+				enemy.transform.position = Vector2.MoveTowards(currPlace, currPlace + addPlace, step);
 			}
 		}
 	}
@@ -42,7 +45,7 @@ public class Shove : MonoBehaviour {
 
 	void UpdatePos()
 	{
-		currPlace = gameObject.transform.position;
+		currPlace = enemy.transform.position;
 	}
 		
 }
