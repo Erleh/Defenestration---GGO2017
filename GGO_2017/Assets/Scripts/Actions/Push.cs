@@ -8,11 +8,19 @@ public class Push : MonoBehaviour {
 
 	public static event makePush onPush;
 
+	public GameObject character;
+
 	public static void OnCharacterPush(GameObject character)
 	{
 		if(onPush != null)
 		{
 			onPush(character);
 		}
+	}
+
+	void Update()
+	{
+		if(Input.GetKey(KeyCode.Space))
+			onPush(character);
 	}
 }

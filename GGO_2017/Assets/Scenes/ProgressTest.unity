@@ -232,6 +232,7 @@ GameObject:
   - component: {fileID: 210370681}
   - component: {fileID: 210370680}
   - component: {fileID: 210370682}
+  - component: {fileID: 210370685}
   m_Layer: 0
   m_Name: Guard
   m_TagString: Untagged
@@ -252,6 +253,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 210370679}
   speed: -0.2
+  strOfShove: -2
+  fatigue: 0
+  maxFatigue: 100
 --- !u!61 &210370681
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -355,6 +359,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &210370685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 210370679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04a9cef8923771448ae6b40531c8b15c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  character: {fileID: 210370679}
 --- !u!1 &297922028
 GameObject:
   m_ObjectHideFlags: 0
@@ -370,7 +386,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &297922029
 MonoBehaviour:
   m_ObjectHideFlags: 0
