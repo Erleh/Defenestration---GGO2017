@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public abstract class Player : MonoBehaviour, IPlayable
 {
 	public GameObject player;
 	public float speed = -.2f;
@@ -10,27 +10,50 @@ public class Player : MonoBehaviour
 	private Vector3 playerLocation;
 	private bool grapple = false;
 
+	//Placeholder for strength of shove
+	public float strOfShove = -2f;
 	//Placeholder
-	private float fatigue = 0f;
+	public float fatigue = 0f;
+	public float maxFatigue = 100f;
 
 	void Awake()
 	{
 		playerLocation = player.transform.position;
 	}
 
+	public void OnEnable()
+	{
+		//Subscribe Events
+		//EventHandler.onPush += this.OnCharacterPush;
+
+		Shove.onShove += this.OnCharacterShove;
+
+		EventHandler.onKick += this.OnCharacterKick;
+
+		//Shove getShove = GetComponent<Shove>();
+
+		//getShove.onShove += this.OnCharacterShove;
+		//GetComponent<Shove>().onShove += this.OnCharacterShove;
+	}
+
+	public void OnDisable()
+	{
+		//Unsubscribe Events
+		EventHandler.onPush -= this.OnCharacterPush; 
+	}
+
 	void Start () 
 	{
-		//Subscribe Event for when character is pushing
-		EventHandler.onPush += this.OnCharacterPush;
+
 	}
 
 	public void OnCharacterPush(GameObject character)
 	{
-		//When available add change in fatigue here
+		//TO ADD: add change in fatigue here
 
-		if(grapple && fatigue != 100)
+		if(grapple && fatigue != maxFatigue)
 		{
-			float pushBack = speed;
+			float pushBack = speed/2;
 			Vector3 move = new Vector3(pushBack, 0f, 0f);
 
 			//PLACEHOLDER
@@ -43,6 +66,20 @@ public class Player : MonoBehaviour
 		{
 			Debug.Log("FATIGUED");
 		}
+	}
+
+	public void OnCharacterShove(GameObject character)
+	{
+		//TO ADD: add change in fatigue here
+
+		if(grapple && fatigue != 100)
+		{
+		}
+	}
+
+	public void OnCharacterKick(GameObject character)
+	{
+		
 	}
 
 	void OnCollisionEnter2D(Collision2D col)
