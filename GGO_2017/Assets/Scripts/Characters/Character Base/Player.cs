@@ -23,6 +23,7 @@ public abstract class Player : MonoBehaviour, IPlayable
 	{
 		//Subscribe Events
 		//EventHandler.onPush += this.OnCharacterPush;
+		Push.onPush += this.OnCharacterPush;
 
 		Shove.onShove += this.OnCharacterShove;
 
@@ -37,7 +38,7 @@ public abstract class Player : MonoBehaviour, IPlayable
 	public void OnDisable()
 	{
 		//Unsubscribe Events
-		EventHandler.onPush -= this.OnCharacterPush; 
+		Push.onPush -= this.OnCharacterPush; 
 	}
 
 	void Start () 

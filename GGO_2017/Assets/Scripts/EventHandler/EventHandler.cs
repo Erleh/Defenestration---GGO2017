@@ -50,7 +50,7 @@ public class EventHandler : MonoBehaviour
 
 	void Update() 
 	{
-		if(Input.GetKey(KeyCode.Space))
-			onPush(character);
+		//if(Input.GetKey(KeyCode.Space))
+			//onPush(character);
 	}
 }
