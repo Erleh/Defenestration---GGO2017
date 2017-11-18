@@ -12,14 +12,14 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
 
 	public void OnEnable()
 	{
-		EventHandler.onPush += this.OnCharacterPush;
+		//EventHandler.onPush += this.OnCharacterPush;
 		//EventHandler.onShove += this.OnCharacterShove;
 		EventHandler.onKick += this.OnCharacterKick;
 	}
 
 	public void OnDisable()
 	{
-		EventHandler.onPush -= this.OnCharacterPush;
+		//EventHandler.onPush -= this.OnCharacterPush;
 		//EventHandler.onShove -= this.OnCharacterShove;
 		EventHandler.onKick -= this.OnCharacterKick;
 	}

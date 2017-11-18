@@ -11,8 +11,7 @@ public class Shove : MonoBehaviour {
 	public float shoveSpeed;
 	public float shoveDistance;
 
-    public GameObject enemy;
-    public GameObject player;
+	public GameObject enemy;
 
 	private float step;
 	private Vector3 currPlace, addPlace;
@@ -24,17 +23,18 @@ public class Shove : MonoBehaviour {
 
 	public static void OnCharacterShove(GameObject character)
 	{
+		/*
 		UpdatePos();
 
 		if(onShove != null)
 		{
 			onShove(character);
 
-			if(character.CompareTag("Enemy"))
+			if(character == enemy)
 			{
-				enemy.transform.position = Vector2.MoveTowards(currPlace, currPlace + addPlace, step);
+				gameObject.transform.position = Vector2.MoveTowards(currPlace, currPlace + addPlace, step);
 			}
-		}
+		}*/
 	}
 
 	// Update is called once per frame
@@ -45,7 +45,7 @@ public class Shove : MonoBehaviour {
 
 	void UpdatePos()
 	{
-		currPlace = enemy.transform.position;
+		currPlace = gameObject.transform.position;
 	}
 		
 }
