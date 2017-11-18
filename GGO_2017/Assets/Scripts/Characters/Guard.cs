@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Guard : Player
 {
-	void Update () 
+    private void Start()
+    {
+        passiveFatigue = 3;
+    }
+    void Update () 
 	{
 		ChargeAtBob();
 	}
