@@ -9,11 +9,13 @@ public abstract class Player : MonoBehaviour, IPlayable
 
 	private Vector3 playerLocation;
 	private bool grapple = false;
+	private bool pushing = false;
 
 	//Placeholder for strength of shove
 	public float strOfShove = -2f;
 	//Placeholder
 	public float passiveFatigue = 0f;
+
 	void Awake()
 	{
 		playerLocation = player.transform.position;
@@ -38,7 +40,9 @@ public abstract class Player : MonoBehaviour, IPlayable
 	public void OnDisable()
 	{
 		//Unsubscribe Events
-		Push.onPush -= this.OnCharacterPush; 
+		Push.onPush -= this.OnCharacterPush;
+
+		Shove.onShove -= this.OnCharacterShove;
 	}
 
 	void Start () 
@@ -46,10 +50,12 @@ public abstract class Player : MonoBehaviour, IPlayable
 
 	}
 
+	void Update()
+	{
+	}
+
 	public void OnCharacterPush(GameObject character)
 	{
-		//TO ADD: add change in fatigue here
-
 		if(grapple)
 		{
 			float pushBack = speed/2;
@@ -62,9 +68,8 @@ public abstract class Player : MonoBehaviour, IPlayable
 	{
 		//TO ADD: add change in fatigue here
 
-		if(grapple && fatigue != 100)
-		{
-		}
+		//If !grapple do not do event, if grapple do action
+
 	}
 
 	public void OnCharacterKick(GameObject character)
@@ -72,6 +77,8 @@ public abstract class Player : MonoBehaviour, IPlayable
 		
 	}
 
+	//When player collides with enemy, make enemy a child object to the player
+	//Turns grapple to true
 	void OnCollisionEnter2D(Collision2D col)
 	{
 		if(col.gameObject.CompareTag("Enemy"))
@@ -81,6 +88,11 @@ public abstract class Player : MonoBehaviour, IPlayable
 			grapple = true;
 		}
 	}
+		
+	//public void movePlayer(Vector3 distance)
+	//{
+
+	//}
 
 	public bool getGrapple()
 	{

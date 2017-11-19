@@ -18,10 +18,10 @@ public class FatigueController : MonoBehaviour {
     private void Start()
     {
 
-        charShove = GetComponent<Shove>();
-        charPush = GetComponent<Push>();
-        charKick = GetComponent<Kick>();
-        charUse = GetComponent<Use>();
+        //charShove = GetComponent<Shove>();
+        //charPush = GetComponent<Push>();
+        //charKick = GetComponent<Kick>();
+        //charUse = GetComponent<Use>();
     }
     void FixedUpdate () {
         /*needs to update based on player fatigue values*/
@@ -30,11 +30,11 @@ public class FatigueController : MonoBehaviour {
             fatigueBar.fatigue += pChar.passiveFatigue;
 
         //disabling player ability to perform actions on full fatigue...
-        if (fatigueBar.fatigue <= 0){ 
-            charShove.enabled = !charShove.enabled;
-            charPush.enabled = !charPush.enabled;
-            charKick.enabled = !charKick.enabled;
-            charUse.enabled = !charUse.enabled;
+        if (fatigueBar.fatigue >= 100){ 
+            //charShove.enabled = !charShove.enabled;
+            //charPush.enabled = !charPush.enabled;
+            //charKick.enabled = !charKick.enabled;
+            //charUse.enabled = !charUse.enabled;
             Debug.Log("FATIGUED");
         }
 
