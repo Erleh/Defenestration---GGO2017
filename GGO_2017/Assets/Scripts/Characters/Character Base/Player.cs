@@ -7,18 +7,21 @@ public abstract class Player : MonoBehaviour, IPlayable
 	public GameObject player;
 	public float speed = -.2f;
 
-	private Vector3 playerLocation;
+    //Placeholder
+    public float PassiveFatigue { get; set; }
+    public float PushFatigue { get; set; }
+    public float ShoveFatigue { get; set; }
+    public float KickFatigue { get; set; }
+    public float strOfShove = -2f;
+
+    private Vector3 playerLocation;
 	private bool grapple = false;
 	private bool pushing = false;
-
-	//Placeholder for strength of shove
-	public float strOfShove = -2f;
-	//Placeholder
-	public float passiveFatigue = 0f;
 
 	void Awake()
 	{
 		playerLocation = player.transform.position;
+
 	}
 
 	public void OnEnable()

@@ -33,12 +33,12 @@ public class Push : MonoBehaviour {
 		if(Input.GetKey(KeyCode.Space))
 		{
 			onPush(character);
-			Debug.Log("Push");
+			//Debug.Log("Push");
 		}
 		if(Input.GetKeyUp(KeyCode.Space))
 		{
 			EnemyResist(character);
-			Debug.Log("Resisting");
+			//Debug.Log("Resisting");
 		}
 	}
 }

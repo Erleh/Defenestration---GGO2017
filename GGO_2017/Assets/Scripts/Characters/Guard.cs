@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Guard : Player
 {
-    private void Start()
+
+    private void Awake()
     {
-        passiveFatigue = 3;
+        PassiveFatigue = 0.2f;
+        PushFatigue = 0.3f;
+        /*Need implementation first*/
+        //ShoveFatigue = 5f;
+        //KickFatigue = 7f;
     }
 
     void Update () 
