@@ -8,6 +8,7 @@ public class Guard : Player
     {
         passiveFatigue = 3;
     }
+
     void Update () 
 	{
 		ChargeAtBob();

@@ -15,17 +15,17 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
 
 	public void OnEnable()
 	{
-		//EventHandler.onPush += this.OnCharacterPush;
-		//EventHandler.onShove += this.OnCharacterShove;
+		//Subscribes events on script enable
 		EventHandler.onKick += this.OnCharacterKick;
-
+		Push.onPush += this.OnCharacterPush;
 		Push.resist += this.EnemyResist;
 	}
 
 	public void OnDisable()
 	{
-		//EventHandler.onPush -= this.OnCharacterPush;
-		//EventHandler.onShove -= this.OnCharacterShove;
+		//Disable events on script disable
+		Push.onPush -= this.OnCharacterPush;
+		Push.resist -= this.EnemyResist;
 		EventHandler.onKick -= this.OnCharacterKick;
 	}
 
@@ -38,34 +38,29 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
 	// Update is called once per frame
 	void Update () 
 	{
-		//if(shove);
-		/*
-		if(enemy.transform.parent != false)
+		//If enemy is resisting the push, push back
+		if(resisting)
 		{
-			float pushBack = speed/2;
+			float pushBack = speed/8;
 			Vector3 move = new Vector3(pushBack, 0f, 0f);
+
+			Debug.Log("move: " + move);
 			enemy.transform.parent.position += move;
 		}
-		*/
-
-		//if(resisting)
-		//{
-			Vector3 move = new Vector3(speed, 0f, 0f);
-
-			Debug.Log(move);
-			enemy.transform.parent.position -= move;
-		//}
 	}
 
+	//Method to subscribe to push event
 	public void OnCharacterPush(GameObject character)
 	{
 		//TO ADD: play animation
 		if(grapple)
 		{
+			Debug.Log("onPush");
 			resisting = false;
 		}
 	}
 
+	//Method to subscribe to shove event
 	public void OnCharacterShove(GameObject character)
 	{
 		//TO ADD: play animation
@@ -84,7 +79,7 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
 
 	}
 
-
+	//Subscribe to the resist event, will cause gameobject to push against player
 	public void EnemyResist(GameObject character)
 	{
 		if(grapple)
@@ -94,12 +89,13 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
 		}
 	}
 
-
+	//When objects collide, and the object is the player, grappling is true and begin resisting
 	void OnCollisionEnter2D(Collision2D col)
 	{
 		if(col.gameObject.CompareTag("Player"))
 		{
 			grapple = true;
+			resisting = true;
 		}
 	}
 }

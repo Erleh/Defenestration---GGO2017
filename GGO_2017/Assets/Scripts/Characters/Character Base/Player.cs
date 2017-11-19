@@ -24,17 +24,11 @@ public abstract class Player : MonoBehaviour, IPlayable
 	public void OnEnable()
 	{
 		//Subscribe Events
-		//EventHandler.onPush += this.OnCharacterPush;
 		Push.onPush += this.OnCharacterPush;
 
 		Shove.onShove += this.OnCharacterShove;
 
 		EventHandler.onKick += this.OnCharacterKick;
-
-		//Shove getShove = GetComponent<Shove>();
-
-		//getShove.onShove += this.OnCharacterShove;
-		//GetComponent<Shove>().onShove += this.OnCharacterShove;
 	}
 
 	public void OnDisable()
@@ -54,6 +48,7 @@ public abstract class Player : MonoBehaviour, IPlayable
 	{
 	}
 
+	//Method to subscribe to the push event
 	public void OnCharacterPush(GameObject character)
 	{
 		if(grapple)
