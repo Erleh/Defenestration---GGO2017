@@ -1,59 +1,59 @@
 fileFormatVersion: 2
 guid: 2449a1f029b419c468d9c372763f6db1
-timeCreated: 1511212109
+timeCreated: 1511213311
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: GuardAllButDash6pxShiftShove12pxShift_0
-    21300002: GuardAllButDash6pxShiftShove12pxShift_1
-    21300004: GuardAllButDash6pxShiftShove12pxShift_2
-    21300006: GuardAllButDash6pxShiftShove12pxShift_3
-    21300008: GuardAllButDash6pxShiftShove12pxShift_4
-    21300010: GuardAllButDash6pxShiftShove12pxShift_5
-    21300012: GuardAllButDash6pxShiftShove12pxShift_6
-    21300014: GuardAllButDash6pxShiftShove12pxShift_7
-    21300016: GuardAllButDash6pxShiftShove12pxShift_8
-    21300018: GuardAllButDash6pxShiftShove12pxShift_9
-    21300020: GuardAllButDash6pxShiftShove12pxShift_10
-    21300022: GuardAllButDash6pxShiftShove12pxShift_11
-    21300024: GuardAllButDash6pxShiftShove12pxShift_12
-    21300026: GuardAllButDash6pxShiftShove12pxShift_13
-    21300028: GuardAllButDash6pxShiftShove12pxShift_14
-    21300030: GuardAllButDash6pxShiftShove12pxShift_15
-    21300032: GuardAllButDash6pxShiftShove12pxShift_16
-    21300034: GuardAllButDash6pxShiftShove12pxShift_17
-    21300036: GuardAllButDash6pxShiftShove12pxShift_18
-    21300038: GuardAllButDash6pxShiftShove12pxShift_19
-    21300040: GuardAllButDash6pxShiftShove12pxShift_20
-    21300042: GuardAllButDash6pxShiftShove12pxShift_21
-    21300044: GuardAllButDash6pxShiftShove12pxShift_22
-    21300046: GuardAllButDash6pxShiftShove12pxShift_23
-    21300048: GuardAllButDash6pxShiftShove12pxShift_24
-    21300050: GuardAllButDash6pxShiftShove12pxShift_25
-    21300052: GuardAllButDash6pxShiftShove12pxShift_26
-    21300054: GuardAllButDash6pxShiftShove12pxShift_27
-    21300056: GuardAllButDash6pxShiftShove12pxShift_28
-    21300058: GuardAllButDash6pxShiftShove12pxShift_29
-    21300060: GuardAllButDash6pxShiftShove12pxShift_30
-    21300062: GuardAllButDash6pxShiftShove12pxShift_31
-    21300064: GuardAllButDash6pxShiftShove12pxShift_32
-    21300066: GuardAllButDash6pxShiftShove12pxShift_33
-    21300068: GuardAllButDash6pxShiftShove12pxShift_34
-    21300070: GuardAllButDash6pxShiftShove12pxShift_35
-    21300072: GuardAllButDash6pxShiftShove12pxShift_36
-    21300074: GuardAllButDash6pxShiftShove12pxShift_37
-    21300076: GuardAllButDash6pxShiftShove12pxShift_38
-    21300078: GuardAllButDash6pxShiftShove12pxShift_39
-    21300080: GuardAllButDash6pxShiftShove12pxShift_40
-    21300082: GuardAllButDash6pxShiftShove12pxShift_41
-    21300084: GuardAllButDash6pxShiftShove12pxShift_42
-    21300086: GuardAllButDash6pxShiftShove12pxShift_43
-    21300088: GuardAllButDash6pxShiftShove12pxShift_44
-    21300090: GuardAllButDash6pxShiftShove12pxShift_45
-    21300092: GuardAllButDash6pxShiftShove12pxShift_46
-    21300094: GuardAllButDash6pxShiftShove12pxShift_47
-    21300096: GuardAllButDash6pxShiftShove12pxShift_48
-    21300098: GuardAllButDash6pxShiftShove12pxShift_49
+    21300000: idle1
+    21300002: idle2
+    21300004: idle3
+    21300006: idle4
+    21300008: idle5
+    21300010: lock1
+    21300012: lock2
+    21300014: push1
+    21300016: push2
+    21300018: push3
+    21300020: push4
+    21300022: push5
+    21300024: pushback1
+    21300026: pushback2
+    21300028: pushback3
+    21300030: pushback4
+    21300032: pushback5
+    21300034: shove1
+    21300036: shove2
+    21300038: shove3
+    21300040: shove4
+    21300042: shove5
+    21300044: shove6
+    21300046: kick1
+    21300048: kick2
+    21300050: kick3
+    21300052: kick4
+    21300054: kick5
+    21300056: kick6
+    21300058: kick7
+    21300060: kick8
+    21300062: kick9
+    21300064: dash1
+    21300066: dash2
+    21300068: dash3
+    21300070: dash4
+    21300072: dash5
+    21300074: dash6
+    21300076: victory1
+    21300078: victory2
+    21300080: victory3
+    21300082: victory4
+    21300084: victory5
+    21300086: victory6
+    21300088: victory7
+    21300090: failure1
+    21300092: failure2
+    21300094: failure3
+    21300096: failure4
+    21300098: failure5
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -128,7 +128,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_0
+      name: idle1
       rect:
         serializedVersion: 2
         x: 0
@@ -136,13 +136,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_1
+      name: idle2
       rect:
         serializedVersion: 2
         x: 200
@@ -150,27 +150,27 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_2
+      name: idle3
       rect:
         serializedVersion: 2
-        x: 400
+        x: 403
         y: 1405
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_3
+      name: idle4
       rect:
         serializedVersion: 2
         x: 600
@@ -178,13 +178,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_4
+      name: idle5
       rect:
         serializedVersion: 2
         x: 800
@@ -192,27 +192,27 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_5
+      name: lock1
       rect:
         serializedVersion: 2
-        x: 1000
+        x: 997
         y: 1405
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_6
+      name: lock2
       rect:
         serializedVersion: 2
         x: 1200
@@ -220,13 +220,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_7
+      name: push1
       rect:
         serializedVersion: 2
         x: 0
@@ -234,27 +234,27 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_8
+      name: push2
       rect:
         serializedVersion: 2
-        x: 200
+        x: 197
         y: 1205
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_9
+      name: push3
       rect:
         serializedVersion: 2
         x: 400
@@ -262,13 +262,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_10
+      name: push4
       rect:
         serializedVersion: 2
         x: 600
@@ -276,13 +276,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_11
+      name: push5
       rect:
         serializedVersion: 2
         x: 800
@@ -290,41 +290,41 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_12
+      name: pushback1
       rect:
         serializedVersion: 2
         x: 1000
-        y: 1205
+        y: 1202
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_13
+      name: pushback2
       rect:
         serializedVersion: 2
         x: 1200
-        y: 1205
+        y: 1208
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_14
+      name: pushback3
       rect:
         serializedVersion: 2
         x: 1400
@@ -332,13 +332,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_15
+      name: pushback4
       rect:
         serializedVersion: 2
         x: 1600
@@ -346,13 +346,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_16
+      name: pushback5
       rect:
         serializedVersion: 2
         x: 1800
@@ -360,13 +360,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_17
+      name: shove1
       rect:
         serializedVersion: 2
         x: 0
@@ -374,13 +374,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_18
+      name: shove2
       rect:
         serializedVersion: 2
         x: 200
@@ -388,13 +388,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_19
+      name: shove3
       rect:
         serializedVersion: 2
         x: 400
@@ -402,13 +402,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_20
+      name: shove4
       rect:
         serializedVersion: 2
         x: 600
@@ -416,13 +416,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_21
+      name: shove5
       rect:
         serializedVersion: 2
         x: 800
@@ -430,13 +430,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_22
+      name: shove6
       rect:
         serializedVersion: 2
         x: 1000
@@ -444,27 +444,27 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_23
+      name: kick1
       rect:
         serializedVersion: 2
         x: 0
-        y: 805
+        y: 802
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_24
+      name: kick2
       rect:
         serializedVersion: 2
         x: 200
@@ -472,13 +472,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_25
+      name: kick3
       rect:
         serializedVersion: 2
         x: 400
@@ -486,13 +486,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_26
+      name: kick4
       rect:
         serializedVersion: 2
         x: 600
@@ -500,13 +500,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_27
+      name: kick5
       rect:
         serializedVersion: 2
         x: 800
@@ -514,13 +514,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_28
+      name: kick6
       rect:
         serializedVersion: 2
         x: 1000
@@ -528,13 +528,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_29
+      name: kick7
       rect:
         serializedVersion: 2
         x: 1200
@@ -542,13 +542,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_30
+      name: kick8
       rect:
         serializedVersion: 2
         x: 1400
@@ -556,27 +556,27 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_31
+      name: kick9
       rect:
         serializedVersion: 2
-        x: 1600
-        y: 805
+        x: 1597
+        y: 802
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_32
+      name: dash1
       rect:
         serializedVersion: 2
         x: 0
@@ -584,13 +584,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_33
+      name: dash2
       rect:
         serializedVersion: 2
         x: 200
@@ -598,13 +598,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_34
+      name: dash3
       rect:
         serializedVersion: 2
         x: 400
@@ -612,13 +612,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_35
+      name: dash4
       rect:
         serializedVersion: 2
         x: 600
@@ -626,13 +626,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_36
+      name: dash5
       rect:
         serializedVersion: 2
         x: 800
@@ -640,13 +640,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_37
+      name: dash6
       rect:
         serializedVersion: 2
         x: 1000
@@ -654,13 +654,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_38
+      name: victory1
       rect:
         serializedVersion: 2
         x: 0
@@ -668,13 +668,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_39
+      name: victory2
       rect:
         serializedVersion: 2
         x: 200
@@ -682,13 +682,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_40
+      name: victory3
       rect:
         serializedVersion: 2
         x: 400
@@ -696,13 +696,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_41
+      name: victory4
       rect:
         serializedVersion: 2
         x: 600
@@ -710,13 +710,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_42
+      name: victory5
       rect:
         serializedVersion: 2
         x: 800
@@ -724,13 +724,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_43
+      name: victory6
       rect:
         serializedVersion: 2
         x: 1000
@@ -738,13 +738,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_44
+      name: victory7
       rect:
         serializedVersion: 2
         x: 1200
@@ -752,13 +752,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_45
+      name: failure1
       rect:
         serializedVersion: 2
         x: 0
@@ -766,13 +766,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_46
+      name: failure2
       rect:
         serializedVersion: 2
         x: 200
@@ -780,13 +780,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_47
+      name: failure3
       rect:
         serializedVersion: 2
         x: 400
@@ -794,13 +794,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_48
+      name: failure4
       rect:
         serializedVersion: 2
         x: 600
@@ -808,13 +808,13 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: GuardAllButDash6pxShiftShove12pxShift_49
+      name: failure5
       rect:
         serializedVersion: 2
         x: 800
@@ -822,7 +822,7 @@ TextureImporter:
         width: 195
         height: 195
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
