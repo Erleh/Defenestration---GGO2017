@@ -7,8 +7,8 @@ public class Guard : Player
 
     private void Awake()
     {
-        PassiveFatigue = 0.2f;
-        PushFatigue = 0.3f;
+        PassiveFatigue = 0.025f;
+        PushFatigue = 0.05f;
         /*Need implementation first*/
         //ShoveFatigue = 5f;
         //KickFatigue = 7f;

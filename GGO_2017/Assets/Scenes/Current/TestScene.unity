@@ -957,7 +957,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 965034210}
-  speed: 0.24
+  speed: 0.1
 --- !u!1 &1076249855
 GameObject:
   m_ObjectHideFlags: 0

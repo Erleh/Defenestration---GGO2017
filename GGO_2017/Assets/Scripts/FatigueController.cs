@@ -28,7 +28,8 @@ public class FatigueController : MonoBehaviour {
         //increases passive fatigue using defined player character value...
         if (pChar.getGrapple()){
             //Increments passive fatigue by character PF value over time each second
-            fatigueBar.fatigue += pChar.PassiveFatigue*Time.deltaTime;
+            fatigueBar.fatigue += pChar.PassiveFatigue;
+            //Debug.Log("Passive Fatigue Value: " + pChar.PassiveFatigue*Time.deltaTime);
         }
         //disabling player ability to perform actions on full fatigue...
         if (fatigueBar.fatigue >= 100){
@@ -38,7 +39,6 @@ public class FatigueController : MonoBehaviour {
     //Method subscribing to Push event
     public void OnCharacterPush(GameObject character){
         fatigueBar.fatigue += pChar.PushFatigue;
-        Debug.Log("Passive Fatigue Value: " + pChar.PassiveFatigue);
         Debug.Log("Current Fatigue: " + fatigueBar.fatigue);
     }
     //need values for fatiguing
