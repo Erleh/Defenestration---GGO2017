@@ -44,7 +44,7 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
 			float pushBack = speed/8;
 			Vector3 move = new Vector3(pushBack, 0f, 0f);
 
-			Debug.Log("move: " + move);
+			//Debug.Log("move: " + move);
 			enemy.transform.parent.position += move;
 		}
 	}
@@ -55,7 +55,7 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
 		//TO ADD: play animation
 		if(grapple)
 		{
-			Debug.Log("onPush");
+			//Debug.Log("onPush");
 			resisting = false;
 		}
 	}
@@ -84,7 +84,7 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
 	{
 		if(grapple)
 		{
-			Debug.Log("TEST");
+			//Debug.Log("TEST");
 			resisting = true;
 		}
 	}
