@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Player : MonoBehaviour, IPlayable
 {
 	public GameObject player;
-
+    public Enemy enemy;
 
 	public float speed = -.2f;
 
@@ -17,70 +17,77 @@ public abstract class Player : MonoBehaviour, IPlayable
     public float StrOfShove { get; set; }
 
     //Init. for shoving movement
-    public Vector3 shoveDist;
-    public float lerpMov;
-
-    public Vector3 playerLocation;
-	private bool grapple = false;
-	//private bool pushing = false;
+	private bool grapple;
+    private bool fatigued = false;
+    //private bool pushing = false;
 
 
-
-	void Awake(){playerLocation = player.transform.position;}
+    void Awake() {fatigued = false;}
 
 	public void OnEnable()
 	{
 		//Subscribe Events
-		Push.onPush += this.OnCharacterPush;
+		//Push.onPush += this.OnCharacterPush;
 
-		Shove.onShove += this.OnCharacterShove;
+		//Shove.onShove += this.OnCharacterShove;
 
-		EventHandler.onKick += this.OnCharacterKick;
+		//EventHandler.onKick += this.OnCharacterKick;
 	}
 
 	public void OnDisable()
 	{
 		//Unsubscribe Events
-		Push.onPush -= this.OnCharacterPush;
-		Shove.onShove -= this.OnCharacterShove;
+		//Push.onPush -= this.OnCharacterPush;
+		//Shove.onShove -= this.OnCharacterShove;
         //need kick as well
     }
-
-	void Start () 
-	{
-	}
-
+	void Start () {}
 	void Update()
-	{
-	}
+    {
+        if(enemy && !fatigued)
+        {
+            if(grapple)
+            {
+                if (Input.GetKey(KeyCode.Space))
+                {
+
+                }
+                if(Input.GetKeyDown(KeyCode.Z))
+                {
+
+                }
+            }
+        }
+    }
 
 	//Method to subscribe to the push event
-	public void OnCharacterPush(GameObject character)
+	public void OnCharacterPush()
 	{
 		if(grapple)
 		{
-            Debug.Log("We tryna push");
-			float pushBack = speed/2;
+            //Debug.Log("We tryna push");
+            Debug.Log(getGrapple());
+            float pushBack = speed/2;
 			Vector3 move = new Vector3(pushBack, 0f, 0f);
 			player.transform.position += move;
-            Debug.Log("We did it reddit");
+            //Debug.Log("We did it reddit");
 		}
 	}
 
-	public void OnCharacterShove(GameObject character)
+	public void OnCharacterShove()
 	{
         //If !grapple do not do event, if grapple do action
         if (grapple)
         {
-            grapple = false;
-            Debug.Log("We tryna shove");
-            Vector3 shoved = Vector3.MoveTowards(playerLocation, playerLocation+shoveDist, StrOfShove*lerpMov);
-            player.transform.position += shoved;
-            Debug.Log("We did it reddit");
+            //Detach child from player
+            enemy.transform.SetParent(null);
+
+
+            //Play Shove Animation
         }
 	}
 
-	public void OnCharacterKick(GameObject character)
+	public void OnCharacterKick()
 	{
 		
 	}
@@ -94,6 +101,7 @@ public abstract class Player : MonoBehaviour, IPlayable
 			col.gameObject.transform.parent = player.transform;
 
 			grapple = true;
+            Debug.Log("we on it");
 		}
 	}
 
@@ -103,17 +111,15 @@ public abstract class Player : MonoBehaviour, IPlayable
     //}
 
     //If not grappling enemy, charge at the enemy
-    public void ChargeAtEnemy()
+    public IEnumerator ChargeAtEnemy()
     {
-        if (!getGrapple())
-        {
-            //Debug.Log("Charging at Enemy...");
-            Vector3 move = new Vector3(speed, 0, 0);
-            Debug.Log(move);
-            //playerLocation += move;
-            player.transform.position += move;
-            //Debug.Log("Charged with speed: " + speed);
-        }
+        Debug.Log("Charging at Enemy...");
+        Vector3 move = new Vector3(speed, 0, 0);
+        //playerLocation += move;
+        player.transform.position += move;
+        yield return new WaitUntil(() => getGrapple());
+        //Debug.Log("Charged with speed: " + speed);
     }
+    public Vector3 getPlayerLoc() { return player.transform.position; }
     public bool getGrapple(){return grapple;}
 }
