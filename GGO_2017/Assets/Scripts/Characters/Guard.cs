@@ -10,9 +10,7 @@ public class Guard : Player
 
         PassiveFatigue = 0.025f;
         PushFatigue = 0.05f;
-        shoveDist.Set(5f, 0f, 0f);
-        StrOfShove = 3f;
-        lerpMov = 0f;
+        //StrOfShove = -3f;
         /*Need implementation first*/
         //ShoveFatigue = 5f;
         //KickFatigue = 7f;
@@ -20,9 +18,7 @@ public class Guard : Player
 
     void Update () 
 	{
-        //lerpMov += Time.deltaTime;
-		ChargeAtEnemy();
-        Debug.Log("Player Location: " + playerLocation);
-        Debug.Log("Attempting to ChargeAtEnemy...");
+        if(!getGrapple())
+		    StartCoroutine(ChargeAtEnemy());
 	}
 }
