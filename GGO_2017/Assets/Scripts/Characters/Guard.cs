@@ -5,10 +5,14 @@ using UnityEngine;
 public class Guard : Player
 {
 
-    private void Awake()
+    void Awake()
     {
+
         PassiveFatigue = 0.025f;
         PushFatigue = 0.05f;
+        shoveDist.Set(5f, 0f, 0f);
+        StrOfShove = 3f;
+        lerpMov = 0f;
         /*Need implementation first*/
         //ShoveFatigue = 5f;
         //KickFatigue = 7f;
@@ -16,16 +20,9 @@ public class Guard : Player
 
     void Update () 
 	{
-		ChargeAtBob();
-	}
-
-	//If not grappling bob Charge at bob
-	void ChargeAtBob()
-	{
-		if(!getGrapple())
-		{
-			Vector3 move = new Vector3(speed, 0, 0);
-			player.transform.position += move;
-		}
+        //lerpMov += Time.deltaTime;
+		ChargeAtEnemy();
+        Debug.Log("Player Location: " + playerLocation);
+        Debug.Log("Attempting to ChargeAtEnemy...");
 	}
 }

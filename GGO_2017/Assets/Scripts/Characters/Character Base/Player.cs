@@ -5,24 +5,28 @@ using UnityEngine;
 public abstract class Player : MonoBehaviour, IPlayable
 {
 	public GameObject player;
+
+
 	public float speed = -.2f;
 
-    //Placeholder
+    //Fatigue
     public float PassiveFatigue { get; set; }
     public float PushFatigue { get; set; }
     public float ShoveFatigue { get; set; }
     public float KickFatigue { get; set; }
-    public float strOfShove = -2f;
+    public float StrOfShove { get; set; }
 
-    private Vector3 playerLocation;
+    //Init. for shoving movement
+    public Vector3 shoveDist;
+    public float lerpMov;
+
+    public Vector3 playerLocation;
 	private bool grapple = false;
-	private bool pushing = false;
+	//private bool pushing = false;
 
-	void Awake()
-	{
-		playerLocation = player.transform.position;
 
-	}
+
+	void Awake(){playerLocation = player.transform.position;}
 
 	public void OnEnable()
 	{
@@ -38,13 +42,12 @@ public abstract class Player : MonoBehaviour, IPlayable
 	{
 		//Unsubscribe Events
 		Push.onPush -= this.OnCharacterPush;
-
 		Shove.onShove -= this.OnCharacterShove;
-	}
+        //need kick as well
+    }
 
 	void Start () 
 	{
-
 	}
 
 	void Update()
@@ -56,18 +59,25 @@ public abstract class Player : MonoBehaviour, IPlayable
 	{
 		if(grapple)
 		{
+            Debug.Log("We tryna push");
 			float pushBack = speed/2;
 			Vector3 move = new Vector3(pushBack, 0f, 0f);
 			player.transform.position += move;
+            Debug.Log("We did it reddit");
 		}
 	}
 
 	public void OnCharacterShove(GameObject character)
 	{
-		//TO ADD: add change in fatigue here
-
-		//If !grapple do not do event, if grapple do action
-
+        //If !grapple do not do event, if grapple do action
+        if (grapple)
+        {
+            grapple = false;
+            Debug.Log("We tryna shove");
+            Vector3 shoved = Vector3.MoveTowards(playerLocation, playerLocation+shoveDist, StrOfShove*lerpMov);
+            player.transform.position += shoved;
+            Debug.Log("We did it reddit");
+        }
 	}
 
 	public void OnCharacterKick(GameObject character)
@@ -86,14 +96,24 @@ public abstract class Player : MonoBehaviour, IPlayable
 			grapple = true;
 		}
 	}
-		
-	//public void movePlayer(Vector3 distance)
-	//{
 
-	//}
+    //public void movePlayer(Vector3 distance)
+    //{
 
-	public bool getGrapple()
-	{
-		return grapple;
-	}
+    //}
+
+    //If not grappling enemy, charge at the enemy
+    public void ChargeAtEnemy()
+    {
+        if (!getGrapple())
+        {
+            //Debug.Log("Charging at Enemy...");
+            Vector3 move = new Vector3(speed, 0, 0);
+            Debug.Log(move);
+            //playerLocation += move;
+            player.transform.position += move;
+            //Debug.Log("Charged with speed: " + speed);
+        }
+    }
+    public bool getGrapple(){return grapple;}
 }

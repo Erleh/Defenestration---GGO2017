@@ -9,16 +9,18 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
 	public float speed;
 
 	private bool grapple = false;
+
 	private bool shove = false;
-	private bool kick = false;
+	//private bool kick = false;
 	private bool resisting = false;
 
 	public void OnEnable()
 	{
-		//Subscribes events on script enable
-		EventHandler.onKick += this.OnCharacterKick;
+        //Subscribes events on script enable
+        EventHandler.onKick += this.OnCharacterKick;
 		Push.onPush += this.OnCharacterPush;
 		Push.resist += this.EnemyResist;
+        Shove.onShove += this.OnCharacterShove;
 	}
 
 	public void OnDisable()
@@ -26,6 +28,7 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
 		//Disable events on script disable
 		Push.onPush -= this.OnCharacterPush;
 		Push.resist -= this.EnemyResist;
+        Shove.onShove -= this.OnCharacterShove;
 		EventHandler.onKick -= this.OnCharacterKick;
 	}
 
@@ -55,7 +58,7 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
 		//TO ADD: play animation
 		if(grapple)
 		{
-			//Debug.Log("onPush");
+			Debug.Log("onPush");
 			resisting = false;
 		}
 	}
@@ -94,6 +97,7 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
 	{
 		if(col.gameObject.CompareTag("Player"))
 		{
+            Debug.Log("Collision");
 			grapple = true;
 			resisting = true;
 		}
