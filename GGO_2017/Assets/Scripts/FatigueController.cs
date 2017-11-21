@@ -38,10 +38,19 @@ public class FatigueController : MonoBehaviour {
     }
     //Method subscribing to Push event
     public void OnCharacterPush(GameObject character){
-        fatigueBar.fatigue += pChar.PushFatigue;
+        if(pChar.getGrapple())
+            fatigueBar.fatigue += pChar.PushFatigue;
+        //Debug.Log("Current Fatigue: " + fatigueBar.fatigue);
+    }
+    //the two following methods need values for fatiguing in guard
+    public void OnCharacterShove(GameObject character) {
+        if(pChar.getGrapple())
+            fatigueBar.fatigue += pChar.ShoveFatigue;
         Debug.Log("Current Fatigue: " + fatigueBar.fatigue);
     }
-    //need values for fatiguing
-    public void OnCharacterShove(GameObject character) { }
-    public void OnCharacterKick(GameObject character) { }
+    public void OnCharacterKick(GameObject character) {
+        if(pChar.getGrapple())
+            fatigueBar.fatigue += pChar.KickFatigue;
+        Debug.Log("Current Fatigue: " + fatigueBar.fatigue);
+    }
 }
