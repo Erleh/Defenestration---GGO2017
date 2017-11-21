@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Player : MonoBehaviour, IPlayable
+public abstract class Player : MonoBehaviour //, IPlayable
 {
 	public GameObject player;
     public Enemy enemy;
-
-	public float speed = -.2f;
+    public FatigueController fc;
+    public float speed;
 
     //Fatigue
     public float PassiveFatigue { get; set; }
@@ -18,78 +18,71 @@ public abstract class Player : MonoBehaviour, IPlayable
 
     //Init. for shoving movement
 	private bool grapple;
-    private bool fatigued = false;
     //private bool pushing = false;
+    
 
 
-    void Awake() {fatigued = false;}
+    void Awake() {}
 
-	public void OnEnable()
-	{
-		//Subscribe Events
-		//Push.onPush += this.OnCharacterPush;
-
-		//Shove.onShove += this.OnCharacterShove;
-
-		//EventHandler.onKick += this.OnCharacterKick;
-	}
-
-	public void OnDisable()
-	{
-		//Unsubscribe Events
-		//Push.onPush -= this.OnCharacterPush;
-		//Shove.onShove -= this.OnCharacterShove;
-        //need kick as well
-    }
 	void Start () {}
+
 	void Update()
     {
-        if(enemy && !fatigued)
+        if(enemy && !fc.loseGame)
         {
-            if(grapple)
+            if (grapple)
             {
                 if (Input.GetKey(KeyCode.Space))
                 {
-
+                    Push();
+                    Debug.Log("Work it.");
                 }
-                if(Input.GetKeyDown(KeyCode.Z))
+                if (Input.GetKeyUp(KeyCode.Space))
                 {
-
+                    Debug.Log("STOP RESISTING");
+                    enemy.Resist();
                 }
+                if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    Shove(enemy);
+                }
+
+            }
+            else
+            {
+                StartCoroutine(ChargeAtEnemy());
             }
         }
     }
 
-	//Method to subscribe to the push event
-	public void OnCharacterPush()
+	public void Push()
 	{
-		if(grapple)
-		{
-            //Debug.Log("We tryna push");
-            Debug.Log(getGrapple());
-            float pushBack = speed/2;
-			Vector3 move = new Vector3(pushBack, 0f, 0f);
-			player.transform.position += move;
-            //Debug.Log("We did it reddit");
-		}
+        Debug.Log("We tryna push");
+        Debug.Log(getGrapple());
+
+        //Player pushes Enemy back
+        float pushBack = speed/2;
+		Vector3 move = new Vector3(pushBack, 0f, 0f);
+		player.transform.position += move;
+
+        //Adds passive fatigue value to the fatigue bar
+        fc.AddFatigue(PushFatigue);
+
+        //Debug.Log("We did it reddit");
 	}
 
-	public void OnCharacterShove()
+	public void Shove(Enemy e)
 	{
-        //If !grapple do not do event, if grapple do action
-        if (grapple)
-        {
-            //Detach child from player
-            enemy.transform.SetParent(null);
+        //Detach child from player
+        e.transform.SetParent(null);
 
-
-            //Play Shove Animation
-        }
+        //Start Coroutine for Shove movement
+        fc.AddFatigue(ShoveFatigue);
 	}
 
-	public void OnCharacterKick()
+	public void Kick(Enemy e)
 	{
-		
+        fc.AddFatigue(KickFatigue);
 	}
 
 	//When player collides with enemy, make enemy a child object to the player
@@ -101,19 +94,13 @@ public abstract class Player : MonoBehaviour, IPlayable
 			col.gameObject.transform.parent = player.transform;
 
 			grapple = true;
-            Debug.Log("we on it");
+           // Debug.Log("we on it");
 		}
 	}
-
-    //public void movePlayer(Vector3 distance)
-    //{
-
-    //}
-
     //If not grappling enemy, charge at the enemy
     public IEnumerator ChargeAtEnemy()
     {
-        Debug.Log("Charging at Enemy...");
+        //Debug.Log("Charging at Enemy...");
         Vector3 move = new Vector3(speed, 0, 0);
         //playerLocation += move;
         player.transform.position += move;

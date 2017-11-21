@@ -68,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1769920795994238}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3074.0615, y: -192.02, z: 0.5}
+  m_LocalPosition: {x: -3438.3726, y: -192.02, z: 0.5}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 4329759798119666}
@@ -174,10 +174,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  enemy: {fileID: 0}
+  fc: {fileID: 0}
   speed: -0.2
-  shoveDist: {x: 0, y: 0, z: 0}
-  lerpMov: 0
-  playerLocation: {x: 0, y: 0, z: 0}
 --- !u!124 &124935905405682834
 Behaviour:
   m_ObjectHideFlags: 1
