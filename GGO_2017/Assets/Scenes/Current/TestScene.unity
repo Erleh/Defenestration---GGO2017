@@ -451,7 +451,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fatigueBar: {fileID: 129759069}
-  pChar: {fileID: 748628738}
+  pChar: {fileID: 748628735}
+  loseGame: 0
 --- !u!4 &339811574
 Transform:
   m_ObjectHideFlags: 0
@@ -620,8 +621,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 563443607}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 344, y: 91.5, z: 0}
-  m_LocalScale: {x: 0.71666664, y: 0.71666664, z: 0.71666664}
+  m_LocalPosition: {x: 244, y: 365.5, z: 0}
+  m_LocalScale: {x: 0.5083333, y: 0.5083333, z: 0.5083333}
   m_Children:
   - {fileID: 959189186}
   - {fileID: 129759068}
@@ -756,7 +757,13 @@ Prefab:
       propertyPath: enemy
       value: 
       objectReference: {fileID: 965034214}
-    m_RemovedComponents: []
+    - target: {fileID: 114579145837309534, guid: 1e153c833ce9bbf448352bac60a23c65,
+        type: 2}
+      propertyPath: fc
+      value: 
+      objectReference: {fileID: 339811573}
+    m_RemovedComponents:
+    - {fileID: 114579145837309534, guid: 1e153c833ce9bbf448352bac60a23c65, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 1e153c833ce9bbf448352bac60a23c65, type: 2}
   m_IsPrefabParent: 0
 --- !u!4 &748628733 stripped
@@ -769,12 +776,21 @@ GameObject:
   m_PrefabParentObject: {fileID: 1769920795994238, guid: 1e153c833ce9bbf448352bac60a23c65,
     type: 2}
   m_PrefabInternal: {fileID: 748628732}
---- !u!114 &748628738 stripped
+--- !u!114 &748628735
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114579145837309534, guid: 1e153c833ce9bbf448352bac60a23c65,
-    type: 2}
-  m_PrefabInternal: {fileID: 748628732}
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 748628734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9211b7b6c9a24a7459d28b68f0bd489a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1769920795994238, guid: 1e153c833ce9bbf448352bac60a23c65, type: 2}
+  enemy: {fileID: 965034214}
+  fc: {fileID: 339811573}
+  speed: -0.2
 --- !u!1 &959189185
 GameObject:
   m_ObjectHideFlags: 0
@@ -839,7 +855,7 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_UsedByComposite: 0
+  m_UsedByComposite: 1
   m_Offset: {x: -0.0042114854, y: -0.004211366}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
@@ -931,7 +947,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 965034210}
-  pChar: {fileID: 748628738}
+  pChar: {fileID: 748628735}
   speed: 0.1
   shoveDist: {x: 0, y: 0, z: 0}
   newShoveLoc: {x: 0, y: 0, z: 0}

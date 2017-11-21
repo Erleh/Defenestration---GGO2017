@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour, IPlayable {
+public abstract class Enemy : MonoBehaviour {
 
 	public GameObject enemy;
     public Player pChar;
@@ -27,51 +27,23 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
     void Start()
     {
     }
-	public void OnEnable()
-	{
-        //Subscribes events on script enable
-        //EventHandler.onKick += this.OnCharacterKick;
-		//Push.onPush += this.OnCharacterPush;
-		//Push.resist += this.EnemyResist;
-        //Shove.onShove += this.OnCharacterShove;
-	}
-
-	public void OnDisable()
-	{
-		//Disable events on script disable
-		//Push.onPush -= this.OnCharacterPush;
-		//Push.resist -= this.EnemyResist;
-        //Shove.onShove -= this.OnCharacterShove;
-		//EventHandler.onKick -= this.OnCharacterKick;
-	}
 
 	// Update is called once per frame
 	void Update () 
 	{
 		//If enemy is resisting the push, push back
-		if(resisting)
-		{
-			float pushBack = speed/8;
-			Vector3 move = new Vector3(pushBack, 0f, 0f);
-
-			//Debug.Log("move: " + move);
-			enemy.transform.parent.position += move;
-		}
 	}
-
-	//Method to subscribe to push event
-	public void OnCharacterPush()
+	public void Resist()
 	{
-		//TO ADD: play animation
-		if(grapple)
-		{
-			Debug.Log("onPush");
-			resisting = false;
-		}
-	}
+        float pushBack = speed / 8;
+        Vector3 move = new Vector3(pushBack, 0f, 0f);
+        //Debug.Log("move: " + move);
+        enemy.transform.parent.position += move;
+        //TO ADD: play animation with event
+    }
 
 	//Method to subscribe to shove event
-	public void OnCharacterShove()
+	public void Shove()
 	{
         //TO ADD: play animation
         // Debug.Log("We tryna shove");
@@ -87,15 +59,6 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
 
 	}
 
-	//Subscribe to the resist event, will cause gameobject to push against player
-	public void EnemyResist()
-	{
-		if(grapple)
-		{
-			//Debug.Log("TEST");
-			resisting = true;
-		}
-	}
     public IEnumerator CoShove(Vector3 toPos, float airTime)
     {
         float elapsedTime = 0f;
@@ -127,7 +90,6 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
 		{
             //Debug.Log("Collision");
 			grapple = true;
-			resisting = true;
 		}
 	}
     public Vector3 getEnemyLoc() { return enemy.transform.position; }
