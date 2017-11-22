@@ -8,6 +8,7 @@ public class Guard : Player
     {
         PassiveFatigue = 0.025f;
         PushFatigue = 0.05f;
+        ShoveFatigue = 3f;
         //speed = -.2f;
         //StrOfShove = -3f;
         /*Need implementation first*/
