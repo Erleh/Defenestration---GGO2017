@@ -68,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1769920795994238}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3438.3726, y: -192.02, z: 0.5}
+  m_LocalPosition: {x: -5363.6943, y: -192.02, z: 0.5}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 4329759798119666}
@@ -129,7 +129,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &61875547621904676
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -177,6 +177,9 @@ MonoBehaviour:
   enemy: {fileID: 0}
   fc: {fileID: 0}
   speed: -0.2
+  pushing: 0
+  airTime: 0
+  shoveDistance: {x: 0, y: 0, z: 0}
 --- !u!124 &124935905405682834
 Behaviour:
   m_ObjectHideFlags: 1

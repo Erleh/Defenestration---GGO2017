@@ -10,8 +10,8 @@ public class Bob : Enemy
         shoveDist.Set(-2.5f, 0f, 0f);
     }
 
-	void Update()
+	/*void Update()
 	{
-		Debug.Log("test");
-	}
+		//Debug.Log("test");
+	}*/
 }
