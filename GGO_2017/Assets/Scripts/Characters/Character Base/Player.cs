@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Player : MonoBehaviour, IPlayable
+public abstract class Player : MonoBehaviour //, IPlayable
 {
 	//Reference to player and enemy
 	public GameObject player;
 	public GameObject enemy;//Enemy enemy;
 
-	public float speed = -.2f;
+	public FatigueController fc;
+  public float speed;
 
     //Fatigue
     public float PassiveFatigue { get; set; }
@@ -19,8 +20,8 @@ public abstract class Player : MonoBehaviour, IPlayable
 
     //Init. for shoving movement
 	private bool grapple;
-    private bool fatigued = false;
     //private bool pushing = false;
+    
 
 	//Duration of shove
 	public float airTime;
@@ -30,14 +31,7 @@ public abstract class Player : MonoBehaviour, IPlayable
 
 	public Vector3 shoveDistance; 
 
-    void Awake() {fatigued = false;}
-
-	public void OnEnable()
-	{
-		//Subscribe Events
-		//Push.onPush += this.OnCharacterPush;
-
-		//Shove.onShove += this.OnCharacterShove;
+    void Awake() {}
 
 		//EventHandler.onKick += this.OnCharacterKick;
 	}
@@ -59,19 +53,33 @@ public abstract class Player : MonoBehaviour, IPlayable
 	void Update()
     {
 		Debug.Log("Player Update");
-        if(enemy && !fatigued)
+        if(enemy && !fc.loseGame)
         {
-            if(grapple)
+            if (grapple)
             {
                 //if (Input.GetKey(KeyCode.Space))
                 //{
 
                // }
-				if (Input.GetKeyDown(KeyCode.Space) && shoveCoroutine == null)
-				{
-					OnCharacterShove();
-					shoveCoroutine = StartCoroutine(CoShove(enemy.transform.position + shoveDistance, 1));
+				        if (Input.GetKeyDown(KeyCode.Z) && shoveCoroutine == null)
+				        {
+					        OnCharacterShove();
+					        shoveCoroutine = StartCoroutine(CoShove(enemy.transform.position + shoveDistance, 1));
                 }
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    Push();
+                    Debug.Log("Work it.");
+                }
+                if (Input.GetKeyUp(KeyCode.Space))
+                {
+                    Debug.Log("STOP RESISTING");
+                    enemy.Resist();
+                }
+            }
+            else
+            {
+                StartCoroutine(ChargeAtEnemy());
             }
 			else
 			{
@@ -80,8 +88,7 @@ public abstract class Player : MonoBehaviour, IPlayable
         }
     }
 
-	//Method to subscribe to the push event
-	public void OnCharacterPush()
+	public void Push()
 	{
 		if(grapple)
 		{
@@ -95,6 +102,20 @@ public abstract class Player : MonoBehaviour, IPlayable
 			player.transform.position += move;
             //Debug.Log("We did it reddit");
 		}
+    
+    /* Debug.Log("We tryna push");
+        Debug.Log(getGrapple());
+
+        //Player pushes Enemy back
+        float pushBack = speed/2;
+		Vector3 move = new Vector3(pushBack, 0f, 0f);
+		player.transform.position += move;
+
+        //Adds passive fatigue value to the fatigue bar
+        fc.AddFatigue(PushFatigue);
+
+        //Debug.Log("We did it reddit");
+        */
 	}
 
 	//Coroutine to move enemy distance of the shove
@@ -131,13 +152,15 @@ public abstract class Player : MonoBehaviour, IPlayable
         {
             //Detach child from player
             enemy.transform.SetParent(null);
+          
+            //fc.AddFatigue(ShoveFatigue);
             //Play Shove Animation
         }
 	}
 
-	public void OnCharacterKick()
+	public void Kick(Enemy e)
 	{
-		
+        fc.AddFatigue(KickFatigue);
 	}
 
 	//When player collides with enemy, make enemy a child object to the player
@@ -149,19 +172,13 @@ public abstract class Player : MonoBehaviour, IPlayable
 			col.gameObject.transform.parent = player.transform;
 
 			grapple = true;
-            Debug.Log("we on it");
+           // Debug.Log("we on it");
 		}
 	}
-
-    //public void movePlayer(Vector3 distance)
-    //{
-
-    //}
-
     //If not grappling enemy, charge at the enemy
     public IEnumerator ChargeAtEnemy()
     {
-        Debug.Log("Charging at Enemy...");
+        //Debug.Log("Charging at Enemy...");
         Vector3 move = new Vector3(speed, 0, 0);
         //playerLocation += move;
         player.transform.position += move;

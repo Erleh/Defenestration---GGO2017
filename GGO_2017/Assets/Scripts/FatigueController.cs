@@ -10,20 +10,8 @@ public class FatigueController : MonoBehaviour {
 
     public Slider fSlider;
     public Player pChar;
+    public bool loseGame;
 
-
-    // Update is called once per frame
-    public void OnEnable(){
-        //Subscribe Events
-        //Push.onPush += this.OnCharacterPush;
-        //Shove.onShove += this.OnCharacterShove;
-        //EventHandler.onKick += this.OnCharacterKick;
-    }
-    public void OnDisable(){
-        //Push.onPush -= this.OnCharacterPush;
-        //Shove.onShove -= this.OnCharacterShove;
-        //EventHandler.onKick -= this.OnCharacterKick;
-    }
     void FixedUpdate () {
         //increases passive fatigue using defined player character value...
         if (pChar.getGrapple()){
@@ -33,24 +21,13 @@ public class FatigueController : MonoBehaviour {
         }
         //disabling player ability to perform actions on full fatigue...
         if (fatigueBar.fatigue >= 100){
+            loseGame = true;
             Debug.Log("FATIGUED");
         }
     }
     //Method subscribing to Push event
-    public void OnCharacterPush(){
-        if(pChar.getGrapple())
-            fatigueBar.fatigue += pChar.PushFatigue;
+    public void AddFatigue(float amt){
+        fatigueBar.fatigue += amt;
         //Debug.Log("Current Fatigue: " + fatigueBar.fatigue);
-    }
-    //the two following methods need values for fatiguing in guard
-    public void OnCharacterShove() {
-        if(pChar.getGrapple())
-            fatigueBar.fatigue += pChar.ShoveFatigue;
-        Debug.Log("Current Fatigue: " + fatigueBar.fatigue);
-    }
-    public void OnCharacterKick() {
-        if(pChar.getGrapple())
-            fatigueBar.fatigue += pChar.KickFatigue;
-        Debug.Log("Current Fatigue: " + fatigueBar.fatigue);
     }
 }

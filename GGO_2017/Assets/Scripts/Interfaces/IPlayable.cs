@@ -7,7 +7,7 @@ public interface IPlayable
 	void OnEnable();
 	void OnDisable();
 
-	void OnCharacterPush();
-	void OnCharacterShove();
-	void OnCharacterKick();
+	void Push(GameObject g);
+	void Shove(GameObject g);
+	void Kick(GameObject g);
 }

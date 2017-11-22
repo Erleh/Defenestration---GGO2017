@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 2449a1f029b419c468d9c372763f6db1
-timeCreated: 1511213311
+timeCreated: 1511252301
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -159,7 +159,7 @@ TextureImporter:
       name: idle3
       rect:
         serializedVersion: 2
-        x: 403
+        x: 400
         y: 1405
         width: 195
         height: 195
@@ -201,7 +201,7 @@ TextureImporter:
       name: lock1
       rect:
         serializedVersion: 2
-        x: 997
+        x: 1000
         y: 1405
         width: 195
         height: 195
@@ -300,7 +300,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1000
-        y: 1202
+        y: 1205
         width: 195
         height: 195
       alignment: 0
@@ -314,7 +314,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1200
-        y: 1208
+        y: 1205
         width: 195
         height: 195
       alignment: 0
@@ -454,7 +454,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 802
+        y: 805
         width: 195
         height: 195
       alignment: 0
@@ -566,7 +566,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1597
-        y: 802
+        y: 805
         width: 195
         height: 195
       alignment: 0

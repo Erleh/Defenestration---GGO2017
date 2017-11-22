@@ -27,7 +27,7 @@ public abstract class Enemy : MonoBehaviour, IPlayable
     void Start()
     {
     }
-
+    
 	public void OnEnable()
 	{
         //Subscribes events on script enable
@@ -51,6 +51,7 @@ public abstract class Enemy : MonoBehaviour, IPlayable
 	{
 		Debug.Log("Enemy Update");
 		//If enemy is resisting the push, push back
+
 		if(resisting)
 		{
 			float pushBack = speed/8;
@@ -59,10 +60,9 @@ public abstract class Enemy : MonoBehaviour, IPlayable
 			Debug.Log("resist: " + move);
 			enemy.transform.parent.position += move;
 		}
-	}
 
-	//Method to subscribe to push event
-	public void OnCharacterPush()
+	}
+	public void Resist()
 	{
 		//TO ADD: play animation
 		if(grapple)
@@ -70,10 +70,15 @@ public abstract class Enemy : MonoBehaviour, IPlayable
 			Debug.Log("onPush");
 			resisting = false;
 		}
+    //float pushBack = speed / 8;
+        //Vector3 move = new Vector3(pushBack, 0f, 0f);
+        //Debug.Log("move: " + move);
+        //enemy.transform.parent.position += move;
+        //TO ADD: play animation with event
 	}
-		
+	
 	//Method to subscribe to shove event
-	public void OnCharacterShove()
+	public void Shove()
 	{
         //TO ADD: play animation
         // Debug.Log("We tryna shove");
@@ -133,7 +138,6 @@ public abstract class Enemy : MonoBehaviour, IPlayable
 		{
             Debug.Log("Collision");
 			grapple = true;
-			resisting = true;
 		}
 	}
 
