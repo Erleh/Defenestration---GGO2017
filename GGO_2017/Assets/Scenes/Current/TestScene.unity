@@ -620,8 +620,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 563443607}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 344, y: 91.5, z: 0}
-  m_LocalScale: {x: 0.71666664, y: 0.71666664, z: 0.71666664}
+  m_LocalPosition: {x: 341.5, y: 171, z: 0}
+  m_LocalScale: {x: 0.7114583, y: 0.7114583, z: 0.7114583}
   m_Children:
   - {fileID: 959189186}
   - {fileID: 129759068}
@@ -720,7 +720,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4699431650415430, guid: 1e153c833ce9bbf448352bac60a23c65, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -192
+      value: -191.77
       objectReference: {fileID: 0}
     - target: {fileID: 4699431650415430, guid: 1e153c833ce9bbf448352bac60a23c65, type: 2}
       propertyPath: m_LocalPosition.z
@@ -755,7 +755,12 @@ Prefab:
         type: 2}
       propertyPath: enemy
       value: 
-      objectReference: {fileID: 965034214}
+      objectReference: {fileID: 965034210}
+    - target: {fileID: 114579145837309534, guid: 1e153c833ce9bbf448352bac60a23c65,
+        type: 2}
+      propertyPath: shoveDistance.x
+      value: -5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1e153c833ce9bbf448352bac60a23c65, type: 2}
   m_IsPrefabParent: 0
@@ -931,8 +936,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 965034210}
-  pChar: {fileID: 748628738}
-  speed: 0.1
+  player: {fileID: 748628734}
+  speed: 0
   shoveDist: {x: 0, y: 0, z: 0}
   newShoveLoc: {x: 0, y: 0, z: 0}
   shoveAir: 0

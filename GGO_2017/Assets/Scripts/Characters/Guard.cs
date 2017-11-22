@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class Guard : Player
 {
-
     void Awake()
     {
-
         PassiveFatigue = 0.025f;
         PushFatigue = 0.05f;
         //StrOfShove = -3f;
@@ -15,10 +13,4 @@ public class Guard : Player
         //ShoveFatigue = 5f;
         //KickFatigue = 7f;
     }
-
-    void Update () 
-	{
-        if(!getGrapple())
-		    StartCoroutine(ChargeAtEnemy());
-	}
 }

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour, IPlayable {
-
+public abstract class Enemy : MonoBehaviour, IPlayable 
+{
 	public GameObject enemy;
-    public Player pChar;
+    public GameObject player;
 
 	public float speed;
 
@@ -27,6 +27,7 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
     void Start()
     {
     }
+
 	public void OnEnable()
 	{
         //Subscribes events on script enable
@@ -48,13 +49,14 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
 	// Update is called once per frame
 	void Update () 
 	{
+		Debug.Log("Enemy Update");
 		//If enemy is resisting the push, push back
 		if(resisting)
 		{
 			float pushBack = speed/8;
 			Vector3 move = new Vector3(pushBack, 0f, 0f);
 
-			//Debug.Log("move: " + move);
+			Debug.Log("resist: " + move);
 			enemy.transform.parent.position += move;
 		}
 	}
@@ -69,16 +71,16 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
 			resisting = false;
 		}
 	}
-
+		
 	//Method to subscribe to shove event
 	public void OnCharacterShove()
 	{
         //TO ADD: play animation
         // Debug.Log("We tryna shove");
-        newShoveLoc = enemy.transform.position + shoveDist;
-        Debug.Log(enemy.transform.position + ":" + newShoveLoc);
+        //newShoveLoc = enemy.transform.position + shoveDist;
+        //Debug.Log(enemy.transform.position + ":" + newShoveLoc);
 
-        shoveCoroutine = StartCoroutine(CoShove(newShoveLoc, shoveAir));
+        //shoveCoroutine = StartCoroutine(CoShove(newShoveLoc, shoveAir));
         //Debug.Log("We did it reddit");
 	}
 
@@ -92,10 +94,12 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
 	{
 		if(grapple)
 		{
-			//Debug.Log("TEST");
+			Debug.Log("Resisting");
 			resisting = true;
 		}
 	}
+
+	/*
     public IEnumerator CoShove(Vector3 toPos, float airTime)
     {
         float elapsedTime = 0f;
@@ -120,15 +124,18 @@ public abstract class Enemy : MonoBehaviour, IPlayable {
         grapple = false;
         shoveCoroutine = null;
     }
+    */
+
 	//When objects collide, and the object is the player, grappling is true and begin resisting
 	void OnCollisionEnter2D(Collision2D col)
 	{
 		if(col.gameObject.CompareTag("Player"))
 		{
-            //Debug.Log("Collision");
+            Debug.Log("Collision");
 			grapple = true;
 			resisting = true;
 		}
 	}
+
     public Vector3 getEnemyLoc() { return enemy.transform.position; }
 }
