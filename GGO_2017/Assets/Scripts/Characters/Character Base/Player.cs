@@ -4,10 +4,12 @@ using UnityEngine;
 
 public abstract class Player : MonoBehaviour //, IPlayable
 {
+	//Reference to player and enemy
 	public GameObject player;
-    public Enemy enemy;
-    public FatigueController fc;
-    public float speed;
+	public GameObject enemy;//Enemy enemy;
+
+	public FatigueController fc;
+  public float speed;
 
     //Fatigue
     public float PassiveFatigue { get; set; }
@@ -21,17 +23,49 @@ public abstract class Player : MonoBehaviour //, IPlayable
     //private bool pushing = false;
     
 
+	//Duration of shove
+	public float airTime;
+
+	//Reference to start of shove coroutine, will allow us to keep track of coroutine activity
+	private Coroutine shoveCoroutine = null;
+
+	public Vector3 shoveDistance; 
 
     void Awake() {}
 
-	void Start () {}
+		//EventHandler.onKick += this.OnCharacterKick;
+	}
+
+	public void OnDisable()
+	{
+		//Unsubscribe Events
+		//Push.onPush -= this.OnCharacterPush;
+		//Shove.onShove -= this.OnCharacterShove;
+        //need kick as well
+    }
+
+	void Start () 
+	{
+		player.GetComponent<Rigidbody2D>().freezeRotation = true;
+		enemy.GetComponent<Rigidbody2D>().freezeRotation = true;
+	}
 
 	void Update()
     {
+		Debug.Log("Player Update");
         if(enemy && !fc.loseGame)
         {
             if (grapple)
             {
+                //if (Input.GetKey(KeyCode.Space))
+                //{
+
+               // }
+				        if (Input.GetKeyDown(KeyCode.Z) && shoveCoroutine == null)
+				        {
+					        OnCharacterShove();
+					        shoveCoroutine = StartCoroutine(CoShove(enemy.transform.position + shoveDistance, 1));
+                }
                 if (Input.GetKey(KeyCode.Space))
                 {
                     Push();
@@ -42,22 +76,34 @@ public abstract class Player : MonoBehaviour //, IPlayable
                     Debug.Log("STOP RESISTING");
                     enemy.Resist();
                 }
-                if (Input.GetKeyDown(KeyCode.Z))
-                {
-                    Shove(enemy);
-                }
-
             }
             else
             {
                 StartCoroutine(ChargeAtEnemy());
             }
+			else
+			{
+				StartCoroutine(ChargeAtEnemy());
+			}
         }
     }
 
 	public void Push()
 	{
-        Debug.Log("We tryna push");
+		if(grapple)
+		{
+            //Debug.Log("We tryna push");
+            Debug.Log(getGrapple());
+            float pushBack = speed/2;
+
+			Debug.Log("pushBack = " + pushBack);
+
+			Vector3 move = new Vector3(pushBack, 0f, 0f);
+			player.transform.position += move;
+            //Debug.Log("We did it reddit");
+		}
+    
+    /* Debug.Log("We tryna push");
         Debug.Log(getGrapple());
 
         //Player pushes Enemy back
@@ -69,15 +115,47 @@ public abstract class Player : MonoBehaviour //, IPlayable
         fc.AddFatigue(PushFatigue);
 
         //Debug.Log("We did it reddit");
+        */
 	}
 
-	public void Shove(Enemy e)
+	//Coroutine to move enemy distance of the shove
+	public IEnumerator CoShove(Vector3 toPos, float airTime)
 	{
-        //Detach child from player
-        e.transform.SetParent(null);
+		float elapsedTime = 0f;
+		Debug.Log("We tryna shove");
+		while (elapsedTime < airTime)
+		{
+			Vector3 startPos = enemy.transform.position;
 
-        //Start Coroutine for Shove movement
-        fc.AddFatigue(ShoveFatigue);
+			//Debug.Log("startPos = " + startPos);
+			//Debug.Log("toPos = " + toPos);
+			var lerpVal = (elapsedTime / airTime);// * pChar.StrOfShove
+			// Debug.Log("(elapsedTime/airTime) * pChar.StrOfShove = " + lerpVal);
+
+			enemy.transform.position = Vector3.Lerp(startPos, toPos, lerpVal);
+
+			Debug.Log("enemy trans: " + enemy.transform.position);
+
+			elapsedTime += Time.deltaTime;
+			yield return new WaitForEndOfFrame();
+		}
+		Debug.Log("We shoved. Grapple: " + grapple); 
+
+		grapple = false;
+		shoveCoroutine = null;
+	}
+
+	public void OnCharacterShove()
+	{
+        //If !grapple do not do event, if grapple do action
+        if (grapple)
+        {
+            //Detach child from player
+            enemy.transform.SetParent(null);
+          
+            //fc.AddFatigue(ShoveFatigue);
+            //Play Shove Animation
+        }
 	}
 
 	public void Kick(Enemy e)
@@ -107,6 +185,8 @@ public abstract class Player : MonoBehaviour //, IPlayable
         yield return new WaitUntil(() => getGrapple());
         //Debug.Log("Charged with speed: " + speed);
     }
+
     public Vector3 getPlayerLoc() { return player.transform.position; }
+
     public bool getGrapple(){return grapple;}
 }

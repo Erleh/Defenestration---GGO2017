@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour {
-
+public abstract class Enemy : MonoBehaviour, IPlayable 
+{
 	public GameObject enemy;
-    public Player pChar;
+    public GameObject player;
 
 	public float speed;
 
@@ -27,30 +27,65 @@ public abstract class Enemy : MonoBehaviour {
     void Start()
     {
     }
+    
+	public void OnEnable()
+	{
+        //Subscribes events on script enable
+        //EventHandler.onKick += this.OnCharacterKick;
+		//Push.onPush += this.OnCharacterPush;
+		//Push.resist += this.EnemyResist;
+        //Shove.onShove += this.OnCharacterShove;
+	}
+
+	public void OnDisable()
+	{
+		//Disable events on script disable
+		//Push.onPush -= this.OnCharacterPush;
+		//Push.resist -= this.EnemyResist;
+        //Shove.onShove -= this.OnCharacterShove;
+		//EventHandler.onKick -= this.OnCharacterKick;
+	}
 
 	// Update is called once per frame
 	void Update () 
 	{
+		Debug.Log("Enemy Update");
 		//If enemy is resisting the push, push back
+
+		if(resisting)
+		{
+			float pushBack = speed/8;
+			Vector3 move = new Vector3(pushBack, 0f, 0f);
+
+			Debug.Log("resist: " + move);
+			enemy.transform.parent.position += move;
+		}
+
 	}
 	public void Resist()
 	{
-        float pushBack = speed / 8;
-        Vector3 move = new Vector3(pushBack, 0f, 0f);
+		//TO ADD: play animation
+		if(grapple)
+		{
+			Debug.Log("onPush");
+			resisting = false;
+		}
+    //float pushBack = speed / 8;
+        //Vector3 move = new Vector3(pushBack, 0f, 0f);
         //Debug.Log("move: " + move);
-        enemy.transform.parent.position += move;
+        //enemy.transform.parent.position += move;
         //TO ADD: play animation with event
-    }
-
+	}
+	
 	//Method to subscribe to shove event
 	public void Shove()
 	{
         //TO ADD: play animation
         // Debug.Log("We tryna shove");
-        newShoveLoc = enemy.transform.position + shoveDist;
-        Debug.Log(enemy.transform.position + ":" + newShoveLoc);
+        //newShoveLoc = enemy.transform.position + shoveDist;
+        //Debug.Log(enemy.transform.position + ":" + newShoveLoc);
 
-        shoveCoroutine = StartCoroutine(CoShove(newShoveLoc, shoveAir));
+        //shoveCoroutine = StartCoroutine(CoShove(newShoveLoc, shoveAir));
         //Debug.Log("We did it reddit");
 	}
 
@@ -59,6 +94,17 @@ public abstract class Enemy : MonoBehaviour {
 
 	}
 
+	//Subscribe to the resist event, will cause gameobject to push against player
+	public void EnemyResist()
+	{
+		if(grapple)
+		{
+			Debug.Log("Resisting");
+			resisting = true;
+		}
+	}
+
+	/*
     public IEnumerator CoShove(Vector3 toPos, float airTime)
     {
         float elapsedTime = 0f;
@@ -83,14 +129,17 @@ public abstract class Enemy : MonoBehaviour {
         grapple = false;
         shoveCoroutine = null;
     }
+    */
+
 	//When objects collide, and the object is the player, grappling is true and begin resisting
 	void OnCollisionEnter2D(Collision2D col)
 	{
 		if(col.gameObject.CompareTag("Player"))
 		{
-            //Debug.Log("Collision");
+            Debug.Log("Collision");
 			grapple = true;
 		}
 	}
+
     public Vector3 getEnemyLoc() { return enemy.transform.position; }
 }
