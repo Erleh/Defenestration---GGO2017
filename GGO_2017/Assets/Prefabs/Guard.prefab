@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 50203243790231088}
   m_Layer: 0
   m_Name: Guard
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -177,8 +177,10 @@ MonoBehaviour:
   enemy: {fileID: 0}
   fc: {fileID: 0}
   speed: -0.2
+  grapple: 0
   pushing: 0
   airTime: 0
+  coRunning: 0
   shoveDistance: {x: 0, y: 0, z: 0}
 --- !u!124 &124935905405682834
 Behaviour:

@@ -9,7 +9,7 @@ public abstract class Enemy : MonoBehaviour//, IPlayable
     public Player p;
 	public float speed;
 
-	private bool grapple = false;
+	public bool grapple = false;
 
 	private bool shove = false;
 	//private bool kick = false;
@@ -28,24 +28,23 @@ public abstract class Enemy : MonoBehaviour//, IPlayable
     {
     }
 
-	void Update () 
-	{
-        if(!p.pushing)
-        {
-            Debug.Log("Resisting..");
-            Resist();
-        }
-	}
 	public void Resist()
 	{
-		//TO ADD: play animation
+        //TO ADD: play animation
+
+        //Debug.Log("resist");   <= triggers correctly
+
 		if(grapple)
 		{
-            float pushBack = speed / 8;
+            float pushBack = speed;
             Vector3 move = new Vector3(pushBack, 0f, 0f);
 
             Debug.Log("resist: " + move);
-            enemy.transform.parent.position += move;
+            Debug.Log("enemy transform : " + enemy.transform);
+
+            //enemy.transform.position += move;
+            player.transform.position += move;
+
             Debug.Log("onPush");
 			resisting = false;
 		}
@@ -56,7 +55,7 @@ public abstract class Enemy : MonoBehaviour//, IPlayable
 	{
 		if(col.gameObject.CompareTag("Player"))
 		{
-            Debug.Log("Collision");
+            //Debug.Log("Collision");    <= works
 			grapple = true;
 		}
 	}

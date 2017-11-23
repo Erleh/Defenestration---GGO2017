@@ -10,8 +10,12 @@ public class Bob : Enemy
         shoveDist.Set(-2.5f, 0f, 0f);
     }
 
-	/*void Update()
-	{
-		//Debug.Log("test");
-	}*/
+    void FixedUpdate()
+    {
+        if (p.grapple && p.shoveCoroutine == null && p.chargeCoroutine == null && !p.pushing)
+        {
+            //Debug.Log("Resisting..");
+            Resist();
+        }
+    }
 }
