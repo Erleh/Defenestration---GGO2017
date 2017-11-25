@@ -12,7 +12,7 @@ public class Bob : Enemy
 
     void FixedUpdate()
     {
-        if (p.grapple && p.shoveCoroutine == null && p.chargeCoroutine == null && !p.pushing)
+        if (p.grapple && p.kickCoroutine == null && p.shoveCoroutine == null && p.chargeCoroutine == null && !p.pushing)
         {
             //Debug.Log("Resisting..");
             Resist();
