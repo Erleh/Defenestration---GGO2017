@@ -9,9 +9,9 @@ public abstract class Enemy : MonoBehaviour//, IPlayable
     public Player p;
 	public float speed;
 
-	public bool grapple = false;
+	public bool grapple;
 
-	private bool shove = false;
+	private bool shove;
 	//private bool kick = false;
 	private bool resisting;
     //public Vector3 shovedTo;
@@ -39,13 +39,13 @@ public abstract class Enemy : MonoBehaviour//, IPlayable
             float pushBack = speed;
             Vector3 move = new Vector3(pushBack, 0f, 0f);
 
-            Debug.Log("resist: " + move);
-            Debug.Log("enemy transform : " + enemy.transform);
+            //Debug.Log("resist: " + move);
+            //Debug.Log("enemy transform : " + enemy.transform);
 
             //enemy.transform.position += move;
             player.transform.position += move;
 
-            Debug.Log("onPush");
+            //Debug.Log("onPush");
 			resisting = false;
 		}
 	}
