@@ -10,6 +10,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
 
     public FatigueController fc;
     public float speed;
+    public float maxHeightOnKick;
 
     //Fatigue
     public float PassiveFatigue { get; set; }
@@ -29,10 +30,12 @@ public abstract class Player : MonoBehaviour //, IPlayable
     //Reference to start of shove coroutine, will allow us to keep track of coroutine activity
     public Coroutine shoveCoroutine = null;
     public Coroutine chargeCoroutine = null;
+    public Coroutine kickCoroutine = null;
 
     public bool coRunning;
 
     public Vector3 shoveDistance;
+    public Vector3 kickDistance;
 
     void Awake() { }
 
@@ -69,16 +72,24 @@ public abstract class Player : MonoBehaviour //, IPlayable
         if (grapple)
         {
             //Detach child from player
-            shoveCoroutine = StartCoroutine(CoShove(enemy.transform.position + shoveDistance, 1));
             enemy.transform.SetParent(null);
+            shoveCoroutine = StartCoroutine(CoShove(enemy.transform.position + shoveDistance, 1));
             fc.AddFatigue(ShoveFatigue);
             //Play Shove Animation
         }
     }
 
-    public void Kick(Enemy e)
+    public void Kick()
     {
-        fc.AddFatigue(KickFatigue);
+        //If !grapple do not do event, if grapple do action
+        if (grapple)
+        {
+            //Detach child from player
+            enemy.transform.SetParent(null);
+            kickCoroutine = StartCoroutine(CoKick(enemy.transform.position + kickDistance, 1, maxHeightOnKick));
+            fc.AddFatigue(KickFatigue);
+            //Play Shove Animation
+        }       
     }
 
     //When player collides with enemy, make enemy a child object to the player
@@ -152,6 +163,54 @@ public abstract class Player : MonoBehaviour //, IPlayable
 
         shoveCoroutine = null;
         coRunning = false;
+    }
+
+    public IEnumerator CoKick(Vector3 endPos, float airTime, float maxHeight)
+    {
+        coRunning = true;
+
+        float elapsedTime = 0f;
+
+        grapple = false;
+
+        float ogHeight = enemy.transform.position.y;
+        //var counter = 0;
+
+        while (elapsedTime <= airTime)
+        {
+            Vector3 startPos = enemy.transform.position;
+
+            //Debug.Log("startPos = " + startPos);
+            //Debug.Log("toPos = " + toPos);
+
+            var lerpVal = (elapsedTime / airTime);
+            Debug.Log("lerpVal = " + lerpVal);
+
+            //Debug.Log("lerpVal = " + lerpVal);
+            // Debug.Log("(elapsedTime/airTime) * pChar.StrOfShove = " + lerpVal);
+
+            Vector3 enemyPos = Vector3.Lerp(startPos, endPos, lerpVal);
+
+            Debug.Log("Mathf.Clamp01(lerpVal) = " + Mathf.Clamp01(lerpVal));
+            enemyPos.y += maxHeight * Mathf.Sin(lerpVal * Mathf.PI);
+
+            enemy.transform.position = enemyPos;
+
+            //Debug.Log("enemy trans: " + enemy.transform.position);
+
+            elapsedTime += Time.deltaTime;
+            //counter++;
+
+            yield return new WaitForEndOfFrame();
+        }
+        enemy.transform.position = new Vector3(enemy.transform.position.x, ogHeight, 0);
+
+        Debug.Log("We Kicked. Grapple: " + grapple);
+
+        kickCoroutine = null;
+        coRunning = false;
+
+        //return null;
     }
 
     public Vector3 getPlayerLoc() { return player.transform.position; }
