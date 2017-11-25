@@ -613,8 +613,8 @@ PlayerSettings:
   facebookSdkVersion: 7.9.4
   apiCompatibilityLevel: 2
   cloudProjectId: 0b2d57fc-9610-457e-a5df-e63ab2bd094f
-  projectName: 
-  organizationId: 
+  projectName: GGO_2017
+  organizationId: blellowbanana
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Guard : Player
 {
+    //Animator
+    Animator anim;
+
+    //Sets initial values
     void Awake()
     {
         PassiveFatigue = 0.025f;
@@ -14,8 +18,45 @@ public class Guard : Player
         /*Need implementation first*/
         //ShoveFatigue = 5f;
         //KickFatigue = 7f;
+
+        anim = this.GetComponent<Animator>();
     }
 
+    void OnEnable()
+    {
+        ActionAnimationHandler.onPush += this.OnCharacterPush;
+        ActionAnimationHandler.onShove += this.OnCharacterShove;
+        ActionAnimationHandler.onKick += this.OnCharacterKick;
+    }
+
+    void OnDisable()
+    {
+        ActionAnimationHandler.onPush -= this.OnCharacterPush;
+        ActionAnimationHandler.onShove -= this.OnCharacterShove;
+        ActionAnimationHandler.onKick -= this.OnCharacterKick;
+    }
+
+    void Start()
+    {
+
+    }
+
+    public void OnCharacterPush(GameObject character)
+    {
+
+    }
+
+    public void OnCharacterShove(GameObject character)
+    {
+
+    }
+
+    public void OnCharacterKick(GameObject character)
+    {
+
+    }
+
+    //Player controller
     void FixedUpdate()
     {
         //Debug.Log(pushing);
@@ -32,6 +73,19 @@ public class Guard : Player
                     pushing = false;
                     Shove();
                 }
+
+                if(Input.GetKeyDown(KeyCode.X) && kickCoroutine == null)
+                {
+                    pushing = false;
+                    Kick();
+                }
+                //test
+                /*
+                if(Input.GetKeyDown(KeyCode.Space) && chargeCoroutine == null)
+                {
+                    pushing = true;
+                }
+                */
 
                 //can't push when charging back at the enemy
                 if (Input.GetKey(KeyCode.Space) && chargeCoroutine == null)
@@ -53,7 +107,7 @@ public class Guard : Player
                 pushing = false;
 
                 //waits for full  shove lerp to play before charging back at enemy
-                if (shoveCoroutine == null && extendShoveCoroutine == null)
+                if (shoveCoroutine == null && extendShoveCoroutine == null && kickCoroutine == null)
                     chargeCoroutine = StartCoroutine(ChargeAtEnemy());
             }
         }
