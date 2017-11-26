@@ -41,24 +41,26 @@ public class Guard : Player
 
     }
 
-    public void OnCharacterPush(GameObject character)
+    public void OnCharacterPush()
     {
-
+        anim.SetBool("Push", pushing);
     }
 
-    public void OnCharacterShove(GameObject character)
+    public void OnCharacterShove()
     {
-
+        Debug.Log("Shoving anim = " + shoving);
+        anim.SetBool("Shove", shoving);
     }
 
-    public void OnCharacterKick(GameObject character)
+    public void OnCharacterKick()
     {
-
+        anim.SetBool("Kick", kicking);
     }
 
     //Player controller
     void FixedUpdate()
     {
+        anim.SetBool("ChargeAt", charging);
         //Debug.Log(pushing);
         //Debug.Log(coRunning);
         //Debug.Log("Player Update");
@@ -77,15 +79,9 @@ public class Guard : Player
                 if(Input.GetKeyDown(KeyCode.X) && kickCoroutine == null)
                 {
                     pushing = false;
+                    //kicking = true;
                     Kick();
                 }
-                //test
-                /*
-                if(Input.GetKeyDown(KeyCode.Space) && chargeCoroutine == null)
-                {
-                    pushing = true;
-                }
-                */
 
                 //can't push when charging back at the enemy
                 if (Input.GetKey(KeyCode.Space) && chargeCoroutine == null)
@@ -105,10 +101,14 @@ public class Guard : Player
             else
             {
                 pushing = false;
+                //kicking = false;
 
                 //waits for full  shove lerp to play before charging back at enemy
                 if (shoveCoroutine == null && extendShoveCoroutine == null && kickCoroutine == null)
                     chargeCoroutine = StartCoroutine(ChargeAtEnemy());
+
+                    anim.SetBool("Grapple", grapple);
+                }
             }
         }
     }
