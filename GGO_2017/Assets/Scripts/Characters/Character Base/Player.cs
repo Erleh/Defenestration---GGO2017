@@ -7,34 +7,43 @@ public abstract class Player : MonoBehaviour //, IPlayable
     //Reference to player and enemy
     public GameObject player;
     public GameObject enemy;//Enemy enemy;
+    public GameObject obstacle;
     public FatigueController fc;
     public float speed;
     public float maxHeightOnKick;
 
-    //Fatigue
+    //Action fatigue and strength
     public float PassiveFatigue { get; set; }
     public float PushFatigue { get; set; }
     public float ShoveFatigue { get; set; }
     public float KickFatigue { get; set; }
+    //public float StrOfKick { get; set; }
     public float StrOfShove { get; set; }
-
+    public float ExtendStrength { get; set; }
     //Init. for shoving movement
     public bool grapple;
     public bool pushing;
     public bool shoving;
+    public bool kicking;
+    public bool extend;
+    public bool c;
     //Duration of shove
     public float airTime;
     public float extendAirTime;
     //Reference to start of shove coroutine, will allow us to keep track of coroutine activity
     public Coroutine shoveCoroutine = null;
     public Coroutine chargeCoroutine = null;
-    public Coroutine extendShoveCoroutine = null;
+    public Coroutine extendCoroutine = null;
     public Coroutine kickCoroutine = null;
 
     public bool coRunning;
 
     public Vector3 shoveDistance;
     public Vector3 kickDistance;
+    public Vector3 extension;
+    //Quick hack for extension distance
+    //public Vector3 extendDist;
+    //public bool onCeiling;
 
     void Awake() { }
 
@@ -72,7 +81,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
         {
             //Detach child from player
             enemy.transform.SetParent(null);
-            shoveCoroutine = StartCoroutine(CoShove(enemy.transform.position + shoveDistance, 1));
+            shoveCoroutine = StartCoroutine(CoShove(enemy.transform.position + shoveDistance, StrOfShove));
             fc.AddFatigue(ShoveFatigue);
             //Play Shove Animation
         }
@@ -124,60 +133,63 @@ public abstract class Player : MonoBehaviour //, IPlayable
         yield return new WaitUntil(() => getGrapple());
 
         //Debug.Log("Charged with speed: " + speed);
-
+        extend = false;
         chargeCoroutine = null;
         coRunning = false;
     }
 
     //Coroutine to move enemy distance of the shove
-    public IEnumerator CoShove(Vector3 toPos, float airTime)
+    public IEnumerator CoShove(Vector3 toPos, float shoveStr)
     {
         coRunning = true;
         shoving = true;
         grapple = false;
-        float elapsedTime = 0f;
-
-        while (elapsedTime < airTime)
+        //float elapsedTime = 0f;
+        float step = shoveStr * Time.deltaTime;
+        while (enemy.transform.position!=toPos /*elapsedTime < airTime*/)
         {
-            Vector3 startPos = enemy.transform.position;
-            var lerpVal = (elapsedTime / airTime);
-            enemy.transform.position = Vector3.Lerp(startPos, toPos, lerpVal);
-            elapsedTime += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+            enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, toPos, step);
+            yield return new WaitForFixedUpdate();
         }
-
-        //Debug.Log("We shoved. Grapple: " + grapple);
-
+        if (extend)
+            extendCoroutine = StartCoroutine(CoExtend(enemy.transform.position + extension, ExtendStrength, c));
         shoveCoroutine = null;
         shoving = false;
         coRunning = false;
     }
-    public IEnumerator CoSExtend(Vector3 toPos, float airTime)
+    public IEnumerator CoExtend(Vector3 toPos, float extendStr, bool ceiling)
     {
         coRunning = true;
 
         //Wait until shove is finished, then continue with rest of enum.
         // yield return new WaitUntil(() => !shoving);
 
-        float elapsedTime = 0f;
-        Debug.Log("Extending shove...");
-
-        while (elapsedTime < airTime)
+        //float elapsedTime = 0f;
+        //Debug.Log("Extending shove...");
+        float step = extendStr * Time.deltaTime;
+        //Debug.Log(ceiling);
+        if(!c)
         {
-            Vector3 startPos = enemy.transform.position;
-            var lerpVal = (elapsedTime / airTime);
-            enemy.transform.position = Vector3.Lerp(startPos, toPos, lerpVal);
-            elapsedTime += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+            while (enemy.transform.position != toPos)
+            {
+                //Debug.Log("From: " + enemy.transform.position + "\t" + "To: " + toPos);
+                //Debug.Log(StrOfShove+"  "+extendStr);
+                enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, toPos, step);
+                yield return new WaitForFixedUpdate();
+            }
         }
-        Debug.Log("Finished coroutine.");
+        else
+        {
+            //extend kick dist
+            Debug.Log("Kick extend goes here.");
+        }
         coRunning = false;
-        extendShoveCoroutine = null;
+        extendCoroutine = null;
     }
     public IEnumerator CoKick(Vector3 endPos, float airTime, float maxHeight)
     {
         coRunning = true;
-
+        kicking = true;
         float elapsedTime = 0f;
 
         grapple = false;
@@ -193,14 +205,14 @@ public abstract class Player : MonoBehaviour //, IPlayable
             //Debug.Log("toPos = " + toPos);
 
             var lerpVal = (elapsedTime / airTime);
-            Debug.Log("lerpVal = " + lerpVal);
+           // Debug.Log("lerpVal = " + lerpVal);
 
             //Debug.Log("lerpVal = " + lerpVal);
             // Debug.Log("(elapsedTime/airTime) * pChar.StrOfShove = " + lerpVal);
 
             Vector3 enemyPos = Vector3.Lerp(startPos, endPos, lerpVal);
 
-            Debug.Log("Mathf.Clamp01(lerpVal) = " + Mathf.Clamp01(lerpVal));
+            //Debug.Log("Mathf.Clamp01(lerpVal) = " + Mathf.Clamp01(lerpVal));
             enemyPos.y += maxHeight * Mathf.Sin(lerpVal * Mathf.PI);
 
             enemy.transform.position = enemyPos;
@@ -214,7 +226,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
         }
         enemy.transform.position = new Vector3(enemy.transform.position.x, ogHeight, 0);
 
-        Debug.Log("We Kicked. Grapple: " + grapple);
+        //Debug.Log("We Kicked. Grapple: " + grapple);
 
         kickCoroutine = null;
         coRunning = false;

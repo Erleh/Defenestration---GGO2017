@@ -20,7 +20,7 @@ public class FatigueController : MonoBehaviour {
             //Debug.Log("Passive Fatigue Value: " + pChar.PassiveFatigue*Time.deltaTime);
         }
         //disabling player ability to perform actions on full fatigue...
-        if (fatigueBar.fatigue >= 100){
+        if (fatigueBar.fatigue >= fatigueBar.maxFatigue){
             loseGame = true;
             Debug.Log("FATIGUED");
         }

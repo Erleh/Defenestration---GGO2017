@@ -4,55 +4,45 @@ using UnityEngine;
 
 public class pObstacle : MonoBehaviour
 {
-
-    public GameObject obstacle;
     public FatigueController fc;
-    public GameObject enemy;
+    public GameObject player;
     public Player p;
     public Vector3 extendDist;
-
+    public bool extend;
     public bool onCeiling;
     public float fatigueRelief;
     //public float air;
-
-    public Coroutine extendShoveCoroutine;
-    public Coroutine extendKickCoroutine;
+    private void Awake()
+    {
+        p = player.GetComponent<Player>();
+    }
     // Use this for initialization
-    void Start () {
-		
-	}
     //if another object (enemy) enters this object's detection radius, trigger the event
-    private void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         //Debug.Log("Entered object space.");
         //specify enemy entrance
         if(col.gameObject.CompareTag("Enemy"))
         {
             //if enemy is getting shoved through this radius
-            if (p.shoving /*|| p.kickCoroutine != null*/ )
+ 
+            if (p.shoving || p.kicking)
             {
-                Debug.Log("Checking coroutine");
-                //determine obstacle type with boolean, start new coroutine accordingly
-                if (!onCeiling)
-                {
-                    Debug.Log(enemy.transform.position);
-                    Debug.Log(extendDist);
-                    Debug.Log(enemy.transform.position + extendDist);
-                    p.extendShoveCoroutine = StartCoroutine(p.CoSExtend(enemy.transform.position + extendDist, 1));
-                    fc.AddFatigue(-fatigueRelief);
-                   
-                }
-                Destroy(obstacle);
+                p.extend = true;
+                //Debug.Log("Loc: " + enemy.transform.position + "\n" + "Extend: " + extendDist);
+                fc.AddFatigue(-fatigueRelief);
+                //Debug.Log(extendDist);
+               // Destroy(this.gameObject);
             }
 
         }
 
         //Relieve some player fatigue
     }
+    public Vector3 getExtension() { return extendDist; }
     // Update is called once per frame
+    void Update ()
+    {
 
-    //public IEnumerator coKExtend() { yield return new WaitForEndOfFrame(); }
-    void Update () {
-		
-	}
+    }
 }
