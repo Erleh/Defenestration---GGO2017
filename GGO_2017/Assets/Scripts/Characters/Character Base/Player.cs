@@ -23,6 +23,10 @@ public abstract class Player : MonoBehaviour //, IPlayable
     //Init. for shoving movement
     public bool grapple;
     public bool pushing;
+
+    //Bools for states are being used to trigger animations
+    public bool charging;
+    public bool kicking;
     public bool shoving;
     public bool kicking;
     public bool extend;
@@ -123,6 +127,9 @@ public abstract class Player : MonoBehaviour //, IPlayable
     {
         coRunning = true;
 
+        //charging is used to trigger animation
+        charging = true;
+
         //Debug.Log("Charging at Enemy...");
 
         Vector3 move = new Vector3(speed, 0, 0);
@@ -135,6 +142,10 @@ public abstract class Player : MonoBehaviour //, IPlayable
         //Debug.Log("Charged with speed: " + speed);
         extend = false;
         chargeCoroutine = null;
+
+        //charging = false to end animation
+        charging = false;
+
         coRunning = false;
     }
 
@@ -142,7 +153,14 @@ public abstract class Player : MonoBehaviour //, IPlayable
     public IEnumerator CoShove(Vector3 toPos, float shoveStr)
     {
         coRunning = true;
+
+        //shoving is used to trigger animation
         shoving = true;
+        Debug.Log("Shoving = " + shoving);
+
+        float elapsedTime = 0f;
+
+        //Debug.Log("We tryna shove");
         grapple = false;
         //float elapsedTime = 0f;
         float step = shoveStr * Time.deltaTime;
@@ -189,7 +207,10 @@ public abstract class Player : MonoBehaviour //, IPlayable
     public IEnumerator CoKick(Vector3 endPos, float airTime, float maxHeight)
     {
         coRunning = true;
+
+        //Kicking is used to trigger animation
         kicking = true;
+
         float elapsedTime = 0f;
 
         grapple = false;
@@ -228,6 +249,9 @@ public abstract class Player : MonoBehaviour //, IPlayable
 
         //Debug.Log("We Kicked. Grapple: " + grapple);
 
+        //Kicking ends animation
+        kicking = false;
+
         kickCoroutine = null;
         coRunning = false;
 
@@ -237,4 +261,12 @@ public abstract class Player : MonoBehaviour //, IPlayable
     public Vector3 getPlayerLoc() { return player.transform.position; }
 
     public bool getGrapple() { return grapple; }
+    public bool getPushing() { return pushing; }
+
+    /*
+    public bool getKicking() { return kicking; }
+    public bool getIdle() { return idle; }
+    public bool getGrappleIdle() { return grappleIdle; }
+    public bool getCharging() { return charging; }
+    */
 }
