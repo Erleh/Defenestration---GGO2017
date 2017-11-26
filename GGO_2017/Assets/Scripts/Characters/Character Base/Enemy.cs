@@ -26,6 +26,7 @@ public abstract class Enemy : MonoBehaviour//, IPlayable
 
     void Start()
     {
+        p = player.GetComponent<Player>();
     }
 
 	public void Resist()
@@ -58,7 +59,25 @@ public abstract class Enemy : MonoBehaviour//, IPlayable
             //Debug.Log("Collision");    <= works
 			grapple = true;
 		}
-	}
-
+    }
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("GameObstacle"))
+        {
+            Debug.Log("Registered Obstacle Entrance");
+            if (p.shoving || p.kicking)
+            {
+                GameObject o = col.gameObject;
+                player.GetComponent<Player>().obstacle = o;
+                p.extension = o.GetComponent<pObstacle>().extendDist;
+                p.c = o.GetComponent<pObstacle>().onCeiling;
+                p.extend = true;
+               // Debug.Log(p.c);
+                //Debug.Log(p.extension);
+                //Debug.Log(extendDist);
+                Destroy(col.gameObject);
+            }
+        }
+    }
     public Vector3 getEnemyLoc() { return enemy.transform.position; }
 }

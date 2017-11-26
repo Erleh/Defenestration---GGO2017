@@ -14,7 +14,8 @@ public class Guard : Player
         PushFatigue = 0.05f;
         ShoveFatigue = 3f;
         //speed = -.2f;
-        //StrOfShove = -3f;
+        StrOfShove = 20f;
+        ExtendStrength = StrOfShove * 1.5f;
         /*Need implementation first*/
         //ShoveFatigue = 5f;
         //KickFatigue = 7f;
@@ -70,7 +71,7 @@ public class Guard : Player
             if (grapple && !coRunning)
             {
                 //can't shove if already shoving
-                if (Input.GetKeyDown(KeyCode.Z) && shoveCoroutine == null && extendShoveCoroutine == null)
+                if (Input.GetKeyDown(KeyCode.Z) && shoveCoroutine == null && extendCoroutine == null)
                 {
                     pushing = false;
                     Shove();
@@ -104,12 +105,19 @@ public class Guard : Player
                 //kicking = false;
 
                 //waits for full  shove lerp to play before charging back at enemy
-                if (shoveCoroutine == null && extendShoveCoroutine == null && kickCoroutine == null)
+                //debug test statement:
+               // if(extendShoveCoroutine != null) { Debug.Log("Extend shove still running..."); }
+                if (shoveCoroutine == null && extendCoroutine == null && kickCoroutine == null)
                     chargeCoroutine = StartCoroutine(ChargeAtEnemy());
 
                     anim.SetBool("Grapple", grapple);
                 }
             }
+        }
+        else {
+            pushing = false;
+            //Lose Game here
+            Debug.Log("Lost the game. Fatigued.");
         }
     }
 }
