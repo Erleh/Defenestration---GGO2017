@@ -38,7 +38,7 @@ public class Guard : Player
 
     void Start()
     {
-        
+
     }
 
     public void OnCharacterPush()
@@ -70,7 +70,7 @@ public class Guard : Player
             if (grapple && !coRunning)
             {
                 //can't shove if already shoving
-                if (Input.GetKeyDown(KeyCode.Z) && shoveCoroutine == null)
+                if (Input.GetKeyDown(KeyCode.Z) && shoveCoroutine == null && extendShoveCoroutine == null)
                 {
                     pushing = false;
                     Shove();
@@ -90,7 +90,7 @@ public class Guard : Player
                     Push();
                     //Debug.Log("Work it.");
 
-                    Debug.Log("Pushing = " + pushing);
+                   // Debug.Log("Pushing = " + pushing);
                 }
                 //sets variable to false so enemy can continue resisting in their update
                 if (Input.GetKeyUp(KeyCode.Space))
@@ -103,9 +103,8 @@ public class Guard : Player
                 pushing = false;
                 //kicking = false;
 
-                //waits for full shove lerp to play before charging back at enemy
-                if (shoveCoroutine == null && kickCoroutine == null)
-                {
+                //waits for full  shove lerp to play before charging back at enemy
+                if (shoveCoroutine == null && extendShoveCoroutine == null && kickCoroutine == null)
                     chargeCoroutine = StartCoroutine(ChargeAtEnemy());
 
                     anim.SetBool("Grapple", grapple);
