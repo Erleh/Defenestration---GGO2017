@@ -23,6 +23,10 @@ public abstract class Player : MonoBehaviour //, IPlayable
     public bool grapple;
     public bool pushing;
 
+    //Bools for states are being used to trigger animations
+    public bool charging;
+    public bool kicking;
+    public bool shoving;
 
     //Duration of shove
     public float airTime;
@@ -115,6 +119,9 @@ public abstract class Player : MonoBehaviour //, IPlayable
     {
         coRunning = true;
 
+        //charging is used to trigger animation
+        charging = true;
+
         //Debug.Log("Charging at Enemy...");
 
         Vector3 move = new Vector3(speed, 0, 0);
@@ -127,6 +134,10 @@ public abstract class Player : MonoBehaviour //, IPlayable
         //Debug.Log("Charged with speed: " + speed);
 
         chargeCoroutine = null;
+
+        //charging = false to end animation
+        charging = false;
+
         coRunning = false;
     }
 
@@ -134,6 +145,11 @@ public abstract class Player : MonoBehaviour //, IPlayable
     public IEnumerator CoShove(Vector3 toPos, float airTime)
     {
         coRunning = true;
+
+        //shoving is used to trigger animation
+        shoving = true;
+        Debug.Log("Shoving = " + shoving);
+
         float elapsedTime = 0f;
 
         //Debug.Log("We tryna shove");
@@ -161,6 +177,11 @@ public abstract class Player : MonoBehaviour //, IPlayable
 
         Debug.Log("We shoved. Grapple: " + grapple);
 
+        //shoving = false ends animation
+        shoving = false;
+
+        Debug.Log("shoving = " + shoving);
+
         shoveCoroutine = null;
         coRunning = false;
     }
@@ -168,6 +189,9 @@ public abstract class Player : MonoBehaviour //, IPlayable
     public IEnumerator CoKick(Vector3 endPos, float airTime, float maxHeight)
     {
         coRunning = true;
+
+        //Kicking is used to trigger animation
+        kicking = true;
 
         float elapsedTime = 0f;
 
@@ -184,14 +208,14 @@ public abstract class Player : MonoBehaviour //, IPlayable
             //Debug.Log("toPos = " + toPos);
 
             var lerpVal = (elapsedTime / airTime);
-            Debug.Log("lerpVal = " + lerpVal);
+            //Debug.Log("lerpVal = " + lerpVal);
 
             //Debug.Log("lerpVal = " + lerpVal);
             // Debug.Log("(elapsedTime/airTime) * pChar.StrOfShove = " + lerpVal);
 
             Vector3 enemyPos = Vector3.Lerp(startPos, endPos, lerpVal);
 
-            Debug.Log("Mathf.Clamp01(lerpVal) = " + Mathf.Clamp01(lerpVal));
+            //Debug.Log("Mathf.Clamp01(lerpVal) = " + Mathf.Clamp01(lerpVal));
             enemyPos.y += maxHeight * Mathf.Sin(lerpVal * Mathf.PI);
 
             enemy.transform.position = enemyPos;
@@ -205,7 +229,10 @@ public abstract class Player : MonoBehaviour //, IPlayable
         }
         enemy.transform.position = new Vector3(enemy.transform.position.x, ogHeight, 0);
 
-        Debug.Log("We Kicked. Grapple: " + grapple);
+        //Debug.Log("We Kicked. Grapple: " + grapple);
+
+        //Kicking ends animation
+        kicking = false;
 
         kickCoroutine = null;
         coRunning = false;
@@ -216,4 +243,12 @@ public abstract class Player : MonoBehaviour //, IPlayable
     public Vector3 getPlayerLoc() { return player.transform.position; }
 
     public bool getGrapple() { return grapple; }
+    public bool getPushing() { return pushing; }
+
+    /*
+    public bool getKicking() { return kicking; }
+    public bool getIdle() { return idle; }
+    public bool getGrappleIdle() { return grappleIdle; }
+    public bool getCharging() { return charging; }
+    */
 }
