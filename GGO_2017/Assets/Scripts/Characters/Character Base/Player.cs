@@ -163,7 +163,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
         
         float step = shoveStr * Time.deltaTime;
 
-        while (elapsedTime < airTime)
+        while (enemy.transform.position != toPos)
         {
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, toPos, step);
             yield return new WaitForFixedUpdate();
