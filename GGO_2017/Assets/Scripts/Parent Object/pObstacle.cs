@@ -26,9 +26,9 @@ public class pObstacle : MonoBehaviour
         {
             //if enemy is getting shoved through this radius
  
-            if (p.shoving || p.kicking)
+            if ((p.shoving && !onCeiling) || (p.kicking && onCeiling))
             {
-                p.extend = true;
+                //p.extend = true;
                 //Debug.Log("Loc: " + enemy.transform.position + "\n" + "Extend: " + extendDist);
                 fc.AddFatigue(-fatigueRelief);
                 //Debug.Log(extendDist);
