@@ -50,7 +50,6 @@ public class Guard : Player
 
     public void OnCharacterShove()
     {
-        Debug.Log("Shoving anim = " + shoving);
         anim.SetBool("Shove", shoving);
     }
 
@@ -120,5 +119,4 @@ public class Guard : Player
             //Lose Game here
             Debug.Log("Lost the game. Fatigued.");
         }
-    }
 }

@@ -161,9 +161,12 @@ public abstract class Player : MonoBehaviour //, IPlayable
 
         //Debug.Log("We tryna shove");
         grapple = false;
+
         //float elapsedTime = 0f;
+        /*
         float step = shoveStr * Time.deltaTime;
-        while (enemy.transform.position!=toPos /*elapsedTime < airTime*/)
+        while (enemy.transform.position!=toPos /*elapsedTime < airTime)*/
+        while (elapsedTime < airTime)
         {
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, toPos, step);
             yield return new WaitForFixedUpdate();

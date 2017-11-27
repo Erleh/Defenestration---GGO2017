@@ -14,7 +14,7 @@ public abstract class Enemy : MonoBehaviour//, IPlayable
 
 	private bool shove;
 	//private bool kick = false;
-	private bool resisting;
+	public bool resisting;
     //public Vector3 shovedTo;
 
     
@@ -49,7 +49,7 @@ public abstract class Enemy : MonoBehaviour//, IPlayable
             player.transform.position += move;
 
             //Debug.Log("onPush");
-			resisting = false;
+			resisting = true;
 		}
 	}
 
