@@ -271,7 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fatigue: 0
   minFatigue: 0
-  maxFatigue: 0
+  maxFatigue: 200
 --- !u!114 &129759070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -472,6 +472,11 @@ Prefab:
       propertyPath: p
       value: 
       objectReference: {fileID: 748628737}
+    - target: {fileID: 114235541873503366, guid: 316680eaa374f744489e2287cd2eb7dc,
+        type: 2}
+      propertyPath: shoveDist.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 316680eaa374f744489e2287cd2eb7dc, type: 2}
   m_IsPrefabParent: 0

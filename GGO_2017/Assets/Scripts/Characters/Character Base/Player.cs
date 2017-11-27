@@ -163,9 +163,9 @@ public abstract class Player : MonoBehaviour //, IPlayable
         grapple = false;
 
         //float elapsedTime = 0f;
-        /*
+        
         float step = shoveStr * Time.deltaTime;
-        while (enemy.transform.position!=toPos /*elapsedTime < airTime)*/
+
         while (elapsedTime < airTime)
         {
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, toPos, step);
