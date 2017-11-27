@@ -14,6 +14,7 @@ public class Guard : Player
         PushFatigue = 0.05f;
         ShoveFatigue = 3f;
         //speed = -.2f;
+        StrOfKick = 10f;
         StrOfShove = 20f;
         ExtendStrength = StrOfShove * 1.5f;
         /*Need implementation first*/
@@ -113,8 +114,8 @@ public class Guard : Player
                     anim.SetBool("Grapple", grapple);
                 }
             }
-        }
-        else {
+        else
+        {
             pushing = false;
             //Lose Game here
             Debug.Log("Lost the game. Fatigued.");

@@ -17,7 +17,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
     public float PushFatigue { get; set; }
     public float ShoveFatigue { get; set; }
     public float KickFatigue { get; set; }
-    //public float StrOfKick { get; set; }
+    public float StrOfKick { get; set; }
     public float StrOfShove { get; set; }
     public float ExtendStrength { get; set; }
     //Init. for shoving movement
@@ -28,7 +28,6 @@ public abstract class Player : MonoBehaviour //, IPlayable
     public bool charging;
     public bool kicking;
     public bool shoving;
-    public bool kicking;
     public bool extend;
     public bool c;
     //Duration of shove
@@ -98,7 +97,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
         {
             //Detach child from player
             enemy.transform.SetParent(null);
-            kickCoroutine = StartCoroutine(CoKick(enemy.transform.position + kickDistance, 1, maxHeightOnKick));
+            kickCoroutine = StartCoroutine(CoKick(enemy.transform.position + kickDistance, maxHeightOnKick, StrOfKick));
             fc.AddFatigue(KickFatigue);
             //Play Shove Animation
         }
@@ -204,10 +203,12 @@ public abstract class Player : MonoBehaviour //, IPlayable
         coRunning = false;
         extendCoroutine = null;
     }
-    public IEnumerator CoKick(Vector3 endPos, float airTime, float maxHeight)
+    public IEnumerator CoKick(Vector3 toPos, float maxHeight, float kickStrength)
     {
         coRunning = true;
-
+        float nextX;
+        float baseY;
+        
         //Kicking is used to trigger animation
         kicking = true;
 
@@ -217,8 +218,40 @@ public abstract class Player : MonoBehaviour //, IPlayable
 
         float ogHeight = enemy.transform.position.y;
         //var counter = 0;
+        float beginX = enemy.transform.position.x;
+        float finalX = toPos.x;
+        float xDist = toPos.x - enemy.transform.position.x;
+        float arc;
+        //approx. max height
+        float mH = ogHeight + 4.46f;
+        //Vector3 vertex = new Vector3((toPos.x - enemy.transform.position.x) / 2, maxHeight); 
+        while(enemy.transform.position != toPos)
+        {
+            //Debug.Log("Kick Strength: " + kickStrength);
+            if (enemy.transform.position.y >= mH)
+                kickStrength += 6f;
+            // Compute the next position, with arc added in
+            /*MoveTowards x position while lerping y position*/
+            
+            //next x float is computed from this transform.position x -> final x position, step taken is kick strength multiplied by time
+            nextX = Mathf.MoveTowards(enemy.transform.position.x, finalX, kickStrength * Time.deltaTime);
 
-        while (elapsedTime <= airTime)
+            //lerp current y to final y
+            baseY = Mathf.Lerp(enemy.transform.position.y, toPos.y, (nextX - beginX) / xDist);
+
+            //compute arc, never -actually- reaches this MaxHeight value, just uses it for calculating arc
+            arc = maxHeight * (nextX - beginX) * (nextX - finalX) / (-0.25f * xDist * xDist);
+
+            Vector3 nextPos = new Vector3(nextX, baseY + arc, enemy.transform.position.z);
+            enemy.transform.position = nextPos;
+            yield return new WaitForEndOfFrame();
+            /*if(enemy.transform.position.y != maxHeight)
+            {
+                enemy.transform.position = new Vector3(enemy.transform.position, vertex);
+            }
+            yield return new WaitForFixedUpdate();*/
+        }
+        /*while (elapsedTime <= airTime)
         {
             Vector3 startPos = enemy.transform.position;
 
@@ -244,7 +277,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
             //counter++;
 
             yield return new WaitForEndOfFrame();
-        }
+        }*/
         enemy.transform.position = new Vector3(enemy.transform.position.x, ogHeight, 0);
 
         //Debug.Log("We Kicked. Grapple: " + grapple);
