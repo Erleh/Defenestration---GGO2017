@@ -92,7 +92,7 @@ public class Guard : Player
                     Push();
                     //Debug.Log("Work it.");
 
-                    // Debug.Log("Pushing = " + pushing);
+                    Debug.Log("Pushing = " + pushing);
                 }
                 //sets variable to false so enemy can continue resisting in their update
                 if (Input.GetKeyUp(KeyCode.Space))
