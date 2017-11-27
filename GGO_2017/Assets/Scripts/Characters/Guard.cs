@@ -51,7 +51,6 @@ public class Guard : Player
 
     public void OnCharacterShove()
     {
-        Debug.Log("Shoving anim = " + shoving);
         anim.SetBool("Shove", shoving);
     }
 
@@ -79,7 +78,7 @@ public class Guard : Player
                     Shove();
                 }
 
-                if(Input.GetKeyDown(KeyCode.X) && kickCoroutine == null)
+                if (Input.GetKeyDown(KeyCode.X) && kickCoroutine == null)
                 {
                     pushing = false;
                     //kicking = true;
@@ -93,7 +92,7 @@ public class Guard : Player
                     Push();
                     //Debug.Log("Work it.");
 
-                   // Debug.Log("Pushing = " + pushing);
+                    // Debug.Log("Pushing = " + pushing);
                 }
                 //sets variable to false so enemy can continue resisting in their update
                 if (Input.GetKeyUp(KeyCode.Space))
@@ -108,13 +107,13 @@ public class Guard : Player
 
                 //waits for full  shove lerp to play before charging back at enemy
                 //debug test statement:
-               // if(extendShoveCoroutine != null) { Debug.Log("Extend shove still running..."); }
+                // if(extendShoveCoroutine != null) { Debug.Log("Extend shove still running..."); }
                 if (shoveCoroutine == null && extendCoroutine == null && kickCoroutine == null)
                     chargeCoroutine = StartCoroutine(ChargeAtEnemy());
 
-                    anim.SetBool("Grapple", grapple);
-                }
+                anim.SetBool("Grapple", grapple);
             }
+        }
         else
         {
             pushing = false;
