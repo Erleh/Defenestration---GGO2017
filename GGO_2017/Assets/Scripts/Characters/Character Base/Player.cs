@@ -153,7 +153,6 @@ public abstract class Player : MonoBehaviour //, IPlayable
 
         //Debug.Log("We tryna shove");
         grapple = false;
-        float elapsedTime = 0f;
 
         while (elapsedTime < airTime)
         {
