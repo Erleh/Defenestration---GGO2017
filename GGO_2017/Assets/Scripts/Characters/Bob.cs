@@ -6,27 +6,12 @@ public class Bob : Enemy
 {
     Animator anim;
 
-    //This will be used to change collider size during push animation
-    //Vector2 normColliderSize;
-    //Vector2 normOffSet;
-    //Vector2 colliderSizeEnemy;
-    //Vector2 colliderOffSetEnemy;
-
     void Awake()
     {
         shoveAir = 1f;
         shoveDist.Set(-2.5f, 0f, 0f);
 
-        /*
-        doestnt work
-
-        normColliderSize = enemy.GetComponent<BoxCollider2D>().size;
-        normOffSet = enemy.GetComponent<BoxCollider2D>().offset;
-        colliderSizeEnemy = new Vector2(0.5801693f, 0.8001462f);
-        colliderOffSetEnemy = new Vector2(0.1323348f, -0.004211366f);
-        */
         //sets animation component
-
         anim = this.GetComponent<Animator>();
     }
 
@@ -79,18 +64,10 @@ public class Bob : Enemy
         {
             //Debug.Log("Resisting..");
             Resist();
-
-            //Doesnt work
-            //enemy.GetComponent<BoxCollider2D>().size = colliderSizeEnemy;
-            //enemy.GetComponent<BoxCollider2D>().offset = colliderOffSetEnemy;
         }
         else
         {
             resisting = false;
-
-            //Doesnt work
-            //enemy.GetComponent<BoxCollider2D>().size = normOffSet;
-            //enemy.GetComponent<BoxCollider2D>().size = normColliderSize;
         }
         Debug.Log("resisting = " + resisting);
 
