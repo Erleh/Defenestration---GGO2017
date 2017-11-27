@@ -9,6 +9,7 @@ public abstract class Enemy : MonoBehaviour//, IPlayable
     public Player p;
 	public float speed;
 
+    public bool canBreak;
 	public bool grapple;
 
 	private bool shove;
@@ -16,11 +17,12 @@ public abstract class Enemy : MonoBehaviour//, IPlayable
 	private bool resisting;
     //public Vector3 shovedTo;
 
-
+    
     private float startTime;
     public Vector3 shoveDist;
     public Vector3 newShoveLoc;
     public float shoveAir;
+    public float groundY;
 
     private Coroutine shoveCoroutine = null;
 
@@ -65,18 +67,36 @@ public abstract class Enemy : MonoBehaviour//, IPlayable
         if (col.gameObject.CompareTag("GameObstacle"))
         {
             Debug.Log("Registered Obstacle Entrance");
-            if (p.shoving || p.kicking)
+            if ((p.shoving || p.kicking) && canBreak)
+            {
+                GameObject o = col.gameObject;
+                p.obstacle = o;
+                p.c = o.GetComponent<pObstacle>().onCeiling;
+                if((p.shoving && !p.c) || (p.kicking && p.c))
+                {
+                    p.extension = o.GetComponent<pObstacle>().extendDist;
+                    p.extend = true;
+                    // Debug.Log(p.c);
+                    //Debug.Log(p.extension);
+                    //Debug.Log(extendDist);
+                    Destroy(col.gameObject);
+                    canBreak = false;
+                }
+
+            }
+
+            /*else if (p.kicking)
             {
                 GameObject o = col.gameObject;
                 player.GetComponent<Player>().obstacle = o;
                 p.extension = o.GetComponent<pObstacle>().extendDist;
                 p.c = o.GetComponent<pObstacle>().onCeiling;
                 p.extend = true;
-               // Debug.Log(p.c);
+                // Debug.Log(p.c);
                 //Debug.Log(p.extension);
                 //Debug.Log(extendDist);
                 Destroy(col.gameObject);
-            }
+            }*/
         }
     }
     public Vector3 getEnemyLoc() { return enemy.transform.position; }

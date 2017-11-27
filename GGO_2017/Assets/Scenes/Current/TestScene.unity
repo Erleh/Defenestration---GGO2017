@@ -210,7 +210,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 120607644}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 350, y: 215, z: 4.568019}
+  m_LocalPosition: {x: 346.74, y: 211.73, z: 4.568019}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
@@ -464,8 +464,8 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 563443607}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 343, y: 211, z: 0}
-  m_LocalScale: {x: 0.71458334, y: 0.71458334, z: 0.71458334}
+  m_LocalPosition: {x: 339.5, y: 208, z: 0}
+  m_LocalScale: {x: 0.70729166, y: 0.70729166, z: 0.70729166}
   m_Children:
   - {fileID: 959189186}
   - {fileID: 129759068}
@@ -545,6 +545,16 @@ Prefab:
         type: 2}
       propertyPath: orthographic size
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114235997220617710, guid: a78349859b376cd41873770143f7deac,
+        type: 2}
+      propertyPath: maxHeightOnKick
+      value: 1.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 114235997220617710, guid: a78349859b376cd41873770143f7deac,
+        type: 2}
+      propertyPath: kickDistance.x
+      value: -6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a78349859b376cd41873770143f7deac, type: 2}
@@ -722,12 +732,12 @@ Prefab:
     - target: {fileID: 224004036911776484, guid: 4bf2db52cea04c046ab7cf5cca87f9f2,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2
+      value: 157.60979
       objectReference: {fileID: 0}
     - target: {fileID: 224302197552007762, guid: 4bf2db52cea04c046ab7cf5cca87f9f2,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 158.235
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4bf2db52cea04c046ab7cf5cca87f9f2, type: 2}
