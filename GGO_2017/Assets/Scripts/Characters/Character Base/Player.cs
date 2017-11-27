@@ -155,10 +155,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
 
         //shoving is used to trigger animation
         shoving = true;
-        Debug.Log("Shoving = " + shoving);
-
-        float elapsedTime = 0f;
-
+        //Debug.Log("Shoving = " + shoving);
         //Debug.Log("We tryna shove");
         grapple = false;
         //float elapsedTime = 0f;
@@ -169,12 +166,12 @@ public abstract class Player : MonoBehaviour //, IPlayable
             yield return new WaitForFixedUpdate();
         }
         if (extend)
-            extendCoroutine = StartCoroutine(CoExtend(enemy.transform.position + extension, ExtendStrength, c));
+            extendCoroutine = StartCoroutine(CoExtend(toPos + extension, ExtendStrength));
         shoveCoroutine = null;
         shoving = false;
         coRunning = false;
     }
-    public IEnumerator CoExtend(Vector3 toPos, float extendStr, bool ceiling)
+    public IEnumerator CoExtend(Vector3 toPos, float extendStr)
     {
         coRunning = true;
 
@@ -197,6 +194,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
         }
         else
         {
+            while(enemy.transform.position != toPos)
             //extend kick dist
             Debug.Log("Kick extend goes here.");
         }
@@ -206,79 +204,24 @@ public abstract class Player : MonoBehaviour //, IPlayable
     public IEnumerator CoKick(Vector3 toPos, float maxHeight, float kickStrength)
     {
         coRunning = true;
-        float nextX;
-        float baseY;
         
         //Kicking is used to trigger animation
         kicking = true;
-
-        float elapsedTime = 0f;
-
         grapple = false;
 
         float ogHeight = enemy.transform.position.y;
         //var counter = 0;
-        float beginX = enemy.transform.position.x;
-        float finalX = toPos.x;
-        float xDist = toPos.x - enemy.transform.position.x;
-        float arc;
         //approx. max height
-        float mH = ogHeight + 4.46f;
         //Vector3 vertex = new Vector3((toPos.x - enemy.transform.position.x) / 2, maxHeight); 
         while(enemy.transform.position != toPos)
         {
-            //Debug.Log("Kick Strength: " + kickStrength);
-            if (enemy.transform.position.y >= mH)
-                kickStrength += 6f;
-            // Compute the next position, with arc added in
-            /*MoveTowards x position while lerping y position*/
-            
-            //next x float is computed from this transform.position x -> final x position, step taken is kick strength multiplied by time
-            nextX = Mathf.MoveTowards(enemy.transform.position.x, finalX, kickStrength * Time.deltaTime);
-
-            //lerp current y to final y
-            baseY = Mathf.Lerp(enemy.transform.position.y, toPos.y, (nextX - beginX) / xDist);
-
-            //compute arc, never -actually- reaches this MaxHeight value, just uses it for calculating arc
-            arc = maxHeight * (nextX - beginX) * (nextX - finalX) / (-0.25f * xDist * xDist);
-
-            Vector3 nextPos = new Vector3(nextX, baseY + arc, enemy.transform.position.z);
-            enemy.transform.position = nextPos;
+            //Debug.Log(SendInArc(enemy.transform.position, toPos, mH, maxHeight, kickStrength, nextX, baseY, arc));
+            enemy.transform.position = SendInArc(enemy.transform.position, toPos, ogHeight + 4.5f, maxHeight, kickStrength, 0f, 0f, 0f, (toPos.x-enemy.transform.position.x), enemy.transform.position.x, toPos.x);
+            Debug.Log(kickStrength);
             yield return new WaitForEndOfFrame();
-            /*if(enemy.transform.position.y != maxHeight)
-            {
-                enemy.transform.position = new Vector3(enemy.transform.position, vertex);
-            }
-            yield return new WaitForFixedUpdate();*/
         }
-        /*while (elapsedTime <= airTime)
-        {
-            Vector3 startPos = enemy.transform.position;
-
-            //Debug.Log("startPos = " + startPos);
-            //Debug.Log("toPos = " + toPos);
-
-            var lerpVal = (elapsedTime / airTime);
-           // Debug.Log("lerpVal = " + lerpVal);
-
-            //Debug.Log("lerpVal = " + lerpVal);
-            // Debug.Log("(elapsedTime/airTime) * pChar.StrOfShove = " + lerpVal);
-
-            Vector3 enemyPos = Vector3.Lerp(startPos, endPos, lerpVal);
-
-            //Debug.Log("Mathf.Clamp01(lerpVal) = " + Mathf.Clamp01(lerpVal));
-            enemyPos.y += maxHeight * Mathf.Sin(lerpVal * Mathf.PI);
-
-            enemy.transform.position = enemyPos;
-
-            //Debug.Log("enemy trans: " + enemy.transform.position);
-
-            elapsedTime += Time.deltaTime;
-            //counter++;
-
-            yield return new WaitForEndOfFrame();
-        }*/
-        enemy.transform.position = new Vector3(enemy.transform.position.x, ogHeight, 0);
+ 
+        //enemy.transform.position = new Vector3(enemy.transform.position.x, ogHeight, 0);
 
         //Debug.Log("We Kicked. Grapple: " + grapple);
 
@@ -290,7 +233,27 @@ public abstract class Player : MonoBehaviour //, IPlayable
 
         //return null;
     }
+    public Vector3 SendInArc(Vector3 startPos, Vector3 endPos, float mH, float arcHeight, float arcSpeed, float nextX, float baseY, float arc, float xDist, float beginX, float finalX)
+    {
+        //Debug.Log("Kick Strength: " + kickStrength);
+        if (startPos.y >= mH)
+            arcSpeed += 3f;
+        // Compute the next position, with arc added in
+        /*MoveTowards x position while lerping y position*/
+        Debug.Log(arcSpeed);
+        //next x float is computed from this transform.position x -> final x position, step taken is kick strength multiplied by time
+        nextX = Mathf.MoveTowards(startPos.x, endPos.x, arcSpeed * Time.deltaTime);
 
+        //lerp current y to final y
+        baseY = Mathf.Lerp(startPos.y, endPos.y, (nextX - beginX) / (xDist));
+
+        //compute arc, never -actually- reaches this MaxHeight value, just uses it for calculating arc
+        arc = arcHeight * (nextX - beginX) * (nextX - finalX) / (-0.25f * (xDist) * (xDist));
+
+        Vector3 nextPos = new Vector3(nextX, baseY + arc, startPos.z);
+        startPos = nextPos;
+        return startPos;
+    }
     public Vector3 getPlayerLoc() { return player.transform.position; }
 
     public bool getGrapple() { return grapple; }

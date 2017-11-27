@@ -15,9 +15,9 @@ public class Bob : Enemy
     }
     void FixedUpdate()
     {
-        Debug.Log(canBreak);
-        Debug.Log(groundY);
-        Debug.Log(this.gameObject.transform.position.y);
+        //Debug.Log(canBreak);
+        //Debug.Log(groundY);
+        //Debug.Log(this.gameObject.transform.position.y);
         if(this.gameObject.transform.position.y == groundY)
         {
             canBreak = true;
