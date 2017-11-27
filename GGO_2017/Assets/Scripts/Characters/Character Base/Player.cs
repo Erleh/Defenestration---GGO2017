@@ -168,6 +168,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, toPos, step);
             yield return new WaitForFixedUpdate();
         }
+
         if (extend)
             extendCoroutine = StartCoroutine(CoExtend(toPos + extension, ExtendStrength));
         shoveCoroutine = null;
