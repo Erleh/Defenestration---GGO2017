@@ -10,6 +10,7 @@ public class pObstacle : MonoBehaviour
     public Vector3 extendDist;
     public bool extend;
     public bool onCeiling;
+    public float extStr;
     public float fatigueRelief;
     //public float air;
     private void Awake()
