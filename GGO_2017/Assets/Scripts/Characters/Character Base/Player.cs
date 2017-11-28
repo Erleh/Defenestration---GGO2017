@@ -30,6 +30,10 @@ public abstract class Player : MonoBehaviour //, IPlayable
     public bool shoving;
     public bool extend;
     public bool c;
+
+    //win condition
+    public bool win;
+
     //Duration of shove
     public float airTime;
     public float extendAirTime;
@@ -176,6 +180,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
         shoving = false;
         coRunning = false;
     }
+    
     public IEnumerator CoExtend(Vector3 toPos, float extendStr)
     {
         coRunning = true;
@@ -208,9 +213,12 @@ public abstract class Player : MonoBehaviour //, IPlayable
             }
             //Debug.Log("Kick extend goes here.");
         }
+        kicking = false;
+        shoving = false;
         coRunning = false;
         extendCoroutine = null;
     }
+
     public IEnumerator CoKick(Vector3 toPos, float maxHeight, float kickStrength)
     {
         coRunning = true;
