@@ -17,7 +17,7 @@ public class Guard : Player
         //speed = -.2f;
         StrOfKick = 10f;
         StrOfShove = 20f;
-        ExtendStrength = StrOfShove * 1.5f;
+        ExtendStrength = 2f;
         /*Need implementation first*/
         //ShoveFatigue = 5f;
         //KickFatigue = 7f;
