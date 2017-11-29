@@ -30,6 +30,10 @@ public abstract class Player : MonoBehaviour //, IPlayable
     public bool shoving;
     public bool extend;
     public bool c;
+
+    //win condition
+    public bool win;
+
     //Duration of shove
     public float airTime;
     public float extendAirTime;
@@ -44,6 +48,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
     public Vector3 shoveDistance;
     public Vector3 kickDistance;
     public Vector3 extension;
+    private float height;
     //Quick hack for extension distance
     //public Vector3 extendDist;
     //public bool onCeiling;
@@ -168,12 +173,14 @@ public abstract class Player : MonoBehaviour //, IPlayable
             enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, toPos, step);
             yield return new WaitForFixedUpdate();
         }
+
         if (extend)
-            extendCoroutine = StartCoroutine(CoExtend(toPos + extension, ExtendStrength));
+            extendCoroutine = StartCoroutine(CoExtend(toPos + extension, ExtendStrength+StrOfShove));
         shoveCoroutine = null;
         shoving = false;
         coRunning = false;
     }
+    
     public IEnumerator CoExtend(Vector3 toPos, float extendStr)
     {
         coRunning = true;
@@ -197,13 +204,21 @@ public abstract class Player : MonoBehaviour //, IPlayable
         }
         else
         {
-            while(enemy.transform.position != toPos)
-            //extend kick dist
-            Debug.Log("Kick extend goes here.");
+            height = enemy.transform.position.y;
+            while (enemy.transform.position != toPos)
+            {
+                //Debug.Log("Transforming... " + enemy.transform.position + ":" + toPos);
+                enemy.transform.position = ArcingVector(enemy.transform.position, toPos, extendStr, .1f);
+                yield return new WaitForFixedUpdate();
+            }
+            //Debug.Log("Kick extend goes here.");
         }
+        kicking = false;
+        shoving = false;
         coRunning = false;
         extendCoroutine = null;
     }
+
     public IEnumerator CoKick(Vector3 toPos, float maxHeight, float kickStrength)
     {
         coRunning = true;
@@ -212,15 +227,20 @@ public abstract class Player : MonoBehaviour //, IPlayable
         kicking = true;
         grapple = false;
 
-        float ogHeight = enemy.transform.position.y;
+        height = enemy.transform.position.y;
         //var counter = 0;
         //approx. max height
         //Vector3 vertex = new Vector3((toPos.x - enemy.transform.position.x) / 2, maxHeight); 
         while(enemy.transform.position != toPos)
         {
             //Debug.Log(SendInArc(enemy.transform.position, toPos, mH, maxHeight, kickStrength, nextX, baseY, arc));
-            enemy.transform.position = SendInArc(enemy.transform.position, toPos, ogHeight + 4.5f, maxHeight, kickStrength, 0f, 0f, 0f, (toPos.x-enemy.transform.position.x), enemy.transform.position.x, toPos.x);
-            Debug.Log(kickStrength);
+            enemy.transform.position = ArcingVector(enemy.transform.position, toPos, kickStrength, maxHeight);
+            if(extend)
+            {
+                extendCoroutine = StartCoroutine(CoExtend(toPos + extension, ExtendStrength+kickStrength));
+                kickCoroutine = null;
+                yield break;
+            }
             yield return new WaitForEndOfFrame();
         }
  
@@ -236,26 +256,16 @@ public abstract class Player : MonoBehaviour //, IPlayable
 
         //return null;
     }
-    public Vector3 SendInArc(Vector3 startPos, Vector3 endPos, float mH, float arcHeight, float arcSpeed, float nextX, float baseY, float arc, float xDist, float beginX, float finalX)
+    public Vector3 ArcingVector(Vector3 startPos, Vector3 endPos, float arcSpeed, float arcHeight)
     {
-        //Debug.Log("Kick Strength: " + kickStrength);
-        if (startPos.y >= mH)
-            arcSpeed += 3f;
-        // Compute the next position, with arc added in
-        /*MoveTowards x position while lerping y position*/
-        Debug.Log(arcSpeed);
-        //next x float is computed from this transform.position x -> final x position, step taken is kick strength multiplied by time
-        nextX = Mathf.MoveTowards(startPos.x, endPos.x, arcSpeed * Time.deltaTime);
-
-        //lerp current y to final y
-        baseY = Mathf.Lerp(startPos.y, endPos.y, (nextX - beginX) / (xDist));
-
-        //compute arc, never -actually- reaches this MaxHeight value, just uses it for calculating arc
-        arc = arcHeight * (nextX - beginX) * (nextX - finalX) / (-0.25f * (xDist) * (xDist));
-
-        Vector3 nextPos = new Vector3(nextX, baseY + arc, startPos.z);
-        startPos = nextPos;
-        return startPos;
+        float x0 = startPos.x;
+        float x1 = endPos.x;
+        float xDist = x1 - x0;
+        float nextX = Mathf.MoveTowards(startPos.x, x1, arcSpeed * Time.deltaTime);
+        float baseY = Mathf.Lerp(startPos.y, endPos.y, (nextX - x0) / (xDist));
+        float arc = arcHeight * (nextX - x0) * (nextX - x1) / (-0.25f * (xDist) * (xDist));
+        //Debug.Log(arc);
+        return new Vector3(nextX, baseY + arc, startPos.z);
     }
     public Vector3 getPlayerLoc() { return player.transform.position; }
 

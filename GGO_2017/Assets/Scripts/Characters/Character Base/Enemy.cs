@@ -75,6 +75,7 @@ public abstract class Enemy : MonoBehaviour//, IPlayable
                 if((p.shoving && !p.c) || (p.kicking && p.c))
                 {
                     p.extension = o.GetComponent<pObstacle>().extendDist;
+                    p.ExtendStrength = o.GetComponent<pObstacle>().extStr;
                     p.extend = true;
                     //Debug.Log(p.c);
                     //Debug.Log(p.extension);

@@ -10,6 +10,7 @@ public class pObstacle : MonoBehaviour
     public Vector3 extendDist;
     public bool extend;
     public bool onCeiling;
+    public float extStr;
     public float fatigueRelief;
     //public float air;
     private void Awake()
@@ -25,10 +26,8 @@ public class pObstacle : MonoBehaviour
         if(col.gameObject.CompareTag("Enemy"))
         {
             //if enemy is getting shoved through this radius
- 
             if ((p.shoving && !onCeiling) || (p.kicking && onCeiling))
             {
-                //p.extend = true;
                 //Debug.Log("Loc: " + enemy.transform.position + "\n" + "Extend: " + extendDist);
                 fc.AddFatigue(-fatigueRelief);
                 //Debug.Log(extendDist);

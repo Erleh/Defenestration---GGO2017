@@ -17,7 +17,6 @@ public class Guard : Player
         //speed = -.2f;
         StrOfKick = 10f;
         StrOfShove = 20f;
-        ExtendStrength = StrOfShove * 1.5f;
         /*Need implementation first*/
         //ShoveFatigue = 5f;
         //KickFatigue = 7f;
@@ -30,6 +29,7 @@ public class Guard : Player
         ActionAnimationHandler.onPush += this.OnCharacterPush;
         ActionAnimationHandler.onShove += this.OnCharacterShove;
         ActionAnimationHandler.onKick += this.OnCharacterKick;
+        ActionAnimationHandler.onWin += this.OnWin;
     }
 
     void OnDisable()
@@ -37,6 +37,7 @@ public class Guard : Player
         ActionAnimationHandler.onPush -= this.OnCharacterPush;
         ActionAnimationHandler.onShove -= this.OnCharacterShove;
         ActionAnimationHandler.onKick -= this.OnCharacterKick;
+        ActionAnimationHandler.onWin -= this.OnWin;
     }
 
     void Start()
@@ -59,6 +60,25 @@ public class Guard : Player
         anim.SetBool("Kick", kicking);
     }
 
+    public void OnWin()
+    {
+        //Debug.Log("defenestrated");
+        if(win)
+        {
+            if(enemy != null)
+            {
+                Debug.Log("delete bob");
+                Destroy(enemy);
+            }
+        }
+        anim.SetBool("Defenestrate", win);
+    }
+
+    public void Win()
+    {
+        win = true;
+    }
+
     //Player controller
     void FixedUpdate()
     {
@@ -66,7 +86,7 @@ public class Guard : Player
         //Debug.Log(pushing);
         //Debug.Log(coRunning);
         //Debug.Log("Player Update");
-        if (enemy && !fc.loseGame)
+        if (enemy && !fc.loseGame && !win)
         {
             //If player is grappling enemy and no coroutines are running
             if (grapple && !coRunning)
@@ -92,7 +112,7 @@ public class Guard : Player
                     Push();
                     //Debug.Log("Work it.");
 
-                    // Debug.Log("Pushing = " + pushing);
+                    Debug.Log("Pushing = " + pushing);
                 }
                 //sets variable to false so enemy can continue resisting in their update
                 if (Input.GetKeyUp(KeyCode.Space))
@@ -113,6 +133,10 @@ public class Guard : Player
 
                 anim.SetBool("Grapple", grapple);
             }
+        }
+        else if(win)
+        {
+            //Debug.Log("win = " + win);
         }
         else
         {
