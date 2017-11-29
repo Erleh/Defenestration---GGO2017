@@ -22,7 +22,7 @@ public class FatigueController : MonoBehaviour {
         //disabling player ability to perform actions on full fatigue...
         if (fatigueBar.fatigue >= fatigueBar.maxFatigue){
             loseGame = true;
-            Debug.Log("FATIGUED");
+            //Debug.Log("FATIGUED");
         }
     }
     //Method subscribing to Push event
