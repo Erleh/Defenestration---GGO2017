@@ -79,6 +79,20 @@ public class Guard : Player
         win = true;
     }
 
+	//Specific for animation timing of braking glass
+	public bool defenestrated;
+	public void DefenistratedBob()
+	{
+		defenestrated = true;
+	}
+
+	//Specific for victory sprite during animation
+	public GameObject victorySprite;
+	public void VictoryPose()
+	{
+		victorySprite.GetComponent<SpriteRenderer>().enabled = true;
+	}
+
     //Player controller
     void FixedUpdate()
     {
