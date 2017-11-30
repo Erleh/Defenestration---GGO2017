@@ -13,16 +13,18 @@ public class ReturnToTS : MonoBehaviour {
 	}
 
     // Update is called once per frame
-    void FixedUpdate() { }
-		/*if(player.GetComponent<Player>().win || fc.loseGame)
+    void FixedUpdate()
+    { 
+	    if(player.GetComponent<Player>().win || fc.loseGame)
         {
             //Debug.Log(player.GetComponent<Player>().win);
             StartCoroutine(CoGameOver());
         }
 	}
+
     public IEnumerator CoGameOver()
     {
         yield return new WaitForSeconds(3);
         SceneManager.LoadScene("TitleScreen");
-    }*/
+    }
 }
