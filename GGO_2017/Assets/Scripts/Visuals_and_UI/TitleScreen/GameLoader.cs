@@ -16,7 +16,7 @@ public class GameLoader : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("gets here");
+            //Debug.Log("gets here");
             SceneManager.LoadScene("GameScene");
         }
 	}

@@ -65,6 +65,7 @@ public class Guard : Player
         //Debug.Log("defenestrated");
         if(win)
         {
+            Debug.Log("gets here");
             if(enemy != null)
             {
                 Debug.Log("delete bob");
@@ -126,7 +127,7 @@ public class Guard : Player
                     Push();
                     //Debug.Log("Work it.");
 
-                    Debug.Log("Pushing = " + pushing);
+                    //Debug.Log("Pushing = " + pushing);
                 }
                 //sets variable to false so enemy can continue resisting in their update
                 if (Input.GetKeyUp(KeyCode.Space))
@@ -150,7 +151,7 @@ public class Guard : Player
         }
         else if(win)
         {
-            //Debug.Log("win = " + win);
+            Debug.Log("win = " + win);
         }
         else
         {
