@@ -63,7 +63,7 @@ public class Bob : Enemy
         {
             resisting = false;
         }
-        Debug.Log("resisting = " + resisting);
+        //Debug.Log("resisting = " + resisting);
 
         anim.SetBool("Resist", resisting);
     }

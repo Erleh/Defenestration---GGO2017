@@ -9,11 +9,11 @@ public class ProgressBar : MonoBehaviour {
     public GameObject player;
     private float left, right;
     private Image progLine;
-    private Vector3 progress;
+  //  private Vector3 progress;
 	// Use this for initialization
 	void Start () {
         progLine = progBar.GetComponent<Image>();
-        progress = new Vector3();
+        //progress = new Vector3();
         /*To do:*/
         //Get Rect Transform of prog line image to find bounds
         RectTransform rt = progLine.rectTransform;

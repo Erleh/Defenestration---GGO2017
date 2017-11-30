@@ -23,9 +23,6 @@ public abstract class Enemy : MonoBehaviour//, IPlayable
     public Vector3 newShoveLoc;
     public float shoveAir;
     public float groundY;
-
-    private Coroutine shoveCoroutine = null;
-
     void Start()
     {
         p = player.GetComponent<Player>();

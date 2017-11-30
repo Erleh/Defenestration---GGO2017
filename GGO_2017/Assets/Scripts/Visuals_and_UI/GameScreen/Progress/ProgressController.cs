@@ -13,7 +13,7 @@ public class ProgressController : MonoBehaviour {
     void FixedUpdate()
     {
         progBar.progress = player.transform.localPosition.x;
-        Debug.Log(progBar.progress);
+        //Debug.Log(progBar.progress);
     }
 
 }
