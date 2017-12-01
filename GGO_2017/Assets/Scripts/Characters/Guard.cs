@@ -11,9 +11,9 @@ public class Guard : Player
     void Awake()
     {
         PassiveFatigue = 0.025f;
-        PushFatigue = 0.05f;
-        ShoveFatigue = 10f;
-        KickFatigue = 15f;
+        PushFatigue = 0.025f;
+        ShoveFatigue = 9f;
+        KickFatigue = 14f;
         //speed = -.2f;
         StrOfKick = 10f;
         StrOfShove = 20f;
