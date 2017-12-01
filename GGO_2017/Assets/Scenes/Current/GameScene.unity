@@ -1513,7 +1513,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1581676532}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &708656614
 AudioSource:
@@ -2613,7 +2613,7 @@ Transform:
   - {fileID: 564086271}
   - {fileID: 1750174737}
   - {fileID: 1937180480}
-  //- {fileID: 708656613}
+  - {fileID: 708656613}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2651,7 +2651,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 0.499
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
