@@ -131,6 +131,7 @@ public class Guard : Player
     public IEnumerator Cheer()
     {
         yield return new WaitForSeconds(2);
+        anim.SetBool("Cheer", true);
 
         cheerVictory.GetComponent<SpriteRenderer>().enabled = true;
         cheerVictory.GetComponent<Animator>().enabled = true;
