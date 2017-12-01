@@ -12,6 +12,8 @@ public class GameLoader : MonoBehaviour {
     public CanvasGroup canvasgroup;
     bool ispressed = false;
 
+    //references menusoundscript
+    public MenuSoundScript menuSound;
 
     public IEnumerator LoadGame()
     {
@@ -19,12 +21,14 @@ public class GameLoader : MonoBehaviour {
         SceneManager.LoadScene("GameScene");
     }
 
+    //fades scene into the next
     public IEnumerator FadeOut()
     {
         startGame.Play();
         canvasgroup = GetComponent<CanvasGroup>();
         while (canvasgroup.alpha > 0)
         {
+            menuSound.playedCurrently.volume -= Time.deltaTime;
             canvasgroup.alpha -= Time.deltaTime;
             yield return null;
         }
