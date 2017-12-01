@@ -24,6 +24,9 @@ public class pObstacle : MonoBehaviour
 
     private float randomFlyHeight;
     private float currFlyHeight = 0;
+
+    private bool recovered = false;
+    private bool hitObject = false;
     //public float air;
 
     public GameObject animator;
@@ -41,9 +44,16 @@ public class pObstacle : MonoBehaviour
         //specify enemy entrance
         if(col.gameObject.CompareTag("Enemy"))
         {
-			if(p.shoving && !onCeiling)
+			if(p.shoving && !onCeiling && !hitObject)
 			{
-				fc.AddFatigue(-fatigueRelief);
+                //to prevent hitting the same object again in the same shove or kick
+                hitObject = true;
+
+                if (!recovered)
+                {
+                    fc.AddFatigue(-fatigueRelief);
+                    recovered = true;
+                }
 
                 randomFlyHeight = Random.Range(0, 40);
                 //obj.transform.position += new Vector3(0, Random.Range(0, 1), 0);
@@ -54,7 +64,14 @@ public class pObstacle : MonoBehaviour
             if (p.kicking && onCeiling)
             {
                 //Debug.Log("Loc: " + enemy.transform.position + "\n" + "Extend: " + extendDist);
-                fc.AddFatigue(-fatigueRelief);
+
+                //Makes recovery only occur once
+                if (!recovered)
+                {
+                    fc.AddFatigue(-fatigueRelief);
+                    recovered = true;
+                }
+
                 animator.GetComponent<Animator>().enabled = true;
                 //Debug.Log(extendDist);
                 // Destroy(this.gameObject);
