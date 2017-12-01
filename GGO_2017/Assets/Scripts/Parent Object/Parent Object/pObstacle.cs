@@ -21,6 +21,9 @@ public class pObstacle : MonoBehaviour
 	public float speedOfSpin;
     public float extStr;
     public float fatigueRelief;
+
+    private float randomFlyHeight;
+    private float currFlyHeight = 0;
     //public float air;
 
     private void Awake()
@@ -40,7 +43,10 @@ public class pObstacle : MonoBehaviour
 			{
 				fc.AddFatigue(-fatigueRelief);
 
-				hit = true;
+                randomFlyHeight = Random.Range(0, 40);
+                //obj.transform.position += new Vector3(0, Random.Range(0, 1), 0);
+
+                hit = true;
 			}
             //if enemy is getting shoved through this radius
             if (p.kicking && onCeiling)
@@ -65,11 +71,9 @@ public class pObstacle : MonoBehaviour
 		{
 			obj.GetComponent<Rigidbody2D>().MoveRotation(obj.GetComponent<Rigidbody2D>().rotation + speedOfSpin * Time.deltaTime);
 
-			oppac = obj.GetComponent<SpriteRenderer>().color;
-			oppac.a -= colorNum;
-			//Color a = obj.GetComponent<SpriteRenderer>().color.a;
-			//a = damageValue;
-			obj.GetComponent<SpriteRenderer>().color = oppac;
+            Color oppac = obj.GetComponent<SpriteRenderer>().color;
+            oppac.a -= .02f;
+            obj.GetComponent<SpriteRenderer>().color = oppac;
 
 			if(colorNum > 0)
 			{
@@ -77,6 +81,14 @@ public class pObstacle : MonoBehaviour
 			}
 
 			obj.transform.position += Vector3.left * Time.deltaTime * speedOfKnockAway;
+
+            //Debug.Log(obj.transform.position.y);
+
+            if (obj.transform.position.y < obj.transform.position.y + randomFlyHeight)
+            {
+                //Debug.Log(obj.transform.position.y);
+                obj.transform.position += Vector3.up * .02f;
+            }
 		}
     }
 }

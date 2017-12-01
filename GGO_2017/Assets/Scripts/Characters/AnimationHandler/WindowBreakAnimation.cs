@@ -19,7 +19,7 @@ public class WindowBreakAnimation : MonoBehaviour
 		}
 	}
 
-	void Update()
+	void FixedUpdate()
 	{
 		if(player.defenestrated)
 		{

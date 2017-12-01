@@ -1634,12 +1634,12 @@ Prefab:
     - target: {fileID: 224004036911776484, guid: 4bf2db52cea04c046ab7cf5cca87f9f2,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 157.60979
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 224302197552007762, guid: 4bf2db52cea04c046ab7cf5cca87f9f2,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 158.235
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224169568065561868, guid: 4bf2db52cea04c046ab7cf5cca87f9f2,
         type: 2}
@@ -1911,7 +1911,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1959290722}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -28.99, y: 1.7, z: -1}
+  m_LocalPosition: {x: -28.72, y: 1.7, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 0.81235147}
   m_Children:
   - {fileID: 1174224960}
@@ -2070,6 +2070,11 @@ Prefab:
       propertyPath: p
       value: 
       objectReference: {fileID: 748628737}
+    - target: {fileID: 114712927209838574, guid: d450be5b5631bf44bb2cc86a62af8d9f,
+        type: 2}
+      propertyPath: speedOfKnockAway
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d450be5b5631bf44bb2cc86a62af8d9f, type: 2}
   m_IsPrefabParent: 0
