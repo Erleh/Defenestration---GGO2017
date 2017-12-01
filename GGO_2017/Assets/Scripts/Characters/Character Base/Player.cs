@@ -177,10 +177,15 @@ public abstract class Player : MonoBehaviour //, IPlayable
         }
 
         if (extend)
-            extendCoroutine = StartCoroutine(CoExtend(toPos + extension, ExtendStrength+StrOfShove));
-        shoveCoroutine = null;
-        shoving = false;
-        coRunning = false;
+        {
+            extendCoroutine = StartCoroutine(CoExtend(toPos + extension, ExtendStrength + StrOfShove));
+        }
+        else
+        {
+            shoveCoroutine = null;
+            shoving = false;
+            coRunning = false;
+        }
     }
     
     public IEnumerator CoExtend(Vector3 toPos, float extendStr)
@@ -219,6 +224,8 @@ public abstract class Player : MonoBehaviour //, IPlayable
         shoving = false;
         coRunning = false;
         extendCoroutine = null;
+
+        shoveCoroutine = null;
     }
 
     public IEnumerator CoKick(Vector3 toPos, float maxHeight, float kickStrength)

@@ -127,9 +127,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0dd58bf72044e44e9ade0f617a022c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fc: {fileID: 0}
-  player: {fileID: 0}
-  p: {fileID: 0}
+  fc: {fileID: 114215520961070626, guid: 4bf2db52cea04c046ab7cf5cca87f9f2, type: 2}
+  player: {fileID: 1918710411334782, guid: 9c31fd37bc2d1b545ad8d841989e8092, type: 2}
+  p: {fileID: 114532182288123830, guid: 9c31fd37bc2d1b545ad8d841989e8092, type: 2}
   extendDist: {x: -5, y: 0, z: 0}
   obj: {fileID: 1410028584824840}
   extend: 1
