@@ -12,8 +12,8 @@ public class Guard : Player
     {
         PassiveFatigue = 0.025f;
         PushFatigue = 0.05f;
-        ShoveFatigue = 15f;
-        KickFatigue = 25f;
+        ShoveFatigue = 10f;
+        KickFatigue = 15f;
         //speed = -.2f;
         StrOfKick = 10f;
         StrOfShove = 20f;
@@ -81,6 +81,17 @@ public class Guard : Player
 	{
 		anim.SetBool("Lose", lose);
 	}
+
+    public AudioSource failJingle;
+    public GameObject defeatSprite;
+    public InGameMusic curr;
+    public void DefeatPose()
+    {
+        curr.GetCurrMusic().enabled = false;
+
+        failJingle.Play();
+        defeatSprite.GetComponent<SpriteRenderer>().enabled = true;
+    }
 
     public void Win()
     {
