@@ -24,7 +24,7 @@ public class ReturnToTS : MonoBehaviour {
 
     public IEnumerator CoGameOver()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(7);
         SceneManager.LoadScene("TitleScreenUpdates");
     }
 }
