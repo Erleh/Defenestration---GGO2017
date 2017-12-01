@@ -9,11 +9,13 @@ public class ActionAnimationHandler : MonoBehaviour
     public delegate void shove();
     public delegate void kick();
     public delegate void win();
+	public delegate void lost();
 
     public static event push onPush;
     public static event shove onShove;
     public static event kick onKick;
     public static event win onWin;
+	public static event lost onLose;
 
     public GameObject character;
     private Guard player;
@@ -51,6 +53,14 @@ public class ActionAnimationHandler : MonoBehaviour
         }
     }
 
+	public void OnLose()
+	{
+		if(onLose != null)
+		{
+			onLose();
+		}
+	}
+
     void FixedUpdate()
     {
         if(character.GetComponent<Guard>() != false)
@@ -59,6 +69,7 @@ public class ActionAnimationHandler : MonoBehaviour
             OnCharacterShove();
             OnCharacterKick();
             OnWin();
+			OnLose();
         }
     }
 }

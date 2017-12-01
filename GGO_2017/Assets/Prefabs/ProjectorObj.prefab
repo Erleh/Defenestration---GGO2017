@@ -82,8 +82,13 @@ MonoBehaviour:
   player: {fileID: 0}
   p: {fileID: 0}
   extendDist: {x: -5, y: 0, z: 0}
+  obj: {fileID: 0}
   extend: 1
   onCeiling: 1
+  hit: 0
+  speedOfKnockAway: 0
+  speedOfSpin: 0
+  extStr: 0
   fatigueRelief: 20
 --- !u!212 &212811392501540488
 SpriteRenderer:
@@ -120,7 +125,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: fd85e183344602546a348fab2c41ace4, type: 3}
-  m_Color: {r: 0.3803922, g: 0.3803922, b: 0.3803922, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
