@@ -12,8 +12,8 @@ public class Guard : Player
     {
         PassiveFatigue = 0.025f;
         PushFatigue = 0.05f;
-        ShoveFatigue = 10f;
-        KickFatigue = 15f;
+        ShoveFatigue = 7f;
+        KickFatigue = 10f;
         //speed = -.2f;
         StrOfKick = 10f;
         StrOfShove = 20f;
@@ -114,9 +114,13 @@ public class Guard : Player
 	//Specific for victory sprite during animation
 	public GameObject victorySprite;
     public GameObject cheerVictory;
+    public AudioSource victoryJingle;
 	public void VictoryPose()
 	{
-		victorySprite.GetComponent<SpriteRenderer>().enabled = true;
+        curr.GetCurrMusic().enabled = false;
+        victoryJingle.Play();
+
+        victorySprite.GetComponent<SpriteRenderer>().enabled = true;
         cheerVictory.GetComponent<SpriteRenderer>().enabled = true;
         cheerVictory.GetComponent<Animator>().enabled = true;
 	}
