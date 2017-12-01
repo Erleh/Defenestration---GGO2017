@@ -9,23 +9,23 @@ public abstract class Enemy : MonoBehaviour//, IPlayable
     public Player p;
 	public float speed;
 
-	public bool grapple = false;
+    public bool canBreak;
+	public bool grapple;
 
-	private bool shove = false;
+	private bool shove;
 	//private bool kick = false;
-	private bool resisting;
+	public bool resisting;
     //public Vector3 shovedTo;
 
-
+    
     private float startTime;
     public Vector3 shoveDist;
     public Vector3 newShoveLoc;
     public float shoveAir;
-
-    private Coroutine shoveCoroutine = null;
-
+    public float groundY;
     void Start()
     {
+        p = player.GetComponent<Player>();
     }
 
 	public void Resist()
@@ -39,14 +39,14 @@ public abstract class Enemy : MonoBehaviour//, IPlayable
             float pushBack = speed;
             Vector3 move = new Vector3(pushBack, 0f, 0f);
 
-            Debug.Log("resist: " + move);
-            Debug.Log("enemy transform : " + enemy.transform);
+            //Debug.Log("resist: " + move);
+            //Debug.Log("enemy transform : " + enemy.transform);
 
             //enemy.transform.position += move;
             player.transform.position += move;
 
-            Debug.Log("onPush");
-			resisting = false;
+            //Debug.Log("onPush");
+			resisting = true;
 		}
 	}
 
@@ -58,7 +58,45 @@ public abstract class Enemy : MonoBehaviour//, IPlayable
             //Debug.Log("Collision");    <= works
 			grapple = true;
 		}
-	}
+    }
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.CompareTag("GameObstacle"))
+        {
+			if (p.shoving && canBreak)
+			{
+				GameObject o = col.gameObject;
+				p.obstacle = o;
+				p.c = o.GetComponent<pObstacle>().onCeiling;
+				if((p.shoving && !p.c) || (p.kicking && p.c))
+				{
+					p.extension = o.GetComponent<pObstacle>().extendDist;
+					p.ExtendStrength = o.GetComponent<pObstacle>().extStr;
+					p.extend = true;
 
+					canBreak = false;
+				}
+			}
+            //Debug.Log("Registered Obstacle Entrance");
+            if (p.kicking && canBreak)
+            {
+                GameObject o = col.gameObject;
+                p.obstacle = o;
+                p.c = o.GetComponent<pObstacle>().onCeiling;
+                if((p.shoving && !p.c) || (p.kicking && p.c))
+                {
+                    p.extension = o.GetComponent<pObstacle>().extendDist;
+                    p.ExtendStrength = o.GetComponent<pObstacle>().extStr;
+                    p.extend = true;
+                    //Debug.Log(p.c);
+                    //Debug.Log(p.extension);
+                    //Debug.Log(extendDist);
+                    Destroy(col.gameObject);
+                    canBreak = false;
+                }
+
+            }
+        }
+    }
     public Vector3 getEnemyLoc() { return enemy.transform.position; }
 }

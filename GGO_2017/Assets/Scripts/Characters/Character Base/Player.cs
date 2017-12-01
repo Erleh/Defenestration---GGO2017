@@ -7,35 +7,53 @@ public abstract class Player : MonoBehaviour //, IPlayable
     //Reference to player and enemy
     public GameObject player;
     public GameObject enemy;//Enemy enemy;
-
+    public GameObject obstacle;
     public FatigueController fc;
     public float speed;
+	public float dashSpeed;
     public float maxHeightOnKick;
 
-    //Fatigue
+    //Action fatigue and strength
     public float PassiveFatigue { get; set; }
     public float PushFatigue { get; set; }
     public float ShoveFatigue { get; set; }
     public float KickFatigue { get; set; }
+    public float StrOfKick { get; set; }
     public float StrOfShove { get; set; }
-
+    public float ExtendStrength { get; set; }
     //Init. for shoving movement
     public bool grapple;
     public bool pushing;
 
+    //Bools for states are being used to trigger animations
+    public bool charging;
+    public bool kicking;
+    public bool shoving;
+    public bool extend;
+    public bool c;
+
+    //win condition
+    public bool win;
+	public bool lose;
 
     //Duration of shove
     public float airTime;
-
+    public float extendAirTime;
     //Reference to start of shove coroutine, will allow us to keep track of coroutine activity
     public Coroutine shoveCoroutine = null;
     public Coroutine chargeCoroutine = null;
+    public Coroutine extendCoroutine = null;
     public Coroutine kickCoroutine = null;
 
     public bool coRunning;
 
     public Vector3 shoveDistance;
     public Vector3 kickDistance;
+    public Vector3 extension;
+    private float height;
+    //Quick hack for extension distance
+    //public Vector3 extendDist;
+    //public bool onCeiling;
 
     void Awake() { }
 
@@ -50,7 +68,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
 
     public void Push()
     {
-        if (grapple)
+		if (grapple)
         {
             //Debug.Log("We tryna push");
             //Debug.Log(getGrapple());
@@ -73,7 +91,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
         {
             //Detach child from player
             enemy.transform.SetParent(null);
-            shoveCoroutine = StartCoroutine(CoShove(enemy.transform.position + shoveDistance, 1));
+            shoveCoroutine = StartCoroutine(CoShove(enemy.transform.position + shoveDistance, StrOfShove));
             fc.AddFatigue(ShoveFatigue);
             //Play Shove Animation
         }
@@ -86,10 +104,10 @@ public abstract class Player : MonoBehaviour //, IPlayable
         {
             //Detach child from player
             enemy.transform.SetParent(null);
-            kickCoroutine = StartCoroutine(CoKick(enemy.transform.position + kickDistance, 1, maxHeightOnKick));
+            kickCoroutine = StartCoroutine(CoKick(enemy.transform.position + kickDistance, maxHeightOnKick, StrOfKick));
             fc.AddFatigue(KickFatigue);
             //Play Shove Animation
-        }       
+        }
     }
 
     //When player collides with enemy, make enemy a child object to the player
@@ -98,7 +116,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
     {
         //Debug.Log("grapple = " + grapple);    <== works
 
-        Debug.Log("pushing = " + pushing);
+        //Debug.Log("pushing = " + pushing);
         if (col.gameObject.CompareTag("Enemy"))
         {
             col.gameObject.transform.SetParent(player.transform);
@@ -115,9 +133,12 @@ public abstract class Player : MonoBehaviour //, IPlayable
     {
         coRunning = true;
 
+        //charging is used to trigger animation
+        charging = true;
+
         //Debug.Log("Charging at Enemy...");
 
-        Vector3 move = new Vector3(speed, 0, 0);
+        Vector3 move = new Vector3(dashSpeed, 0, 0);
 
         //playerLocation += move;
 
@@ -125,95 +146,138 @@ public abstract class Player : MonoBehaviour //, IPlayable
         yield return new WaitUntil(() => getGrapple());
 
         //Debug.Log("Charged with speed: " + speed);
-
+        extend = false;
         chargeCoroutine = null;
+
+        //charging = false to end animation
+        charging = false;
+
         coRunning = false;
     }
 
     //Coroutine to move enemy distance of the shove
-    public IEnumerator CoShove(Vector3 toPos, float airTime)
+    public IEnumerator CoShove(Vector3 toPos, float shoveStr)
     {
         coRunning = true;
-        float elapsedTime = 0f;
 
+        //shoving is used to trigger animation
+        shoving = true;
+        //Debug.Log("Shoving = " + shoving);
         //Debug.Log("We tryna shove");
-
         grapple = false;
 
-        while (elapsedTime < airTime)
+        //float elapsedTime = 0f;
+        
+        float step = shoveStr * Time.deltaTime;
+
+        while (enemy.transform.position != toPos)
         {
-            Vector3 startPos = enemy.transform.position;
-
-            //Debug.Log("startPos = " + startPos);
-            //Debug.Log("toPos = " + toPos);
-
-            var lerpVal = (elapsedTime / airTime);
-
-            // Debug.Log("(elapsedTime/airTime) * pChar.StrOfShove = " + lerpVal);
-
-            enemy.transform.position = Vector3.Lerp(startPos, toPos, lerpVal);
-
-            //Debug.Log("enemy trans: " + enemy.transform.position);
-
-            elapsedTime += Time.deltaTime;
-            yield return new WaitForEndOfFrame();
+            enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, toPos, step);
+            yield return new WaitForFixedUpdate();
         }
 
-        Debug.Log("We shoved. Grapple: " + grapple);
-
+        if (extend)
+            extendCoroutine = StartCoroutine(CoExtend(toPos + extension, ExtendStrength+StrOfShove));
         shoveCoroutine = null;
+        shoving = false;
         coRunning = false;
     }
-
-    public IEnumerator CoKick(Vector3 endPos, float airTime, float maxHeight)
+    
+    public IEnumerator CoExtend(Vector3 toPos, float extendStr)
     {
         coRunning = true;
 
-        float elapsedTime = 0f;
+        //Wait until shove is finished, then continue with rest of enum.
+        // yield return new WaitUntil(() => !shoving);
 
+        //float elapsedTime = 0f;
+        //Debug.Log("Extending shove...");
+        float step = extendStr * Time.deltaTime;
+        //Debug.Log(ceiling);
+        if(!c)
+        {
+            while (enemy.transform.position != toPos)
+            {
+                //Debug.Log("From: " + enemy.transform.position + "\t" + "To: " + toPos);
+                //Debug.Log(StrOfShove+"  "+extendStr);
+                enemy.transform.position = Vector3.MoveTowards(enemy.transform.position, toPos, step);
+                yield return new WaitForFixedUpdate();
+            }
+        }
+        else
+        {
+            height = enemy.transform.position.y;
+            while (enemy.transform.position != toPos)
+            {
+                //Debug.Log("Transforming... " + enemy.transform.position + ":" + toPos);
+                enemy.transform.position = ArcingVector(enemy.transform.position, toPos, extendStr, .1f);
+                yield return new WaitForFixedUpdate();
+            }
+            //Debug.Log("Kick extend goes here.");
+        }
+        kicking = false;
+        shoving = false;
+        coRunning = false;
+        extendCoroutine = null;
+    }
+
+    public IEnumerator CoKick(Vector3 toPos, float maxHeight, float kickStrength)
+    {
+        coRunning = true;
+        
+        //Kicking is used to trigger animation
+        kicking = true;
         grapple = false;
 
-        float ogHeight = enemy.transform.position.y;
+        height = enemy.transform.position.y;
         //var counter = 0;
-
-        while (elapsedTime <= airTime)
+        //approx. max height
+        //Vector3 vertex = new Vector3((toPos.x - enemy.transform.position.x) / 2, maxHeight); 
+        while(enemy.transform.position != toPos)
         {
-            Vector3 startPos = enemy.transform.position;
-
-            //Debug.Log("startPos = " + startPos);
-            //Debug.Log("toPos = " + toPos);
-
-            var lerpVal = (elapsedTime / airTime);
-            Debug.Log("lerpVal = " + lerpVal);
-
-            //Debug.Log("lerpVal = " + lerpVal);
-            // Debug.Log("(elapsedTime/airTime) * pChar.StrOfShove = " + lerpVal);
-
-            Vector3 enemyPos = Vector3.Lerp(startPos, endPos, lerpVal);
-
-            Debug.Log("Mathf.Clamp01(lerpVal) = " + Mathf.Clamp01(lerpVal));
-            enemyPos.y += maxHeight * Mathf.Sin(lerpVal * Mathf.PI);
-
-            enemy.transform.position = enemyPos;
-
-            //Debug.Log("enemy trans: " + enemy.transform.position);
-
-            elapsedTime += Time.deltaTime;
-            //counter++;
-
+            //Debug.Log(SendInArc(enemy.transform.position, toPos, mH, maxHeight, kickStrength, nextX, baseY, arc));
+            enemy.transform.position = ArcingVector(enemy.transform.position, toPos, kickStrength, maxHeight);
+            if(extend)
+            {
+                extendCoroutine = StartCoroutine(CoExtend(toPos + extension, ExtendStrength+kickStrength));
+                kickCoroutine = null;
+                yield break;
+            }
             yield return new WaitForEndOfFrame();
         }
-        enemy.transform.position = new Vector3(enemy.transform.position.x, ogHeight, 0);
+ 
+        //enemy.transform.position = new Vector3(enemy.transform.position.x, ogHeight, 0);
 
-        Debug.Log("We Kicked. Grapple: " + grapple);
+        //Debug.Log("We Kicked. Grapple: " + grapple);
+
+        //Kicking ends animation
+        kicking = false;
 
         kickCoroutine = null;
         coRunning = false;
 
         //return null;
     }
-
+    public Vector3 ArcingVector(Vector3 startPos, Vector3 endPos, float arcSpeed, float arcHeight)
+    {
+        float x0 = startPos.x;
+        float x1 = endPos.x;
+        float xDist = x1 - x0;
+        float nextX = Mathf.MoveTowards(startPos.x, x1, arcSpeed * Time.deltaTime);
+        float baseY = Mathf.Lerp(startPos.y, endPos.y, (nextX - x0) / (xDist));
+        float arc = arcHeight * (nextX - x0) * (nextX - x1) / (-0.25f * (xDist) * (xDist));
+        //Debug.Log(arc);
+        return new Vector3(nextX, baseY + arc, startPos.z);
+    }
     public Vector3 getPlayerLoc() { return player.transform.position; }
 
     public bool getGrapple() { return grapple; }
+    public bool getPushing() { return pushing; }
+
+    /*
+    public bool getKicking() { return kicking; }
+    public bool getIdle() { return idle; }
+    public bool getGrappleIdle() { return grappleIdle; }
+    public bool getCharging() { return charging; }
+    */
 }

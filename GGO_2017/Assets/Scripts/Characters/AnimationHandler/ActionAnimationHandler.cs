@@ -5,36 +5,71 @@ using UnityEngine;
 public class ActionAnimationHandler : MonoBehaviour
 {
 
-    public delegate void push(GameObject character);
-    public delegate void shove(GameObject character);
-    public delegate void kick(GameObject character);
+    public delegate void push();
+    public delegate void shove();
+    public delegate void kick();
+    public delegate void win();
+	public delegate void lost();
 
     public static event push onPush;
     public static event shove onShove;
     public static event kick onKick;
+    public static event win onWin;
+	public static event lost onLose;
 
-    public void OnCharacterPush(GameObject character)
+    public GameObject character;
+    private Guard player;
+
+    public void OnCharacterPush()
     {
         if(onPush != null)
         {
-            onPush(character);
+            onPush();
         }
 
     }
 
-    public void OnCharacterShove(GameObject character)
+    public void OnCharacterShove()
     {
         if(onShove != null)
         {
-            onShove(character);
+            onShove();
         }
     }
 
-    public void OnCharacterKick(GameObject character)
+    public void OnCharacterKick()
     {
         if(onKick != null)
         {
-            onKick(character);
+            onKick();
+        }
+    }
+
+    public void OnWin()
+    {
+        if(onWin != null)
+        {
+            onWin();
+        }
+    }
+
+	public void OnLose()
+	{
+		if(onLose != null)
+		{
+			onLose();
+		}
+	}
+
+    void FixedUpdate()
+    {
+        if(character.GetComponent<Guard>() != false)
+        {
+            OnCharacterPush();
+            OnCharacterShove();
+            OnCharacterKick();
+            OnWin();
+			OnLose();
         }
     }
 }
