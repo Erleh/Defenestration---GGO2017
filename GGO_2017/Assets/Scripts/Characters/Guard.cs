@@ -115,15 +115,26 @@ public class Guard : Player
 	public GameObject victorySprite;
     public GameObject cheerVictory;
     public AudioSource victoryJingle;
+    
 	public void VictoryPose()
 	{
         curr.GetCurrMusic().enabled = false;
         victoryJingle.Play();
 
         victorySprite.GetComponent<SpriteRenderer>().enabled = true;
+
+        StartCoroutine(Cheer());
+        //cheerVictory.GetComponent<SpriteRenderer>().enabled = true;
+        //cheerVictory.GetComponent<Animator>().enabled = true;
+	}
+
+    public IEnumerator Cheer()
+    {
+        yield return new WaitForSeconds(2);
+
         cheerVictory.GetComponent<SpriteRenderer>().enabled = true;
         cheerVictory.GetComponent<Animator>().enabled = true;
-	}
+    }
 
     //Player controller
     void FixedUpdate()
