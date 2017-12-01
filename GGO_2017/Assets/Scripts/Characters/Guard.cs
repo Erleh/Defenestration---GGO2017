@@ -102,9 +102,12 @@ public class Guard : Player
 
 	//Specific for victory sprite during animation
 	public GameObject victorySprite;
+    public GameObject cheerVictory;
 	public void VictoryPose()
 	{
 		victorySprite.GetComponent<SpriteRenderer>().enabled = true;
+        cheerVictory.GetComponent<SpriteRenderer>().enabled = true;
+        cheerVictory.GetComponent<Animator>().enabled = true;
 	}
 
     //Player controller
@@ -164,13 +167,13 @@ public class Guard : Player
         }
         else if(win)
         {
-            Debug.Log("win = " + win);
+            //Debug.Log("win = " + win);
         }
         else
         {
             pushing = false;
             //Lose Game here
-            Debug.Log("Lost the game. Fatigued.");
+            //Debug.Log("Lost the game. Fatigued.");
         }
     }
 }

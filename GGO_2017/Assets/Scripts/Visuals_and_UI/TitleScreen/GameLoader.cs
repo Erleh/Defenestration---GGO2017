@@ -15,11 +15,10 @@ public class GameLoader : MonoBehaviour {
 
     public IEnumerator LoadGame()
     {
-       
-
         yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene("GameScene");
     }
+
     public IEnumerator FadeOut()
     {
         startGame.Play();
