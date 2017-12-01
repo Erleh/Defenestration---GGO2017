@@ -59,8 +59,6 @@ public class pObstacle : MonoBehaviour
                 //Debug.Log(extendDist);
                 // Destroy(this.gameObject);
             }
-
-
         }
 
         //Relieve some player fatigue
