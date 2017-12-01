@@ -26,6 +26,8 @@ public class pObstacle : MonoBehaviour
     private float currFlyHeight = 0;
     //public float air;
 
+    public GameObject animator;
+
     private void Awake()
     {
         p = player.GetComponent<Player>();
@@ -33,7 +35,7 @@ public class pObstacle : MonoBehaviour
 
     // Use this for initialization
     //if another object (enemy) enters this object's detection radius, trigger the event
-    void OnTriggerEnter2D(Collider2D col)
+    void OnTriggerStay2D(Collider2D col)
     {
         //Debug.Log("Entered object space.");
         //specify enemy entrance
@@ -53,11 +55,10 @@ public class pObstacle : MonoBehaviour
             {
                 //Debug.Log("Loc: " + enemy.transform.position + "\n" + "Extend: " + extendDist);
                 fc.AddFatigue(-fatigueRelief);
+                animator.GetComponent<Animator>().enabled = true;
                 //Debug.Log(extendDist);
-               // Destroy(this.gameObject);
+                // Destroy(this.gameObject);
             }
-
-
         }
 
         //Relieve some player fatigue
@@ -88,6 +89,13 @@ public class pObstacle : MonoBehaviour
             {
                 //Debug.Log(obj.transform.position.y);
                 obj.transform.position += Vector3.up * .02f;
+            }
+
+            //Debug.Log(obj.GetComponent<SpriteRenderer>().color.a);
+
+            if (obj.GetComponent<SpriteRenderer>().color.a < 0)
+            {
+                Destroy(obj);
             }
 		}
     }
