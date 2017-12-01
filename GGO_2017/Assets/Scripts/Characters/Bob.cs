@@ -59,13 +59,14 @@ public class Bob : Enemy
     void FixedUpdate()
     {
         anim.SetBool("Grapple", p.grapple);
-        if(this.gameObject.transform.position.y == groundY)
+        /*if(this.gameObject.transform.position.y == groundY)
         {
             canBreak = true;
-        }
+        }*/
 		if (p.grapple && p.kickCoroutine == null && p.shoveCoroutine == null && p.chargeCoroutine == null && !p.pushing && !player.GetComponent<Guard>().lose)
         {
             //Debug.Log("Resisting..");
+            canBreak = true;
             Resist();
         }
         else
