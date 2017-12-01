@@ -36,6 +36,13 @@ public class pObstacle : MonoBehaviour
         p = player.GetComponent<Player>();
     }
 
+    public AudioSource objectHitSound;
+
+    public void HitObjectSound()
+    {
+        objectHitSound.Play();
+    }
+
     // Use this for initialization
     //if another object (enemy) enters this object's detection radius, trigger the event
     void OnTriggerStay2D(Collider2D col)
