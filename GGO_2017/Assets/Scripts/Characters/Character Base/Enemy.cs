@@ -91,7 +91,7 @@ public abstract class Enemy : MonoBehaviour//, IPlayable
                     //Debug.Log(p.c);
                     //Debug.Log(p.extension);
                     //Debug.Log(extendDist);
-                    Destroy(col.gameObject);
+                    //Destroy(col.gameObject);
                     canBreak = false;
                 }
 
