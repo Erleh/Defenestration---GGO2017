@@ -18,8 +18,8 @@ public class ProgressBarController : MonoBehaviour {
     {
         progressBar = GetComponent<Slider>();
         //Right Endpoint of wall
-        minProgress = 46.5f;
-        maxProgress = -44.85756f; //winzone.GetComponent<BoxCollider2D>().offset.x + (winzone.GetComponent<BoxCollider2D>().size.x / 2f);
+        minProgress = 21; //note: values are currently hard-coded; later, change to be compliant with beginning and end-binding objects
+        maxProgress = -48.554f;
 
     }
 
