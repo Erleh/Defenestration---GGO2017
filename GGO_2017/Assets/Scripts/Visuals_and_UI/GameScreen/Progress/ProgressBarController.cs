@@ -10,7 +10,7 @@ public class ProgressBarController : MonoBehaviour {
     public GameObject winzone;
     public float minProgress;
     public float maxProgress;
-    private float rightSide;
+   // private float rightSide;
     private Slider progressBar;
     public float progress;
     // Use this for initialization

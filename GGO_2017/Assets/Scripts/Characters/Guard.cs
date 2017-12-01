@@ -12,8 +12,8 @@ public class Guard : Player
     {
         PassiveFatigue = 0.025f;
         PushFatigue = 0.05f;
-        ShoveFatigue = 7f;
-        KickFatigue = 10f;
+        ShoveFatigue = 10f;
+        KickFatigue = 15f;
         //speed = -.2f;
         StrOfKick = 10f;
         StrOfShove = 20f;

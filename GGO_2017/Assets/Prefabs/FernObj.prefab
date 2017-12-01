@@ -112,8 +112,9 @@ MonoBehaviour:
   speedOfKnockAway: 10
   speedOfSpin: 1000
   extStr: 2
-  fatigueRelief: 5
+  fatigueRelief: 3
   animator: {fileID: 0}
+  objectHitSound: {fileID: 0}
 --- !u!212 &212210098747354766
 SpriteRenderer:
   m_ObjectHideFlags: 1
