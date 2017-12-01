@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class PauseFunction : MonoBehaviour {
 
+    public AudioSource pauseSound;
+
     public Image pauseScreen;
     // Use this for initialization
     private void Awake()
@@ -18,7 +20,10 @@ public class PauseFunction : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            pauseSound.Play();
             PauseGame();
+        }
 	}
     void PauseGame()
     {
