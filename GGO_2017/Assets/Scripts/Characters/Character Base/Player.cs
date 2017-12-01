@@ -10,6 +10,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
     public GameObject obstacle;
     public FatigueController fc;
     public float speed;
+	public float dashSpeed;
     public float maxHeightOnKick;
 
     //Action fatigue and strength
@@ -33,6 +34,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
 
     //win condition
     public bool win;
+	public bool lose;
 
     //Duration of shove
     public float airTime;
@@ -66,7 +68,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
 
     public void Push()
     {
-        if (grapple)
+		if (grapple)
         {
             //Debug.Log("We tryna push");
             //Debug.Log(getGrapple());
@@ -136,7 +138,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
 
         //Debug.Log("Charging at Enemy...");
 
-        Vector3 move = new Vector3(speed, 0, 0);
+        Vector3 move = new Vector3(dashSpeed, 0, 0);
 
         //playerLocation += move;
 

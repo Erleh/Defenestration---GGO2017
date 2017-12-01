@@ -63,8 +63,22 @@ public abstract class Enemy : MonoBehaviour//, IPlayable
     {
         if (col.gameObject.CompareTag("GameObstacle"))
         {
+			if (p.shoving && canBreak)
+			{
+				GameObject o = col.gameObject;
+				p.obstacle = o;
+				p.c = o.GetComponent<pObstacle>().onCeiling;
+				if((p.shoving && !p.c) || (p.kicking && p.c))
+				{
+					p.extension = o.GetComponent<pObstacle>().extendDist;
+					p.ExtendStrength = o.GetComponent<pObstacle>().extStr;
+					p.extend = true;
+
+					canBreak = false;
+				}
+			}
             //Debug.Log("Registered Obstacle Entrance");
-            if ((p.shoving || p.kicking) && canBreak)
+            if (p.kicking && canBreak)
             {
                 GameObject o = col.gameObject;
                 p.obstacle = o;

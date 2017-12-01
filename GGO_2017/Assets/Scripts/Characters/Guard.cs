@@ -30,6 +30,7 @@ public class Guard : Player
         ActionAnimationHandler.onShove += this.OnCharacterShove;
         ActionAnimationHandler.onKick += this.OnCharacterKick;
         ActionAnimationHandler.onWin += this.OnWin;
+		ActionAnimationHandler.onLose += this.OnLose;
     }
 
     void OnDisable()
@@ -38,6 +39,7 @@ public class Guard : Player
         ActionAnimationHandler.onShove -= this.OnCharacterShove;
         ActionAnimationHandler.onKick -= this.OnCharacterKick;
         ActionAnimationHandler.onWin -= this.OnWin;
+		ActionAnimationHandler.onLose -= this.OnLose;
     }
 
     void Start()
@@ -65,20 +67,31 @@ public class Guard : Player
         //Debug.Log("defenestrated");
         if(win)
         {
-            Debug.Log("gets here");
+            //Debug.Log("gets here");
             if(enemy != null)
             {
-                Debug.Log("delete bob");
+                //Debug.Log("delete bob");
                 Destroy(enemy);
             }
         }
         anim.SetBool("Defenestrate", win);
     }
 
+	public void OnLose()
+	{
+		anim.SetBool("Lose", lose);
+	}
+
     public void Win()
     {
         win = true;
     }
+
+	public void Lose()
+	{
+		enemy.transform.SetParent(null);
+		lose = true;
+	}
 
 	//Specific for animation timing of braking glass
 	public bool defenestrated;

@@ -20,6 +20,7 @@ public class Bob : Enemy
         ActionAnimationHandler.onPush += this.OnCharacterPush;
         ActionAnimationHandler.onShove += this.OnCharacterShove;
         ActionAnimationHandler.onKick += this.OnCharacterKick;
+		ActionAnimationHandler.onLose += this.OnLose;
     }
 
     void OnDisable()
@@ -27,6 +28,7 @@ public class Bob : Enemy
         ActionAnimationHandler.onPush -= this.OnCharacterPush;
         ActionAnimationHandler.onShove -= this.OnCharacterShove;
         ActionAnimationHandler.onKick -= this.OnCharacterKick;
+		ActionAnimationHandler.onLose -= this.OnLose;
     }
 
     public void OnCharacterPush()
@@ -43,10 +45,17 @@ public class Bob : Enemy
     {
         anim.SetBool("Kicked", p.kicking);
     }
+
+	public void OnLose()
+	{
+		anim.SetBool("BobWin", player.GetComponent<Guard>().lose);
+	}
+
     private void Start()
     {
         groundY = this.gameObject.transform.position.y;
     }
+
     void FixedUpdate()
     {
         anim.SetBool("Grapple", p.grapple);
@@ -54,7 +63,7 @@ public class Bob : Enemy
         {
             canBreak = true;
         }
-        if (p.grapple && p.kickCoroutine == null && p.shoveCoroutine == null && p.chargeCoroutine == null && !p.pushing)
+		if (p.grapple && p.kickCoroutine == null && p.shoveCoroutine == null && p.chargeCoroutine == null && !p.pushing && !player.GetComponent<Guard>().lose)
         {
             //Debug.Log("Resisting..");
             Resist();
