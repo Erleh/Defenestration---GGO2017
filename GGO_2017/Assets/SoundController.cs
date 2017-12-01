@@ -8,6 +8,7 @@ public class SoundController : MonoBehaviour {
     public AudioSource shove;
     public AudioSource run;
     float rando = 0;
+
     public void KickSound()
     {
        rando = Random.Range(0f, 1f);

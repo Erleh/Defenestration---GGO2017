@@ -61,8 +61,11 @@ public class pObstacle : MonoBehaviour
                 hit = true;
 			}
             //if enemy is getting shoved through this radius
-            if (p.kicking && onCeiling)
+            if (p.kicking && onCeiling && !hitObject)
             {
+                //to prevent hitting the same object
+                hitObject = true;
+
                 //Debug.Log("Loc: " + enemy.transform.position + "\n" + "Extend: " + extendDist);
 
                 //Makes recovery only occur once
