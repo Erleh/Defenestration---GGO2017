@@ -48,17 +48,23 @@ public abstract class Player : MonoBehaviour //, IPlayable
     public bool coRunning;
 
     public Vector3 shoveDistance;
-    public Vector3 kickDistance;
     public Vector3 extension;
-    private float height;
+
+    //Kick arc vars
+    public float kDist;
+    public float frequency;
+    public float amp;
+
     //Quick hack for extension distance
+    public float extendFreq;
     //public Vector3 extendDist;
     //public bool onCeiling;
-
-    void Awake() { }
+    private Vector3 beginPos;
+    void Awake()
+    {
+    }
 
     //EventHandler.onKick += this.OnCharacterKick;
-
     void Start()
     {
         pushing = false;
@@ -104,7 +110,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
         {
             //Detach child from player
             enemy.transform.SetParent(null);
-            kickCoroutine = StartCoroutine(CoKick(enemy.transform.position + kickDistance, maxHeightOnKick, StrOfKick));
+            kickCoroutine = StartCoroutine(CoKick(enemy.transform.position.x+kDist, StrOfKick));
             fc.AddFatigue(KickFatigue);
             //Play Shove Animation
         }
@@ -132,10 +138,8 @@ public abstract class Player : MonoBehaviour //, IPlayable
     public IEnumerator ChargeAtEnemy()
     {
         coRunning = true;
-
         //charging is used to trigger animation
         charging = true;
-
         //Debug.Log("Charging at Enemy...");
 
         Vector3 move = new Vector3(dashSpeed, 0, 0);
@@ -211,14 +215,24 @@ public abstract class Player : MonoBehaviour //, IPlayable
         }
         else
         {
-            height = enemy.transform.position.y;
-            while (enemy.transform.position != toPos)
+            //Debug.Log(toPos);
+            //Debug.Log(extendStr);
+            float index = 0;
+            Vector3 CeilStart = enemy.transform.position;
+            Debug.Log("Start: " + CeilStart + "\t" + "End:" + toPos);
+            while (enemy.transform.position.x != toPos.x || enemy.transform.position.y > beginPos.y)
             {
+                Debug.Log(enemy.transform.position.y);
+                Vector3 trackPos = enemy.transform.position;
+                index += Time.deltaTime;
+                float x = Mathf.MoveTowards(trackPos.x, toPos.x, extendStr*Time.deltaTime);
+                float y = Mathf.Clamp((CeilStart.y + amp * Mathf.Cos(extendFreq * extendStr * index)), beginPos.y, CeilStart.y);
+                enemy.transform.position = new Vector3(x, y, beginPos.z);
                 //Debug.Log("Transforming... " + enemy.transform.position + ":" + toPos);
-                enemy.transform.position = ArcingVector(enemy.transform.position, toPos, extendStr, .1f);
+                //enemy.transform.position = ArcingVector(enemy.transform.position, toPos, extendStr, .1f);
                 yield return new WaitForFixedUpdate();
             }
-            //Debug.Log("Kick extend goes here.");
+            Debug.Log("Kick extend goes here.");
         }
         kicking = false;
         shoving = false;
@@ -228,53 +242,35 @@ public abstract class Player : MonoBehaviour //, IPlayable
         shoveCoroutine = null;
     }
 
-    public IEnumerator CoKick(Vector3 toPos, float maxHeight, float kickStrength)
+    public IEnumerator CoKick(float targetX, float speed)
     {
         coRunning = true;
-        
-        //Kicking is used to trigger animation
+        float index = 0;
         kicking = true;
         grapple = false;
-
-        height = enemy.transform.position.y;
-        //var counter = 0;
-        //approx. max height
-        //Vector3 vertex = new Vector3((toPos.x - enemy.transform.position.x) / 2, maxHeight); 
-        while(enemy.transform.position != toPos)
+        //Debug.Log("Start: " + current);
+        beginPos = enemy.transform.position;
+        Debug.Log(enemy.transform.position);
+        while (enemy.transform.position.x != targetX || (enemy.transform.position.y != beginPos.y))
         {
-            //Debug.Log(SendInArc(enemy.transform.position, toPos, mH, maxHeight, kickStrength, nextX, baseY, arc));
-            enemy.transform.position = ArcingVector(enemy.transform.position, toPos, kickStrength, maxHeight);
-            if(extend)
+            if (extend)
             {
-                extendCoroutine = StartCoroutine(CoExtend(toPos + extension, ExtendStrength+kickStrength));
+                extendCoroutine = StartCoroutine(CoExtend(new Vector3(targetX, beginPos.y) + extension, ExtendStrength + StrOfKick));
                 kickCoroutine = null;
                 yield break;
             }
+            Vector3 trackPos = enemy.transform.position;
+            index += Time.deltaTime;
+            float x = Mathf.MoveTowards(trackPos.x, targetX, speed*Time.deltaTime); //sends x position towards 
+            float y = Mathf.Clamp((beginPos.y + amp * Mathf.Sin(frequency * speed * index)),beginPos.y, float.MaxValue); //unclamped max value, clamped lower value so there's no way the player can end up out of position
+            enemy.transform.position = new Vector3(x ,y, beginPos.z);
+            //Debug.Log(enemy.transform.position);
             yield return new WaitForEndOfFrame();
         }
- 
-        //enemy.transform.position = new Vector3(enemy.transform.position.x, ogHeight, 0);
-
-        //Debug.Log("We Kicked. Grapple: " + grapple);
-
-        //Kicking ends animation
         kicking = false;
-
         kickCoroutine = null;
         coRunning = false;
 
-        //return null;
-    }
-    public Vector3 ArcingVector(Vector3 startPos, Vector3 endPos, float arcSpeed, float arcHeight)
-    {
-        float x0 = startPos.x;
-        float x1 = endPos.x;
-        float xDist = x1 - x0;
-        float nextX = Mathf.MoveTowards(startPos.x, x1, arcSpeed * Time.deltaTime);
-        float baseY = Mathf.Lerp(startPos.y, endPos.y, (nextX - x0) / (xDist));
-        float arc = arcHeight * (nextX - x0) * (nextX - x1) / (-0.25f * (xDist) * (xDist));
-        //Debug.Log(arc);
-        return new Vector3(nextX, baseY + arc, startPos.z);
     }
     public Vector3 getPlayerLoc() { return player.transform.position; }
 

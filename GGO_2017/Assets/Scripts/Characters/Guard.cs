@@ -6,17 +6,21 @@ public class Guard : Player
 {
     //Animator
     Animator anim;
-
+    public float passiveF;
+    public float shoveF;
+    public float kickF;
+    public float strK;
+    public float strS;
     //Sets initial values
     void Awake()
     {
-        PassiveFatigue = 0.025f;
+        PassiveFatigue = passiveF;
         PushFatigue = 0.025f;
-        ShoveFatigue = 9f;
-        KickFatigue = 14f;
+        ShoveFatigue = shoveF;
+        KickFatigue = kickF;
         //speed = -.2f;
-        StrOfKick = 10f;
-        StrOfShove = 20f;
+        StrOfKick = strK;
+        StrOfShove = strS;
         /*Need implementation first*/
         //ShoveFatigue = 5f;
         //KickFatigue = 7f;
