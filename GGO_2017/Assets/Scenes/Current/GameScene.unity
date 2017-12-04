@@ -2102,7 +2102,7 @@ Prefab:
     - target: {fileID: 114532182288123830, guid: 9c31fd37bc2d1b545ad8d841989e8092,
         type: 2}
       propertyPath: strK
-      value: 5
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 114532182288123830, guid: 9c31fd37bc2d1b545ad8d841989e8092,
         type: 2}
@@ -2143,6 +2143,11 @@ Prefab:
         type: 2}
       propertyPath: extendFreq
       value: 0.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 114532182288123830, guid: 9c31fd37bc2d1b545ad8d841989e8092,
+        type: 2}
+      propertyPath: dashSpeed
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9c31fd37bc2d1b545ad8d841989e8092, type: 2}
@@ -3398,12 +3403,12 @@ Prefab:
     - target: {fileID: 224004036911776484, guid: 4bf2db52cea04c046ab7cf5cca87f9f2,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: -2
+      value: 118.325005
       objectReference: {fileID: 0}
     - target: {fileID: 224302197552007762, guid: 4bf2db52cea04c046ab7cf5cca87f9f2,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 117.25
       objectReference: {fileID: 0}
     - target: {fileID: 224169568065561868, guid: 4bf2db52cea04c046ab7cf5cca87f9f2,
         type: 2}

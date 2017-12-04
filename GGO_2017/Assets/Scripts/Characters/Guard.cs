@@ -11,6 +11,7 @@ public class Guard : Player
     public float kickF;
     public float strK;
     public float strS;
+    private Coroutine delayCoroutine;
     //Sets initial values
     void Awake()
     {
@@ -140,6 +141,12 @@ public class Guard : Player
         cheerVictory.GetComponent<SpriteRenderer>().enabled = true;
         cheerVictory.GetComponent<Animator>().enabled = true;
     }
+    public IEnumerator CoDelay()
+    {
+        Debug.Log("Delaying...");
+        yield return new WaitForSeconds(1f);
+        delayCoroutine = null;
+    }
 
     //Player controller
     void FixedUpdate()
@@ -158,6 +165,7 @@ public class Guard : Player
                 {
                     pushing = false;
                     Shove();
+                    delayCoroutine = StartCoroutine(CoDelay());
                 }
 
                 if (Input.GetKeyDown(KeyCode.X) && kickCoroutine == null)
@@ -165,6 +173,7 @@ public class Guard : Player
                     pushing = false;
                     //kicking = true;
                     Kick();
+                    delayCoroutine = StartCoroutine(CoDelay());
                 }
 
                 //can't push when charging back at the enemy
@@ -190,9 +199,11 @@ public class Guard : Player
                 //waits for full  shove lerp to play before charging back at enemy
                 //debug test statement:
                 // if(extendShoveCoroutine != null) { Debug.Log("Extend shove still running..."); }
-                if (shoveCoroutine == null && extendCoroutine == null && kickCoroutine == null)
+                
+                if (shoveCoroutine == null && extendCoroutine == null && kickCoroutine == null && delayCoroutine == null)
+                {
                     chargeCoroutine = StartCoroutine(ChargeAtEnemy());
-
+                }
                 anim.SetBool("Grapple", grapple);
             }
         }
