@@ -11,6 +11,7 @@ public class FatigueController : MonoBehaviour {
     public Slider fSlider;
     public GameObject pChar;
     public bool loseGame;
+    public GameplayHandler gph;
     private Guard g;
     private void Awake()
     {
@@ -18,7 +19,7 @@ public class FatigueController : MonoBehaviour {
     }
     void FixedUpdate () {
         //increases passive fatigue using defined player character value...
-		if (g.getGrapple() && !g.win && !g.lose){
+		if (g.getGrapple() && !gph.win && !gph.lose){
             //Increments passive fatigue by character PF value over time each second
 			fatigueBar.fatigue += pChar.GetComponent<Guard>().PassiveFatigue;
             //Debug.Log("Passive Fatigue Value: " + pChar.PassiveFatigue*Time.deltaTime);
@@ -26,13 +27,13 @@ public class FatigueController : MonoBehaviour {
         //disabling player ability to perform actions on full fatigue...
         if (fatigueBar.fatigue >= fatigueBar.maxFatigue){
             loseGame = true;
-			pChar.GetComponent<Guard>().Lose();
+			gph.Lose();
             //Debug.Log("FATIGUED");
         }
     }
     //Method subscribing to Push event
     public void AddFatigue(float amt){
-        if (!g.win && !g.lose)
+        if (!gph.win && !gph.lose)
         {
             fatigueBar.fatigue += amt;
         }

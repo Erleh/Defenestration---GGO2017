@@ -5,13 +5,12 @@ using UnityEngine;
 public class Guard : Player
 {
     //Animator
-    Animator anim;
     public float passiveF;
     public float shoveF;
     public float kickF;
     public float strK;
     public float strS;
-    private Coroutine delayCoroutine;
+    public GameplayHandler gph;
     //Sets initial values
     void Awake()
     {
@@ -49,7 +48,7 @@ public class Guard : Player
 
     void Start()
     {
-
+        anim.SetBool("ChargeAt", charging);
     }
 
     public void OnCharacterPush()
@@ -70,7 +69,7 @@ public class Guard : Player
     public void OnWin()
     {
         //Debug.Log("defenestrated");
-        if(win)
+        if(gph.win)
         {
             //Debug.Log("gets here");
             if(enemy != null)
@@ -97,17 +96,6 @@ public class Guard : Player
         failJingle.Play();
         defeatSprite.GetComponent<SpriteRenderer>().enabled = true;
     }
-
-    public void Win()
-    {
-        win = true;
-    }
-
-	public void Lose()
-	{
-		enemy.transform.SetParent(null);
-		lose = true;
-	}
 
 	//Specific for animation timing of braking glass
 	public bool defenestrated;
@@ -141,81 +129,7 @@ public class Guard : Player
         cheerVictory.GetComponent<SpriteRenderer>().enabled = true;
         cheerVictory.GetComponent<Animator>().enabled = true;
     }
-    public IEnumerator CoDelay()
-    {
-        Debug.Log("Delaying...");
-        yield return new WaitForSeconds(1f);
-        delayCoroutine = null;
-    }
-
-    //Player controller
     void FixedUpdate()
     {
-        anim.SetBool("ChargeAt", charging);
-        //Debug.Log(pushing);
-        //Debug.Log(coRunning);
-        //Debug.Log("Player Update");
-        if (enemy && !fc.loseGame && !win)
-        {
-            //If player is grappling enemy and no coroutines are running
-            if (grapple && !coRunning)
-            {
-                //can't shove if already shoving
-                if (Input.GetKeyDown(KeyCode.Z) && shoveCoroutine == null && extendCoroutine == null)
-                {
-                    pushing = false;
-                    Shove();
-                    delayCoroutine = StartCoroutine(CoDelay());
-                }
-
-                if (Input.GetKeyDown(KeyCode.X) && kickCoroutine == null)
-                {
-                    pushing = false;
-                    //kicking = true;
-                    Kick();
-                    delayCoroutine = StartCoroutine(CoDelay());
-                }
-
-                //can't push when charging back at the enemy
-                if (Input.GetKey(KeyCode.Space) && chargeCoroutine == null)
-                {
-                    pushing = true;
-                    Push();
-                    //Debug.Log("Work it.");
-
-                    //Debug.Log("Pushing = " + pushing);
-                }
-                //sets variable to false so enemy can continue resisting in their update
-                if (Input.GetKeyUp(KeyCode.Space))
-                {
-                    pushing = false;
-                }
-            }
-            else
-            {
-                pushing = false;
-                //kicking = false;
-
-                //waits for full  shove lerp to play before charging back at enemy
-                //debug test statement:
-                // if(extendShoveCoroutine != null) { Debug.Log("Extend shove still running..."); }
-                
-                if (shoveCoroutine == null && extendCoroutine == null && kickCoroutine == null && delayCoroutine == null)
-                {
-                    chargeCoroutine = StartCoroutine(ChargeAtEnemy());
-                }
-                anim.SetBool("Grapple", grapple);
-            }
-        }
-        else if(win)
-        {
-            //Debug.Log("win = " + win);
-        }
-        else
-        {
-            pushing = false;
-            //Lose Game here
-            //Debug.Log("Lost the game. Fatigued.");
-        }
     }
 }

@@ -57,7 +57,10 @@ public abstract class Player : MonoBehaviour //, IPlayable
     public float extendFreq;
     //public bool onCeiling;
     private Vector3 beginPos;
-    private bool pStart;
+    //private bool pStart;
+
+    public Animator anim;
+
     void Awake()
     {
     }
@@ -66,7 +69,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
     void Start()
     {
         pushing = false;
-        pStart = true;
+       // pStart = true;
         player.GetComponent<Rigidbody2D>().freezeRotation = true;
         enemy.GetComponent<Rigidbody2D>().freezeRotation = true;
     }
@@ -126,7 +129,7 @@ public abstract class Player : MonoBehaviour //, IPlayable
         charging = true;
         player.transform.position = Vector3.MoveTowards(player.transform.position, enemy.transform.position, dashSpeed * Time.deltaTime);
         yield return new WaitUntil(() => grapple);
-        pStart = false;
+        //pStart = false;
         extend = false;
         chargeCoroutine = null;
 

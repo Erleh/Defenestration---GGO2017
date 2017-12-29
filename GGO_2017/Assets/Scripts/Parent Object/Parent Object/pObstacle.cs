@@ -23,7 +23,7 @@ public class pObstacle : MonoBehaviour
     public float fatigueRelief;
 
     private float randomFlyHeight;
-    private float currFlyHeight = 0;
+    //private float currFlyHeight = 0;
 
     private bool recovered = false;
     private bool hitObject = false;

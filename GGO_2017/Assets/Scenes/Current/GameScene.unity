@@ -1548,6 +1548,7 @@ GameObject:
   - component: {fileID: 563443609}
   - component: {fileID: 563443608}
   - component: {fileID: 563443612}
+  - component: {fileID: 563443613}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1619,7 +1620,7 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 563443607}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 480, y: 320, z: 0}
+  m_LocalPosition: {x: 350, y: 196.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 959189186}
@@ -1650,6 +1651,22 @@ MonoBehaviour:
   inGameMusicV1: {fileID: 1937180481}
   inGameMusicV2: {fileID: 1618578838}
   currMusic: {fileID: 0}
+--- !u!114 &563443613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 563443607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24d7e9267bf86d645b53856a30582cae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 748628734}
+  enemy: {fileID: 965034210}
+  fc: {fileID: 339811573}
+  win: 0
+  lose: 0
 --- !u!1 &564086269
 GameObject:
   m_ObjectHideFlags: 0
@@ -2149,6 +2166,11 @@ Prefab:
       propertyPath: dashSpeed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114532182288123830, guid: 9c31fd37bc2d1b545ad8d841989e8092,
+        type: 2}
+      propertyPath: gph
+      value: 
+      objectReference: {fileID: 563443613}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9c31fd37bc2d1b545ad8d841989e8092, type: 2}
   m_IsPrefabParent: 0
@@ -3044,6 +3066,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd154ebfba161194d8a3ae4b5ccfaf25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gph: {fileID: 0}
 --- !u!61 &1174224962
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3403,12 +3426,12 @@ Prefab:
     - target: {fileID: 224004036911776484, guid: 4bf2db52cea04c046ab7cf5cca87f9f2,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 118.325005
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 224302197552007762, guid: 4bf2db52cea04c046ab7cf5cca87f9f2,
         type: 2}
       propertyPath: m_LocalPosition.x
-      value: 117.25
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224169568065561868, guid: 4bf2db52cea04c046ab7cf5cca87f9f2,
         type: 2}
@@ -3489,6 +3512,11 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 6.13
       objectReference: {fileID: 0}
+    - target: {fileID: 114215520961070626, guid: 4bf2db52cea04c046ab7cf5cca87f9f2,
+        type: 2}
+      propertyPath: gph
+      value: 
+      objectReference: {fileID: 563443613}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4bf2db52cea04c046ab7cf5cca87f9f2, type: 2}
   m_IsPrefabParent: 0
