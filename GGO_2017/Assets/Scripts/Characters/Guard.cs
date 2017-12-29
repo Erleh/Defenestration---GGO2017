@@ -78,12 +78,12 @@ public class Guard : Player
                 Destroy(enemy);
             }
         }
-        anim.SetBool("Defenestrate", win);
+        anim.SetBool("Defenestrate", gph.win);
     }
 
 	public void OnLose()
 	{
-		anim.SetBool("Lose", lose);
+		anim.SetBool("Lose", gph.lose);
 	}
 
     public AudioSource failJingle;
